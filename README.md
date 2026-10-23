@@ -16,8 +16,8 @@ The *Statistics* tab and the footer read `stats.json`, which
   repository (GitHub API; nothing to configure). Attach the installers to a GitHub release to have them counted.
 * **Visits, countries, visits per month** — [GoatCounter](https://www.goatcounter.com) (free for
   non-commercial use, no cookies, no personal data). To enable it:
-  1. Create a site at goatcounter.com and choose a code, e.g. `rcv` → `https://rcv.goatcounter.com`.
-  2. In `index.html`, set `var GOATCOUNTER_CODE = 'rcv';` (near the end of the file).
+  1. Create a site at goatcounter.com and choose a code, this site uses `princewang2018` → `https://princewang2018.goatcounter.com`.
+  2. In `index.html`, set `var GOATCOUNTER_CODE = 'princewang2018';` (done) (near the end of the file).
   3. In GoatCounter, *Settings ▸ API* — create a token with *Read statistics* permission.
   4. In this repository, *Settings ▸ Secrets and variables ▸ Actions*: add the secret `GOATCOUNTER_TOKEN`
      and the variable `GOATCOUNTER_CODE`.
