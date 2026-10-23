@@ -1,11 +1,13 @@
 # RCV website
 
 Website of [RCV — RNA Conformation Viewer](https://github.com/PrinceWang2018/RNAconformer).
-A single static page (`index.html`, `images/`), served with GitHub Pages.
+A single static page (`index.html`, `images/`), published at **https://www.rnaconfviewer.com/**.
 
 ## Publish
 
-Settings ▸ Pages ▸ *Deploy from a branch* ▸ `master` / `(root)`.
+The site is served by Cloudflare Pages from the `master` branch of this repository: every push (including
+the daily statistics commit) is deployed automatically. No build step; the output directory is the
+repository root.
 
 ## Statistics
 
