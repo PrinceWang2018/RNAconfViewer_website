@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RCV – RNA Conformation Viewer</title>
+<meta name="description" content="RCV (RNA Conformation Viewer) is a free desktop application to predict, explore and present RNA conformational ensembles on your own computer.">
+<link rel="icon" href="favicon.ico">
+<style>
+  :root {
+    --blue: #1f4e8c;
+    --blue-dark: #163c6e;
+    --link: #1a5aa6;
+    --text: #222;
+    --muted: #5c5c5c;
+    --line: #d9dde3;
+    --bg-soft: #f4f6f9;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 1rem; }
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: #fff;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre { font-family: Consolas, Menlo, "Courier New", monospace; font-size: 13.5px; }
+  code { background: var(--bg-soft); padding: 1px 4px; border-radius: 2px; }
+  pre {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    overflow-x: auto;
+    line-height: 1.45;
+  }
+  pre code { background: none; padding: 0; }
+  h1, h2, h3 { font-weight: 600; color: #111; line-height: 1.3; }
+  h2 { font-size: 24px; margin: 0 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 18px; margin: 28px 0 8px; }
+  h4 { font-size: 15px; margin: 18px 0 4px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 16px; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--bg-soft); font-weight: 600; }
+  img { max-width: 100%; height: auto; }
+  figure { margin: 10px 0 20px; }
+  figure img { border: 1px solid var(--line); display: block; }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 5px; }
+
+  /* header */
+  .masthead { border-bottom: 1px solid var(--line); }
+  .masthead .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: inherit; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 44px; height: 44px; }
+  .brand .name { font-size: 22px; font-weight: 700; letter-spacing: .5px; color: #111; }
+  .brand .sub { display: block; font-size: 13px; color: var(--muted); font-weight: 400; letter-spacing: 0; }
+  .masthead .ext { font-size: 14px; }
+  .masthead .ext a { margin-left: 18px; }
+
+  nav.tabs { background: var(--blue); }
+  nav.tabs ul { list-style: none; margin: 0 auto; padding: 0 12px; max-width: 1040px; display: flex; flex-wrap: wrap; }
+  nav.tabs li { margin: 0; }
+  nav.tabs a {
+    display: block; padding: 11px 14px; color: #fff; font-size: 14.5px;
+    border-bottom: 3px solid transparent;
+  }
+  nav.tabs a:hover { background: var(--blue-dark); text-decoration: none; }
+  nav.tabs a.active { background: var(--blue-dark); border-bottom-color: #fff; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  main { padding: 28px 20px 40px; min-height: 60vh; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .no-js section.page { display: block; margin-bottom: 48px; }
+
+  /* home */
+  .lead { font-size: 17px; color: #333; max-width: 760px; }
+  .home-grid { display: grid; grid-template-columns: 1fr 300px; gap: 32px; margin-top: 18px; }
+  .sidebox { border: 1px solid var(--line); padding: 14px 16px; margin-bottom: 18px; background: #fff; }
+  .sidebox h4 { margin-top: 0; }
+  .sidebox ul { padding-left: 18px; margin-bottom: 0; }
+  .btn {
+    display: inline-block; padding: 8px 16px; border: 1px solid var(--blue);
+    background: var(--blue); color: #fff; font-size: 14px; border-radius: 2px;
+  }
+  .btn:hover { background: var(--blue-dark); text-decoration: none; }
+  .btn.secondary { background: #fff; color: var(--blue); }
+  .btn.secondary:hover { background: var(--bg-soft); }
+  .news dt { font-weight: 600; font-size: 13px; color: var(--muted); }
+  .news dd { margin: 0 0 10px; }
+  .features { columns: 2; column-gap: 32px; padding-left: 18px; }
+  .features li { break-inside: avoid; }
+
+  .note {
+    border-left: 3px solid #c9a227; background: #fbf8ec; padding: 8px 12px; margin: 10px 0 16px; font-size: 14px;
+  }
+  .muted { color: var(--muted); }
+  .steps h3 { counter-increment: step; }
+  .steps { counter-reset: step; }
+  .steps h3::before { content: counter(step) ". "; color: var(--muted); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .side-img { display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: start; }
+
+  footer { border-top: 1px solid var(--line); background: var(--bg-soft); font-size: 13px; color: var(--muted); }
+  footer .wrap { padding: 18px 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 820px) {
+    .home-grid, .two-col, .side-img { grid-template-columns: 1fr; }
+    .features { columns: 1; }
+    .masthead .ext { display: none; }
+    nav.tabs a { padding: 9px 10px; font-size: 14px; }
+  }
+</style>
+</head>
+<body class="no-js">
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="#home">
+      <img src="images/icon.svg" alt="">
+      <span><span class="name">RCV</span><span class="sub">RNA Conformation Viewer</span></span>
+    </a>
+    <div class="ext">
+      <a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a>
+      <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">User Guide</a>
+      <a href="https://github.com/PrinceWang2018/RNAconformer/issues">Report an Issue</a>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Main">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#tutorial">Tutorial</a></li>
+    <li><a href="#plugins">Plugins</a></li>
+    <li><a href="#releases">Release Notes</a></li>
+    <li><a href="#cocreation">Co-creation Program</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+<!-- ============================== HOME ============================== -->
+<section id="home" class="page">
+  <h2>RNA Conformation Viewer</h2>
+  <p class="lead">
+    RCV is a free desktop application for predicting, exploring and presenting the conformations of an RNA.
+    It combines the <em>rnafold3d</em> prediction engine with an interactive 3D/2D viewer, and runs entirely on
+    your own computer.
+  </p>
+  <p>
+    <a class="btn" href="#download">Download RCV 0.5.0</a>&nbsp;
+    <a class="btn secondary" href="#tutorial">Get started</a>
+  </p>
+
+  <div class="home-grid">
+    <div>
+      <figure>
+        <img src="images/rcv_viewer.png" alt="RCV main window showing an RNA ensemble with the sequence bar, the 2D window and the Switch tab">
+        <figcaption>HIV-1 TAR ensemble with the sequence bar, the linked 2D structure window and the Switch tab.</figcaption>
+      </figure>
+
+      <h3>Main features</h3>
+      <ul class="features">
+        <li><b>Prediction from sequence.</b> Paste a sequence or a multi-sequence FASTA file; RCV returns a ranked, validated all-atom ensemble.</li>
+        <li><b>Open your own structures.</b> NMR ensembles, MD snapshots, PDB/mmCIF files from any predictor.</li>
+        <li><b>Pull to switch.</b> Drag a residue and the structure moves to the nearest stable computed conformation.</li>
+        <li><b>Linked 2D and 3D.</b> The secondary structure follows the 3D view, with shared colours, hover and selection.</li>
+        <li><b>Switch analysis.</b> Boltzmann populations of 2D states and a point-mutation scan.</li>
+        <li><b>Command console.</b> A selection language for RNA ensembles and familiar molecular-viewer commands.</li>
+        <li><b>Publication output.</b> Figures, figure panels, transition videos, interactive HTML pages and methods text.</li>
+        <li><b>One file per RNA.</b> The open <code>.rcv</code> format stores all conformations, 10–14× smaller than PDB.</li>
+      </ul>
+    </div>
+
+    <aside>
+      <div class="sidebox">
+        <h4>Current version</h4>
+        <p style="margin:0">RCV 0.5.0 &middot; 23 October 2026<br>
+        <a href="#download">Download</a> &middot; <a href="#releases">What's new</a></p>
+      </div>
+      <div class="sidebox">
+        <h4>News</h4>
+        <dl class="news" style="margin:0">
+          <dt>2026-10-23</dt>
+          <dd>RCV 0.5.0 released. New name, the <code>.rcv</code> file format, 2D structure window, transition videos and the command console.</dd>
+          <dt>2026-10-22</dt>
+          <dd>rnafold3d engine 2.0.1: valid all-atom ensembles for 26/26 benchmark targets (14–192 nt).</dd>
+        </dl>
+      </div>
+      <div class="sidebox">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">User guide</a></li>
+          <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">Engine status &amp; benchmark</a></li>
+          <li><a href="#about">How to cite</a></li>
+          <li><a href="#cocreation">Join the Co-creation Program</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================== DOWNLOAD ============================== -->
+<section id="download" class="page">
+  <h2>Download</h2>
+  <p>RCV is free and open-source software, released under the GNU General Public License v3.0.
+  The desktop installers include Python, the prediction engine, ViennaRNA and the demo data; nothing else
+  needs to be installed.</p>
+
+  <h3>RCV 0.5.0 <span class="muted" style="font-size:14px;font-weight:400">(23 October 2026)</span></h3>
+  <table>
+    <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
+    <tr>
+      <td>Windows 10/11 (64-bit)</td>
+      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-Windows-x64-Setup.exe</a></td>
+      <td>Installer with Start-menu entry and <code>.rcv</code> file association.</td>
+    </tr>
+    <tr>
+      <td>macOS 11+ (Apple Silicon)</td>
+      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-macOS-arm64.dmg</a></td>
+      <td>For M1/M2/M3/M4 Macs.</td>
+    </tr>
+    <tr>
+      <td>macOS 11+ (Intel)</td>
+      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-macOS-x86_64.dmg</a></td>
+      <td>For Intel-based Macs.</td>
+    </tr>
+    <tr>
+      <td>Linux / any platform</td>
+      <td><a href="https://github.com/PrinceWang2018/RNAconformer/archive/refs/heads/master.zip">Source code (zip)</a></td>
+      <td>Requires Python 3.10 or later. See <a href="#install">Install</a>.</td>
+    </tr>
+  </table>
+
+  <p>Older versions are available on the
+  <a href="https://github.com/PrinceWang2018/RNAconformer/releases">GitHub releases page</a>.
+  Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
+  and projects are read by RCV 0.5.</p>
+
+  <h3>System requirements</h3>
+  <table>
+    <tr><th style="width:24%"></th><th>Minimum</th><th>Recommended</th></tr>
+    <tr><td>Operating system</td><td>Windows 10 (64-bit), macOS 11, recent Linux</td><td>Windows 11, macOS 13 or later</td></tr>
+    <tr><td>Processor</td><td>2 cores</td><td>8 or more cores (predictions run in parallel)</td></tr>
+    <tr><td>Memory</td><td>4 GB</td><td>16 GB</td></tr>
+    <tr><td>Graphics</td><td colspan="2">Any GPU with WebGL 2 support</td></tr>
+    <tr><td>Internet</td><td colspan="2">Not required. Only the optional <code>fetch</code> command downloads entries from the PDB.</td></tr>
+  </table>
+
+  <h3>License</h3>
+  <p>RCV is distributed under the <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/LICENSE">GPL-3.0 license</a>.
+  ViennaRNA is a separate package under its own license. three.js (MIT) is included in the viewer.</p>
+</section>
+
+<!-- ============================== INSTALL ============================== -->
+<section id="install" class="page">
+  <h2>Install</h2>
+
+  <div class="two-col">
+    <div>
+      <h3 style="margin-top:0">Windows</h3>
+      <ol>
+        <li>Download <code>RCV-0.5.0-Windows-x64-Setup.exe</code>.</li>
+        <li>Run the installer and follow the steps. Optionally create a desktop shortcut and associate
+            <code>.rcv</code> files with RCV.</li>
+        <li>Start RCV from the Start menu.</li>
+      </ol>
+      <p class="muted">If Windows SmartScreen shows a warning, choose <i>More info</i> &rsaquo; <i>Run anyway</i>.
+      RCV uses the Microsoft Edge WebView2 runtime, which is part of Windows 11 and current Windows 10.</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">macOS</h3>
+      <ol>
+        <li>Download the <code>.dmg</code> for your Mac (Apple Silicon or Intel).</li>
+        <li>Open the disk image and drag <b>RCV</b> to the Applications folder.</li>
+        <li>The first time, right-click RCV and choose <i>Open</i>.</li>
+      </ol>
+      <p class="muted">To open an <code>.rcv</code> file on macOS, use <i>File &rsaquo; Open</i> inside RCV.</p>
+    </div>
+  </div>
+
+  <h3>Linux and installation from source</h3>
+  <p>Requirements: Python 3.10 or later with <code>numpy</code> and <code>scipy</code>. ViennaRNA is needed for
+  prediction from sequence and for the switch analysis.</p>
+<pre><code>git clone https://github.com/PrinceWang2018/RNAconformer.git
+cd RNAconformer
+pip install -e .                        # installs the rcv and rnafold3d commands
+conda install -c bioconda viennarna     # or: pip install ViennaRNA
+pip install pywebview                   # optional: native window</code></pre>
+
+  <h3>Check the installation</h3>
+<pre><code>rcv --demo        # opens RCV with the HIV-1 TAR NMR ensemble and two predictions
+rcv               # opens the start page</code></pre>
+  <p>Without pywebview, RCV opens in an Edge or Chrome application window. Useful options:
+  <code>--port 8765</code>, <code>--projects-dir DIR</code>, <code>--shell auto|webview|window|browser</code>.</p>
+
+  <h3>Where RCV keeps its files</h3>
+  <table>
+    <tr><th style="width:24%">System</th><th>Settings, logs and plugins</th></tr>
+    <tr><td>Windows</td><td><code>%APPDATA%\RCV</code></td></tr>
+    <tr><td>macOS</td><td><code>~/Library/Application Support/RCV</code></td></tr>
+    <tr><td>Linux</td><td><code>~/.local/share/rcv</code></td></tr>
+  </table>
+  <p>Predictions are saved in <code>Documents/RCV/projects</code> by default (<i>View &rsaquo; Preferences</i>).</p>
+
+  <h3>Uninstall</h3>
+  <p>Windows: <i>Settings &rsaquo; Apps &rsaquo; RCV &rsaquo; Uninstall</i>. macOS: move RCV from Applications
+  to the Trash. Source install: <code>pip uninstall rna-conformation-viewer</code>. Your projects and settings
+  are kept unless you delete the folders listed above.</p>
+</section>
+
+<!-- ============================== TUTORIAL ============================== -->
+<section id="tutorial" class="page">
+  <h2>Tutorial</h2>
+  <p>This tutorial covers the main tasks in RCV. It takes about 20 minutes, most of which is waiting for a
+  prediction. For every menu, option and command, see the full
+  <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">user guide</a>.</p>
+
+  <p><b>Contents:</b>
+    <a href="#t-start">Start page</a> &middot;
+    <a href="#t-predict">Predict</a> &middot;
+    <a href="#t-window">The window</a> &middot;
+    <a href="#t-pull">Pull to switch</a> &middot;
+    <a href="#t-switch">Switch analysis</a> &middot;
+    <a href="#t-console">Console</a> &middot;
+    <a href="#t-export">Export</a> &middot;
+    <a href="#t-keys">Shortcuts</a>
+  </p>
+
+  <div class="steps">
+    <h3 id="t-start">The start page</h3>
+    <p>When RCV starts, it shows the start page. On the left you can predict from a sequence; on the right you can
+    open structures you already have (<code>.rcv</code> files, PDB/mmCIF, multi-model NMR files, prediction
+    folders). Recent predictions are listed below. To look around first, click <i>Try the demo ensembles</i>.</p>
+    <figure>
+      <img src="images/rcv_welcome.png" alt="RCV start page with a FASTA batch">
+      <figcaption>Start page with a multi-sequence FASTA ready for batch prediction.</figcaption>
+    </figure>
+
+    <h3 id="t-predict">Predict from a sequence</h3>
+    <ol>
+      <li>Paste an RNA sequence (plain text or FASTA; T is read as U). Leave the box empty to run the demo sequence (HIV-1 TAR, 29 nt).</li>
+      <li>Choose the number of conformations, the sampling depth (Fast, Standard or Thorough) and the CPU cores. RCV shows an estimated run time.</li>
+      <li>Optional, under <i>Advanced</i>: a known secondary structure in dot-bracket notation and the random seed.</li>
+      <li>Click <b>Predict</b>. The progress view shows each stage, the time left and notes on what the engine is doing.</li>
+    </ol>
+    <p>A multi-record FASTA file starts a <b>batch</b> (up to 100 sequences). When the batch ends, choose which
+    result to open; the others are saved as <code>.rcv</code> files with a summary table.</p>
+    <p class="muted">Typical run times on an 8-core laptop: a 12–14 nt hairpin with Fast sampling, 10–60 s;
+    a 29 nt hairpin with Standard sampling, 5–7 minutes.</p>
+
+    <h3 id="t-window">Explore the ensemble</h3>
+    <p>The conformations are listed on the left, ordered by energy. Hover a conformation to preview it; click it
+    to morph the structure. The timeline below the 3D view plays through all conformations. The right panel shows
+    the energy profile and terms (<i>Energy</i>), the switch analysis (<i>Switch</i>) and full details
+    (<i>Details</i>).</p>
+    <ul>
+      <li>Mouse: drag to rotate, right-drag to pan, wheel to zoom, double-click to centre, right-click a residue for its menu.</li>
+      <li>The <b>sequence bar</b> shows the sequence and dot-bracket of the current conformation; changed pairs are underlined.</li>
+      <li>The <b>2D window</b> (<kbd>D</kbd>) draws the secondary structure in the same colours as the 3D model and morphs with it.</li>
+    </ul>
+
+    <h3 id="t-pull">Pull to switch</h3>
+    <p>Press <kbd>G</kbd> (or hold <kbd>Alt</kbd>) and drag a residue. The structure stretches, and the computed
+    conformation that best matches the pull is shown as an orange preview with its energy change. Release to
+    morph to it. <i>Explore new conformations</i> runs the engine with the pull as a temporary bias and adds the
+    new stable conformations to the ensemble.</p>
+
+    <h3 id="t-switch">Switch analysis</h3>
+    <div class="side-img">
+      <div>
+        <p>The <b>Switch</b> tab lists the distinct secondary structures in the ensemble with their free
+        energy and Boltzmann population at a chosen temperature (0–95 °C).</p>
+        <p>Choose two states, A and B, to scan all point mutations. The heat map shows how each mutation shifts
+        the balance: blue favours A, orange favours B. Click a cell to select the residue, copy the mutant
+        sequence, or <b>Predict in 3D</b>.</p>
+        <p class="muted">This analysis uses ViennaRNA at the secondary-structure level. Populations are
+        estimates, not experimental values.</p>
+      </div>
+      <figure style="margin-top:0">
+        <img src="images/rcv_switch.png" alt="Switch tab">
+      </figure>
+    </div>
+
+    <h3 id="t-console">Command console</h3>
+    <p>Open the console with <kbd>`</kbd>. Type one command per line; <kbd>Tab</kbd> completes and
+    <code>help</code> lists all commands. Some examples:</p>
+<pre><code>select loop, resi 23-27 and unpaired
+color orange, loop
+show sticks, switching
+distance d1, 22/N1, 27/N3
+orient helix H2
+png 3000, 2000, 600</code></pre>
+    <p>Commands can be saved in a script file (<code>.rcvs</code>) and run with <code>run script.rcvs</code>.
+    Every command is stored in the <code>.rcv</code> file as a reproducible record.</p>
+    <figure>
+      <img src="images/rcv_console.png" alt="Console with selections, colours, labels and measurements">
+    </figure>
+
+    <h3 id="t-export">Save and export</h3>
+    <table>
+      <tr><th style="width:30%">Output</th><th>How</th></tr>
+      <tr><td>.rcv file</td><td><kbd>Ctrl+S</kbd>. All conformations, energies, 2D structures and your current view in one file.</td></tr>
+      <tr><td>Image</td><td><kbd>Ctrl+E</kbd>. PNG, TIFF or PDF, 300–1200 dpi, optional legend and energy panel.</td></tr>
+      <tr><td>Figure panels</td><td><i>Export &rsaquo; Figure panels</i>. Several conformations in the same orientation, each with its 2D structure.</td></tr>
+      <tr><td>Video</td><td><i>Export &rsaquo; Video</i> or <i>Transition A &rarr; B</i>. MP4, WebM or PNG frames, 720p to 4K.</td></tr>
+      <tr><td>Interactive HTML</td><td><i>Export &rsaquo; Interactive HTML page</i>. One file that opens in any browser, for supplements and reviewers.</td></tr>
+      <tr><td>Methods text</td><td><i>Export &rsaquo; Methods text</i>. A methods paragraph and citation generated from the ensemble record.</td></tr>
+    </table>
+    <figure>
+      <img src="images/rcv_panels.png" alt="Figure panels export">
+      <figcaption>Figure panels: conformations A–D with their 2D structures and a shared legend.</figcaption>
+    </figure>
+
+    <h3 id="t-keys">Keyboard shortcuts</h3>
+    <table>
+      <tr><td><kbd>G</kbd> pull</td><td><kbd>D</kbd> 2D window</td><td><kbd>M</kbd> measure</td><td><kbd>`</kbd> console</td></tr>
+      <tr><td><kbd>&larr;</kbd>/<kbd>&rarr;</kbd> previous/next</td><td><kbd>Space</kbd> play</td><td><kbd>1</kbd>–<kbd>5</kbd> representation</td><td><kbd>C</kbd> colour scheme</td></tr>
+      <tr><td><kbd>R</kbd> reset view</td><td><kbd>S</kbd> snapshot</td><td><kbd>Ctrl+O</kbd> open</td><td><kbd>?</kbd> help</td></tr>
+    </table>
+
+    <h3>Command line</h3>
+    <p>RCV also works without the window:</p>
+<pre><code>rcv batch my_rnas.fasta                 # predict every sequence, one .rcv each
+rcv convert models/*.pdb -o my_rna.rcv  # structures to one .rcv file
+rcv info my_rna.rcv --methods           # contents and methods paragraph
+rcv extract my_rna.rcv -o pdb/          # back to PDB files
+rcv html my_rna.rcv -o my_rna.html      # interactive web page</code></pre>
+  </div>
+</section>
+
+<!-- ============================== PLUGINS ============================== -->
+<section id="plugins" class="page">
+  <h2>Plugins</h2>
+  <p>RCV can be extended with two kinds of plugins. Place the plugin file in the <code>plugins</code> folder of
+  the RCV user data folder and restart RCV. Plugins appear in the <i>Plugins</i> menu, as tabs in the right
+  panel, or as new metrics in the energy panel.</p>
+
+  <table>
+    <tr><th style="width:24%">System</th><th>Plugin folder</th></tr>
+    <tr><td>Windows</td><td><code>%APPDATA%\RCV\plugins</code></td></tr>
+    <tr><td>macOS</td><td><code>~/Library/Application Support/RCV/plugins</code></td></tr>
+    <tr><td>Linux</td><td><code>~/.local/share/rcv/plugins</code></td></tr>
+  </table>
+
+  <div class="note">Plugins run with your user rights. Install only plugins from sources you trust.</div>
+
+  <h3>Available plugins</h3>
+  <table>
+    <tr><th style="width:24%">Plugin</th><th style="width:12%">Type</th><th>Description</th></tr>
+    <tr><td>Distance tracker</td><td>Built-in</td><td>Measure distances between residues and follow them across conformations; each distance becomes a metric.</td></tr>
+    <tr><td>Similarity matrix</td><td>Built-in</td><td>Pairwise RMSD matrix of all conformations in the ensemble.</td></tr>
+    <tr><td><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/examples/viewer_plugins/tertiary_contacts.py">Tertiary contacts</a></td><td>Python</td><td>Counts tertiary contacts and the 5′–3′ end distance for each conformation. Example plugin.</td></tr>
+  </table>
+  <p>Have you written a plugin that others could use? Send it to us and we will list it here
+  (see <a href="#cocreation">Co-creation Program</a>).</p>
+
+  <h3>Writing an interface plugin (JavaScript)</h3>
+  <p>An interface plugin is an ES module whose default export has an <code>activate(api)</code> function.
+  The API gives read-only access to the current ensemble and selection, events (<code>ensemble</code>,
+  <code>conformation</code>, <code>morph</code>, <code>selection</code>, &hellip;), panels, menu items,
+  overlays, colour schemes and metrics.</p>
+<pre><code>// my-plugin.js
+export default {
+  id: 'my-plugin',
+  name: 'My plugin',
+  version: '1.0',
+  description: 'Short description shown in the Plugins menu.',
+  activate(api) {
+    api.metrics.register({
+      key: 'n_residues', label: 'Residues', unit: '', lower_is_better: null,
+      description: 'Number of residues (example).',
+      compute: (ens, k) =&gt; ens.residues.length,
+    });
+  },
+};</code></pre>
+
+  <h3>Writing an analysis plugin (Python)</h3>
+  <p>An analysis plugin defines a <code>PLUGIN</code> dictionary and a <code>compute(sequence, residues)</code>
+  function that returns one value per metric. <code>residues</code> is a list (5′ to 3′) of
+  <code>{atom_name: xyz}</code> dictionaries after superposition.</p>
+<pre><code># end_distance.py
+import numpy as np
+
+PLUGIN = {
+    'id': 'end_distance',
+    'name': 'End distance',
+    'metrics': [{'key': 'end_to_end', 'label': "5'-3' distance", 'unit': 'Å',
+                 'lower_is_better': None, 'description': "C4'-C4' distance of the chain ends."}],
+}
+
+def compute(sequence, residues):
+    a, b = residues[0].get("C4'"), residues[-1].get("C4'")
+    if a is None or b is None:
+        return {'end_to_end': None}
+    return {'end_to_end': round(float(np.linalg.norm(a - b)), 2)}</code></pre>
+  <p>The plugin API is version 1 and unchanged since RNAconfSwitch 0.4. The built-in plugins in
+  <a href="https://github.com/PrinceWang2018/RNAconformer/tree/master/src/rcv/static/plugins"><code>src/rcv/static/plugins</code></a>
+  are complete examples.</p>
+</section>
+
+<!-- ============================== RELEASE NOTES ============================== -->
+<section id="releases" class="page">
+  <h2>Release Notes</h2>
+
+  <h3>RCV 0.5.0 &mdash; 23 October 2026</h3>
+  <h4>Changed</h4>
+  <ul>
+    <li>Renamed to <b>RCV (RNA Conformation Viewer)</b> with a new logo. Command <code>rcv</code>, user folders <code>RCV</code>.
+        Settings, plugins and projects of RNAconfSwitch 0.4 are still read.</li>
+    <li><kbd>Ctrl+S</kbd> now saves an <code>.rcv</code> file; the JSON session is now called a workspace (<kbd>Ctrl+Shift+S</kbd>).</li>
+  </ul>
+  <h4>New</h4>
+  <ul>
+    <li><b><code>.rcv</code> file format</b>: all conformations of one RNA with energies, 2D structures, validation,
+        provenance and the viewer state, 10–14× smaller than PDB. Command-line tools <code>rcv convert</code>,
+        <code>rcv info</code>, <code>rcv extract</code>.</li>
+    <li><b>2D structure window</b> linked to the 3D view, morphing in step with it.</li>
+    <li><b>Transition video A &rarr; B</b>, directly or through intermediate conformations.</li>
+    <li><b>Batch prediction</b> from a multi-sequence FASTA file (<code>rcv batch</code>).</li>
+    <li><b>Command console</b> with an RNA selection language and about 45 commands; script files.</li>
+    <li><b>Switch analysis</b>: 2D-state populations and point-mutation scan.</li>
+    <li><b>Figure panels</b>, <b>interactive HTML export</b> and <b>methods text</b>.</li>
+  </ul>
+
+  <h3>rnafold3d engine 2.0.1 &mdash; 22 October 2026</h3>
+  <ul>
+    <li>Valid all-atom ensembles from sequence alone for 26/26 benchmark targets (14–192 nt).</li>
+    <li>About 2–4 Å accuracy for hairpins and small motifs. Large multi-branched RNAs are not yet predicted
+        accurately (no tertiary-contact term).</li>
+  </ul>
+
+  <h3>Earlier versions</h3>
+  <ul>
+    <li>0.4 &mdash; released as RNAconfSwitch.</li>
+    <li>0.3 &mdash; released as RNAconformer Viewer.</li>
+  </ul>
+  <p>Full history: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
+</section>
+
+<!-- ============================== CO-CREATION ============================== -->
+<section id="cocreation" class="page">
+  <h2>Co-creation Program</h2>
+  <p>RCV is developed together with the people who use it. The Co-creation Program is open to research groups,
+  students, educators and developers who want to help shape the software. Participation is free.</p>
+
+  <h3>Ways to take part</h3>
+  <table>
+    <tr><th style="width:26%">Role</th><th>What you do</th></tr>
+    <tr><td>Early tester</td><td>Try pre-release versions on your own RNAs and report problems or unclear behaviour.</td></tr>
+    <tr><td>Data contributor</td><td>Share structures, NMR ensembles or experimental data that can be used for testing and benchmarking.</td></tr>
+    <tr><td>Plugin developer</td><td>Write plugins for analyses you need. Good plugins are listed on the <a href="#plugins">Plugins</a> page.</td></tr>
+    <tr><td>Code contributor</td><td>Fix bugs or add features through pull requests on GitHub.</td></tr>
+    <tr><td>Teaching partner</td><td>Use RCV in courses and help prepare tutorials and teaching material.</td></tr>
+    <tr><td>Translator</td><td>Help translate the interface and documentation.</td></tr>
+  </table>
+
+  <h3>What participants receive</h3>
+  <ul>
+    <li>Early access to new versions and direct contact with the developer.</li>
+    <li>Influence on the development plan; requests from participants are considered first.</li>
+    <li>Acknowledgement in the release notes and on this website.</li>
+    <li>For substantial scientific contributions, co-authorship on related publications may be discussed.</li>
+  </ul>
+
+  <h3>How to join</h3>
+  <ol>
+    <li>Send an email to <a href="mailto:princewang2018@gmail.com?subject=RCV%20Co-creation%20Program">princewang2018@gmail.com</a>
+        with the subject “RCV Co-creation Program”.</li>
+    <li>Tell us briefly who you are, what you work on, and how you would like to take part.</li>
+    <li>We will reply within a few working days.</li>
+  </ol>
+  <p>You can also start directly by opening an issue or a pull request on
+  <a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a>.</p>
+</section>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="about" class="page">
+  <h2>About</h2>
+  <p>RCV (RNA Conformation Viewer) predicts, explores and presents the conformations of an RNA. Many RNAs do not
+  have a single structure but switch between several; RCV is built to look at these ensembles as a whole rather
+  than at one model at a time.</p>
+
+  <h3>How it works</h3>
+  <p>The <em>rnafold3d</em> engine is physics-inspired and does not use deep learning:</p>
+<pre><code>sequence ─► ViennaRNA secondary-structure hypotheses (MFE + distinct suboptimals)
+         ─► rigid all-atom A-form stems (calibrated geometry)
+         ─► fold-tree search in torsion space (simulated annealing)
+         ─► loop closure and clash relief
+         ─► independent all-atom validation
+         ─► ranked, structurally distinct ensemble</code></pre>
+  <p>Predictions run on your CPU cores and the 3D view is rendered on your GPU. No data leave your computer.
+  Runs are deterministic for a given seed and version.</p>
+
+  <h3>Limitations</h3>
+  <ul>
+    <li>Accuracy is good for hairpins and small motifs (about 2–4 Å) but limited for large multi-branched RNAs.</li>
+    <li>Switch analysis is at the secondary-structure level; 3D energies are model scores, not free energies.</li>
+    <li>Molecular surfaces, non-canonical base-pair annotation and multi-chain complexes are not yet supported.</li>
+  </ul>
+  <p>Benchmark details: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">engine status and benchmark</a>.</p>
+
+  <h3>How to cite</h3>
+  <p>If you use RCV in your work, please cite:</p>
+  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.5.0 (2026).
+https://github.com/PrinceWang2018/RNAconformer</code></pre>
+  <p>Please also cite ViennaRNA when you use predictions from sequence:<br>
+  Lorenz R. et al. ViennaRNA Package 2.0. <i>Algorithms for Molecular Biology</i> 6, 26 (2011).</p>
+  <p class="muted">The methods text generated by RCV (<i>Export &rsaquo; Methods text</i>) includes the exact versions and parameters of each run.</p>
+
+  <h3>Developer</h3>
+  <p>RCV is developed by Zixiang Wang.</p>
+
+  <h3>Acknowledgements</h3>
+  <p>RCV uses <a href="https://www.tbi.univie.ac.at/RNA/">ViennaRNA</a>, <a href="https://numpy.org/">NumPy</a>,
+  <a href="https://scipy.org/">SciPy</a>, <a href="https://threejs.org/">three.js</a> and
+  <a href="https://pywebview.flowrl.com/">pywebview</a>. Benchmark structures are from the
+  <a href="https://www.rcsb.org/">RCSB Protein Data Bank</a>.</p>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section id="contact" class="page">
+  <h2>Contact</h2>
+  <table>
+    <tr><th style="width:30%">For</th><th>Where</th></tr>
+    <tr><td>Bug reports and feature requests</td><td><a href="https://github.com/PrinceWang2018/RNAconformer/issues">GitHub Issues</a></td></tr>
+    <tr><td>Questions about using RCV</td><td><a href="https://github.com/PrinceWang2018/RNAconformer/issues">GitHub Issues</a> or email</td></tr>
+    <tr><td>Collaboration and Co-creation Program</td><td><a href="mailto:princewang2018@gmail.com">princewang2018@gmail.com</a></td></tr>
+    <tr><td>Source code</td><td><a href="https://github.com/PrinceWang2018/RNAconformer">github.com/PrinceWang2018/RNAconformer</a></td></tr>
+  </table>
+
+  <h3>Reporting a problem</h3>
+  <p>Please include:</p>
+  <ul>
+    <li>the RCV version (<i>Help &rsaquo; About</i>) and your operating system;</li>
+    <li>what you did, what you expected, and what happened;</li>
+    <li>the log file from the RCV user data folder (see <a href="#install">Install</a>);</li>
+    <li>if possible, the sequence or structure file that shows the problem.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Zixiang Wang. RCV is free software under the GPL-3.0 license.</span>
+    <span><a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a> &middot; <a href="#contact">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    document.body.classList.remove('no-js');
+    var pages = Array.prototype.slice.call(document.querySelectorAll('section.page'));
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
+
+    function show() {
+      var hash = location.hash.slice(1) || 'home';
+      var target = document.getElementById(hash);
+      // anchors inside a page (e.g. #t-pull) open their page and scroll to them
+      var page = target ? (target.classList.contains('page') ? target : target.closest('section.page')) : null;
+      if (!page) page = document.getElementById('home');
+      pages.forEach(function (p) { p.classList.toggle('active', p === page); });
+      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + page.id); });
+      if (target && target !== page) target.scrollIntoView();
+      else window.scrollTo(0, 0);
+      var title = links.filter(function (a) { return a.classList.contains('active'); })[0];
+      document.title = (page.id === 'home' || !title ? '' : title.textContent + ' – ') + 'RCV – RNA Conformation Viewer';
+    }
+    window.addEventListener('hashchange', show);
+    show();
+  })();
+</script>
+</body>
+</html>
