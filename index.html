@@ -106,13 +106,26 @@
   .steps { counter-reset: step; }
   .steps h3::before { content: counter(step) ". "; color: var(--muted); }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  .side-img { display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: start; }
+  .side-img { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  /* statistics */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); margin: 6px 0 22px; }
+  .stat-row div { padding: 12px 16px; border-left: 1px solid var(--line); }
+  .stat-row div:first-child { border-left: 0; }
+  .stat-row b { display: block; font-size: 24px; font-weight: 600; color: #111; line-height: 1.2; }
+  .stat-row span { font-size: 13px; color: var(--muted); }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.bar { width: 40%; }
+  td.bar i { display: block; height: 10px; background: #7d9cc4; min-width: 1px; }
+  .stats-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 
   footer { border-top: 1px solid var(--line); background: var(--bg-soft); font-size: 13px; color: var(--muted); }
   footer .wrap { padding: 18px 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
   @media (max-width: 820px) {
-    .home-grid, .two-col, .side-img { grid-template-columns: 1fr; }
+    .home-grid, .two-col, .side-img, .stats-cols { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .stat-row div:nth-child(3) { border-left: 0; }
     .features { columns: 1; }
     .masthead .ext { display: none; }
     nav.tabs a { padding: 9px 10px; font-size: 14px; }
@@ -143,6 +156,7 @@
     <li><a href="#tutorial">Tutorial</a></li>
     <li><a href="#plugins">Plugins</a></li>
     <li><a href="#releases">Release Notes</a></li>
+    <li><a href="#statistics">Statistics</a></li>
     <li><a href="#cocreation">Co-creation Program</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -167,7 +181,7 @@
   <div class="home-grid">
     <div>
       <figure>
-        <img src="images/rcv_viewer.png" alt="RCV main window showing an RNA ensemble with the sequence bar, the 2D window and the Switch tab">
+        <img src="images/rcv_viewer.png" width="1600" height="1000" alt="RCV main window showing an RNA ensemble with the sequence bar, the 2D window and the Switch tab">
         <figcaption>HIV-1 TAR ensemble with the sequence bar, the linked 2D structure window and the Switch tab.</figcaption>
       </figure>
 
@@ -341,11 +355,12 @@ rcv               # opens the start page</code></pre>
 
   <div class="steps">
     <h3 id="t-start">The start page</h3>
-    <p>When RCV starts, it shows the start page. On the left you can predict from a sequence; on the right you can
-    open structures you already have (<code>.rcv</code> files, PDB/mmCIF, multi-model NMR files, prediction
-    folders). Recent predictions are listed below. To look around first, click <i>Try the demo ensembles</i>.</p>
+    <p>When RCV starts, it shows the start page. Paste a sequence to predict its conformations, or click
+    <i>Open files&hellip;</i> to open structures you already have (<code>.rcv</code> files, PDB/mmCIF,
+    multi-model NMR files, prediction folders). <i>Fetch PDB&hellip;</i> downloads an entry from the PDB.
+    Recent predictions are listed below. To look around first, click <i>Demo ensembles</i>.</p>
     <figure>
-      <img src="images/rcv_welcome.png" alt="RCV start page with a FASTA batch">
+      <img src="images/rcv_welcome.png" width="840" height="630" alt="RCV start page with a FASTA batch">
       <figcaption>Start page with a multi-sequence FASTA ready for batch prediction.</figcaption>
     </figure>
 
@@ -390,7 +405,7 @@ rcv               # opens the start page</code></pre>
         estimates, not experimental values.</p>
       </div>
       <figure style="margin-top:0">
-        <img src="images/rcv_switch.png" alt="Switch tab">
+        <img src="images/rcv_switch.png" width="358" height="890" alt="Switch tab">
       </figure>
     </div>
 
@@ -406,7 +421,7 @@ png 3000, 2000, 600</code></pre>
     <p>Commands can be saved in a script file (<code>.rcvs</code>) and run with <code>run script.rcvs</code>.
     Every command is stored in the <code>.rcv</code> file as a reproducible record.</p>
     <figure>
-      <img src="images/rcv_console.png" alt="Console with selections, colours, labels and measurements">
+      <img src="images/rcv_console.png" width="972" height="890" alt="Console with selections, colours, labels and measurements">
     </figure>
 
     <h3 id="t-export">Save and export</h3>
@@ -420,7 +435,7 @@ png 3000, 2000, 600</code></pre>
       <tr><td>Methods text</td><td><i>Export &rsaquo; Methods text</i>. A methods paragraph and citation generated from the ensemble record.</td></tr>
     </table>
     <figure>
-      <img src="images/rcv_panels.png" alt="Figure panels export">
+      <img src="images/rcv_panels.png" width="1206" height="1000" alt="Figure panels export">
       <figcaption>Figure panels: conformations A–D with their 2D structures and a shared legend.</figcaption>
     </figure>
 
@@ -550,6 +565,56 @@ def compute(sequence, residues):
   <p>Full history: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
 </section>
 
+<!-- ============================== STATISTICS ============================== -->
+<section id="statistics" class="page">
+  <h2>Statistics</h2>
+  <p>Usage of this website and downloads of RCV. The numbers are updated once a day.</p>
+
+  <div class="stat-row">
+    <div><b data-stat="visits">&ndash;</b><span>Website visits</span></div>
+    <div><b data-stat="countries">&ndash;</b><span>Countries and regions</span></div>
+    <div><b data-stat="downloads">&ndash;</b><span>Downloads</span></div>
+    <div><b data-stat="releases">&ndash;</b><span>Releases</span></div>
+  </div>
+
+  <div class="stats-cols">
+    <div>
+      <h3 style="margin-top:0">Visitors by country</h3>
+      <table id="st-countries">
+        <thead><tr><th>Country / region</th><th class="num">Visits</th><th class="num">Share</th><th></th></tr></thead>
+        <tbody><tr><td colspan="4" class="muted">No data yet.</td></tr></tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Visits per month</h3>
+      <table id="st-monthly">
+        <thead><tr><th>Month</th><th class="num">Visits</th><th></th></tr></thead>
+        <tbody><tr><td colspan="3" class="muted">No data yet.</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>Downloads by platform</h3>
+  <table id="st-platforms">
+    <thead><tr><th>Platform</th><th class="num">Downloads</th><th class="num">Share</th><th></th></tr></thead>
+    <tbody><tr><td colspan="4" class="muted">No downloads recorded yet.</td></tr></tbody>
+  </table>
+
+  <h3>Downloads by release</h3>
+  <table id="st-releases">
+    <thead><tr><th>Release</th><th>Date</th><th class="num">Downloads</th></tr></thead>
+    <tbody><tr><td colspan="3" class="muted">No releases published yet.</td></tr></tbody>
+  </table>
+
+  <p class="muted" style="font-size:13px">
+    Last updated: <span data-stat="updated">&ndash;</span>.
+    Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies and
+    stores no personal data; a visit is one visitor per page per day, and countries are derived from the
+    visitor&rsquo;s network address, which is not stored. Downloads are the installer downloads from GitHub
+    releases; copies of the source code are not counted.
+  </p>
+</section>
+
 <!-- ============================== CO-CREATION ============================== -->
 <section id="cocreation" class="page">
   <h2>Co-creation Program</h2>
@@ -656,6 +721,9 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Zixiang Wang. RCV is free software under the GPL-3.0 license.</span>
+    <span style="flex:1"></span>
+    <span id="footer-stats" hidden><a href="#statistics"><span data-stat="visits"></span> visits &middot;
+      <span data-stat="downloads"></span> downloads</a> &middot; </span>
     <span><a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a> &middot; <a href="#contact">Contact</a></span>
   </div>
 </footer>
@@ -679,9 +747,70 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
       var title = links.filter(function (a) { return a.classList.contains('active'); })[0];
       document.title = (page.id === 'home' || !title ? '' : title.textContent + ' – ') + 'RCV – RNA Conformation Viewer';
     }
-    window.addEventListener('hashchange', show);
+    window.addEventListener('hashchange', function () {
+      show();
+      // count each tab as its own page in GoatCounter
+      if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: location.pathname + location.hash });
+    });
     show();
   })();
+
+  // ---- statistics (stats.json is refreshed daily by .github/workflows/update-stats.yml) ----
+  (function () {
+    var fmt = function (n) { return Number(n || 0).toLocaleString('en-US'); };
+    var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var pct = function (n, total) { return total ? (100 * n / total).toFixed(n / total < 0.1 ? 1 : 0) + '%' : ''; };
+    function setStat(key, value) {
+      document.querySelectorAll('[data-stat="' + key + '"]').forEach(function (el) { el.textContent = value; });
+    }
+    function fill(id, rows) { if (rows.length) document.querySelector('#' + id + ' tbody').innerHTML = rows.join(''); }
+    function barRows(items, total, label, withShare) {
+      var max = Math.max.apply(null, items.map(function (x) { return x.count; }).concat([1]));
+      return items.map(function (x) {
+        return '<tr><td>' + esc(x[label]) + '</td><td class="num">' + fmt(x.count) + '</td>' +
+          (withShare ? '<td class="num">' + pct(x.count, total) + '</td>' : '') +
+          '<td class="bar"><i style="width:' + (100 * x.count / max).toFixed(1) + '%"></i></td></tr>';
+      });
+    }
+
+    fetch('stats.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
+      if (!s) return;
+      var v = s.visits, d = s.downloads || { total: 0, by_platform: {}, releases: [] };
+      setStat('updated', s.updated);
+      setStat('downloads', fmt(d.total));
+      setStat('releases', fmt(d.releases.length));
+      if (v) {
+        setStat('visits', fmt(v.total));
+        setStat('countries', fmt(v.country_count));
+        var top = v.countries.slice(0, 15), rest = v.countries.slice(15).reduce(function (a, c) { return a + c.count; }, 0);
+        if (rest) top.push({ name: 'Other', count: rest });
+        fill('st-countries', barRows(top, v.total, 'name', true));
+        var months = v.monthly.slice(-12).map(function (m) {
+          var p = m.month.split('-');
+          return { month: new Date(+p[0], +p[1] - 1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' }), count: m.count };
+        });
+        fill('st-monthly', barRows(months.reverse(), 0, 'month', false));
+        document.getElementById('footer-stats').hidden = false;
+      }
+      var platforms = Object.keys(d.by_platform).map(function (k) { return { name: k, count: d.by_platform[k] }; })
+        .sort(function (a, b) { return b.count - a.count; });
+      fill('st-platforms', barRows(platforms, d.total, 'name', true));
+      fill('st-releases', d.releases.map(function (r) {
+        return '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.date) + '</td><td class="num">' + fmt(r.total) + '</td></tr>';
+      }));
+    }).catch(function () {});
+  })();
+</script>
+<script>
+  // Visit counting with GoatCounter (no cookies). Set the site code to enable it, see README.md.
+  var GOATCOUNTER_CODE = '';
+  if (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0) {
+    var gc = document.createElement('script');
+    gc.async = true;
+    gc.src = 'https://gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', 'https://' + GOATCOUNTER_CODE + '.goatcounter.com/count');
+    document.body.appendChild(gc);
+  }
 </script>
 </body>
 </html>
