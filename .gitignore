@@ -1,0 +1,4 @@
+# Local copies of the installers. They are larger than Cloudflare Pages' 25 MiB file limit, so they are not
+# part of the site: upload them to a GitHub release of this repository instead (see README.md, "Downloads").
+downloads/
+__pycache__/

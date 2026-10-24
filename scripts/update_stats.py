@@ -7,11 +7,13 @@ Sources
 Environment
   STATS_REPOS        comma-separated owner/name list (default: the RCV source and website repositories)
   GITHUB_TOKEN       optional, raises the GitHub API rate limit
-  GOATCOUNTER_CODE   site code, e.g. "rcv" for https://rcv.goatcounter.com
-  GOATCOUNTER_TOKEN  GoatCounter API token with "read statistics" permission
-  STATS_SINCE        first day to count visits from (default 2026-10-24)
+  GOATCOUNTER_CODE   site code (default "princewang2018" -> https://princewang2018.goatcounter.com)
+  GOATCOUNTER_TOKEN  GoatCounter API token with "read statistics" permission; needed for countries and months.
+                     Without it only the total number of visits is collected (GoatCounter's public counter).
+  STATS_SINCE        first day to count visits from (default 2026-10-23, when counting started)
 
-Only aggregate numbers are stored; GoatCounter does not record personal data.
+Only aggregate numbers are stored; GoatCounter does not record personal data. Problems are printed as GitHub
+Actions warnings, so they show up on the workflow run page.
 """
 import datetime as dt
 import json
@@ -26,7 +28,14 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parent.parent / 'stats.json'
 REPOS = [r.strip() for r in os.environ.get(
     'STATS_REPOS', 'PrinceWang2018/RNAconformer,PrinceWang2018/RNAconfViewer_website').split(',') if r.strip()]
-SINCE = os.environ.get('STATS_SINCE', '2026-10-24')
+SINCE = os.environ.get('STATS_SINCE') or '2026-10-23'
+GC_CODE = os.environ.get('GOATCOUNTER_CODE') or 'princewang2018'
+
+
+def warn(msg):
+    """A note in the log; in GitHub Actions also a warning on the run page."""
+    msg = ' '.join(str(msg).split())                         # one line (a workflow command ends at the newline)
+    print(f'::warning::{msg}' if os.environ.get('GITHUB_ACTIONS') else f'note: {msg}', file=sys.stderr)
 
 
 def get_json(url, token=None):
@@ -79,12 +88,27 @@ def downloads():
             'releases': releases}, errors
 
 
-def visits(today):
-    code, token = os.environ.get('GOATCOUNTER_CODE'), os.environ.get('GOATCOUNTER_TOKEN')
-    if not (code and token):
-        return None, ['GoatCounter not configured']
-    base = f'https://{code}.goatcounter.com/api/v0'
-    rng = f'start={SINCE}T00:00:00Z&end={(today + dt.timedelta(days=1)).isoformat()}T00:00:00Z'
+def counter_total():
+    """Total visits from GoatCounter's public counter (no token needed; 'Allow adding visitor counts' is on)."""
+    d = get_json(f'https://{GC_CODE}.goatcounter.com/counter/TOTAL.json')
+    return int(re.sub(r'\D', '', str(d.get('count', ''))) or 0)
+
+
+def visits(now):
+    """Visits since SINCE: total, per month and per country (API token), or only the total (public counter)."""
+    token = os.environ.get('GOATCOUNTER_TOKEN')
+    if not token:
+        warn('GOATCOUNTER_TOKEN is not set: only the total number of visits is collected (no countries or months). '
+             'Add the secret in Settings > Secrets and variables > Actions.')
+        return {'total': counter_total(), 'since': SINCE, 'monthly': [], 'countries': [], 'country_count': None,
+                'source': 'counter'}, []
+    base = f'https://{GC_CODE}.goatcounter.com/api/v0'
+    start = dt.datetime.fromisoformat(SINCE).replace(tzinfo=dt.timezone.utc)
+    end = now.replace(minute=0, second=0, microsecond=0) + dt.timedelta(hours=1)     # the API wants whole hours
+    if start >= end:
+        start = end - dt.timedelta(days=1)
+    fmt = '%Y-%m-%dT%H:%M:%SZ'
+    rng = f'start={start.strftime(fmt)}&end={end.strftime(fmt)}'
     total = get_json(f'{base}/stats/total?{rng}', token)
     months = defaultdict(int)
     for day in total.get('stats') or []:
@@ -99,17 +123,38 @@ def visits(today):
     known = [c for c in countries if c['name'] != 'Unknown']
     return {'total': total.get('total', 0), 'since': SINCE,
             'monthly': [{'month': m, 'count': months[m]} for m in sorted(months)],
-            'countries': sorted(countries, key=lambda c: -c['count']), 'country_count': len(known)}, []
+            'countries': sorted(countries, key=lambda c: -c['count']), 'country_count': len(known),
+            'source': 'api'}, []
+
+
+def http_error(e):
+    body = ''
+    if isinstance(e, urllib.error.HTTPError):
+        try:
+            body = re.sub(r'<(style|script)\b.*?</\1>|<[^>]+>', ' ', e.read().decode('utf-8', 'replace'), flags=re.S)
+            body = ' '.join(body.split())[:200]
+        except Exception:
+            pass
+    return f'{e} {body}'.strip()
 
 
 def main():
-    today = dt.datetime.now(dt.timezone.utc).date()
+    now = dt.datetime.now(dt.timezone.utc)
+    today = now.date()
     old = json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     dl, errors = downloads()
     try:
-        vis, verr = visits(today)
+        vis, verr = visits(now)
     except (urllib.error.URLError, KeyError, ValueError) as e:
-        vis, verr = old.get('visits'), [f'GoatCounter: {e}']    # keep the last good numbers
+        verr = [f'GoatCounter API: {http_error(e)}']
+        try:                                                       # at least the total, from the public counter
+            vis = {'total': counter_total(), 'since': SINCE, 'monthly': [], 'countries': [], 'country_count': None,
+                   'source': 'counter'}
+            if old.get('visits') and old['visits'].get('source') == 'api':
+                vis = {**old['visits'], 'total': max(old['visits']['total'], vis['total'])}   # keep the last details
+        except (urllib.error.URLError, ValueError) as e2:
+            vis = old.get('visits')
+            verr.append(f'GoatCounter counter: {http_error(e2)}')
     errors += verr
     history = [h for h in old.get('download_history', []) if h['date'] != today.isoformat()]
     history.append({'date': today.isoformat(), 'total': dl['total']})
@@ -117,7 +162,7 @@ def main():
              'visits': vis, 'downloads': dl, 'download_history': history[-730:]}
     OUT.write_text(json.dumps(stats, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     for e in errors:
-        print('note:', e, file=sys.stderr)
+        warn(e)
     print(f"downloads {dl['total']} · visits {vis['total'] if vis else '-'} -> {OUT.name}")
 
 

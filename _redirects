@@ -1,0 +1,10 @@
+# Download addresses of www.rnaconfviewer.com (Cloudflare Pages reads this file; it is not served).
+#
+# Cloudflare Pages serves at most 25 MiB per file and the RCV installers are larger (Windows ~41 MiB), so the
+# installers are kept as files of a GitHub release of this repository (tag v<version>, e.g. v0.6.0) and the
+# website forwards to them. GitHub counts the downloads for the Statistics tab.
+#
+#   https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Windows-x64-Setup.exe
+#   https://www.rnaconfviewer.com/download/latest/RCV-0.6.0-Windows-x64-Setup.exe   (newest release)
+/download/latest/:file  https://github.com/PrinceWang2018/RNAconfViewer_website/releases/latest/download/:file  302
+/download/:tag/:file    https://github.com/PrinceWang2018/RNAconfViewer_website/releases/download/:tag/:file    302

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plugin developer guide – RCV 0.6.0</title><link rel="icon" href="images/icon.svg"><style>
+:root { --bg: #f7f6f2; --card: #fff; --text: #1d2430; --muted: #5d6675; --line: #e3e1da; --accent: #2a78d6; --code: #f1efe9; }
+@media (prefers-color-scheme: dark) { :root { --bg: #16191e; --card: #1d2128; --text: #e7e9ee; --muted: #a2a9b5; --line: #2f343d; --accent: #6aa8f0; --code: #242932; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+header { display: flex; align-items: center; gap: 14px; padding: 12px 22px; background: var(--card); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 2; }
+header img { width: 26px; height: 26px; }
+header b { font-size: 16px; letter-spacing: .02em; }
+header nav { display: flex; gap: 16px; margin-left: auto; flex-wrap: wrap; }
+header a { color: var(--muted); text-decoration: none; font-size: 14px; }
+header a:hover, header a.on { color: var(--accent); }
+.wrap { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 24px 22px 60px; }
+aside { position: sticky; top: 72px; align-self: start; max-height: calc(100vh - 90px); overflow: auto; font-size: 13.5px; }
+aside a { display: block; padding: 3px 8px; color: var(--muted); text-decoration: none; border-radius: 5px; }
+aside a.l3 { padding-left: 20px; font-size: 13px; }
+aside a:hover { background: var(--code); color: var(--text); }
+main { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 34px 34px; min-width: 0; }
+h1 { font-size: 28px; margin: 22px 0 8px; } h2 { font-size: 22px; margin: 34px 0 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+h3 { font-size: 17px; margin: 24px 0 8px; } h4 { font-size: 15px; margin: 18px 0 6px; }
+a { color: var(--accent); }
+code { background: var(--code); padding: 1px 5px; border-radius: 4px; font: 13px/1.5 ui-monospace, Consolas, "Liberation Mono", monospace; }
+pre { background: var(--code); padding: 12px 14px; border-radius: 8px; overflow: auto; } pre code { padding: 0; background: none; }
+.tw { overflow-x: auto; } table { border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; } th { background: var(--code); }
+img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0; }
+footer { text-align: center; color: var(--muted); font-size: 13px; padding: 0 0 30px; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } aside { display: none; } main { padding: 4px 16px 24px; } }
+</style></head>
+<body><header><img src="images/icon.svg" alt=""><b>RCV</b><span style="color:var(--muted)">RNA Conformation Viewer 0.6.0</span><nav><a href="../">Home</a><a href="../#download">Download</a><a href="index.html">User guide</a><a href="plugins.html" class=on>Plugin developer guide</a><a href="changelog.html">What is new</a></nav></header>
+<div class="wrap"><aside><a class="l2" href="#1-quick-start">1. Quick start</a><a class="l2" href="#2-interface-plugins-javascript">2. Interface plugins (JavaScript)</a><a class="l3" href="#21-reading-state">2.1 Reading state</a><a class="l3" href="#22-events">2.2 Events</a><a class="l3" href="#23-acting">2.3 Acting</a><a class="l3" href="#24-user-interface">2.4 User interface</a><a class="l3" href="#25-3d-view">2.5 3D view</a><a class="l3" href="#26-colour-schemes">2.6 Colour schemes</a><a class="l3" href="#27-metrics">2.7 Metrics</a><a class="l3" href="#28-console-commands">2.8 Console commands</a><a class="l2" href="#3-the-ensemble-object">3. The ensemble object</a><a class="l2" href="#4-analysis-plugins-python">4. Analysis plugins (Python)</a><a class="l2" href="#5-testing-sharing-good-practice">5. Testing, sharing, good practice</a></aside><main><h1 id="writing-plugins-for-rcv">Writing plugins for RCV</h1>
+<p>RCV (RNA Conformation Viewer) can be extended without changing its source code. There are two kinds of plugins:</p>
+<div class="tw"><table><thead><tr><th>Kind</th><th>File</th><th>Runs</th><th>Good for</th></tr></thead><tbody><tr><td><b>Interface plugin</b></td><td><code>name.js</code> (JavaScript module)</td><td>in the RCV window</td><td>panels, charts, colour schemes, console commands, menu items, 3D overlays, annotations, metrics computed from the shown data</td></tr><tr><td><b>Analysis plugin</b></td><td><code>name.py</code> (Python)</td><td>in the local RCV engine, when an ensemble is opened</td><td>metrics that need numpy/scipy or heavier computation per conformation</td></tr></tbody></table></div>
+<p>Plugin API version: <b>2</b> (RCV 0.6). Everything from version 1 (RCV 0.4–0.5) still works.</p>
+<hr>
+<h2 id="1-quick-start">1. Quick start</h2>
+<ol><li><b>Plugins ▸ New plugin from template…</b> writes a commented template (JavaScript or Python) into your plugin folder and shows where it is. The JavaScript template already adds a metric, a console command, a side panel and a menu item.</li><li><b>Plugins ▸ Open plugin folder</b> opens the folder in Explorer / Finder.</li><li>Edit the file in any text editor.</li><li><b>Plugins ▸ Reload window</b> (JavaScript) or restart RCV (Python). <b>Plugins ▸ Manage plugins</b> lists every plugin with its status and any error, and lets you switch plugins on and off.</li></ol>
+<p>Plugin folders (created on first use):</p>
+<div class="tw"><table><thead><tr><th>System</th><th>Folder</th></tr></thead><tbody><tr><td>Windows</td><td><code>%APPDATA%\RCV\plugins</code></td></tr><tr><td>macOS</td><td><code>~/Library/Application Support/RCV/plugins</code></td></tr><tr><td>Linux</td><td><code>~/.local/share/rcv/plugins</code></td></tr></tbody></table></div>
+<p>Plugins in the folders of earlier versions (<code>RNAconfSwitch</code>, <code>~/.rnafold3d/plugins</code>) are loaded too.</p>
+<p><b>Developer mode</b> (View ▸ Preferences): F12 / Ctrl+Shift+I open the browser developer tools of the RCV window (JavaScript console, debugger, network log), and Shift+right-click shows the browser's own menu. Leave it off for normal use.</p>
+<hr>
+<h2 id="2-interface-plugins-javascript">2. Interface plugins (JavaScript)</h2>
+<p>A plugin is an ES module whose default export is an object with <code>id</code>, <code>name</code>, <code>version</code>, <code>description</code> and <code>activate(api)</code>:</p>
+<pre><code>export default {
+  id: 'hello',                 // lower-case and unique
+  name: 'Hello',
+  version: '1.0',
+  description: 'Says hello when the conformation changes.',
+  activate(api) {
+    api.on('conformation', ({ from, to }) =&gt; api.ui.toast(`switched to ${api.ensemble.shortId(to)}`));
+  },
+};</code></pre>
+<p><code>activate</code> runs once when RCV starts (it may be <code>async</code>). Keep it fast; do heavy work lazily (when a panel opens or a command runs). Check the API version if you rely on version-2 features: <code>if (api.version &lt; 2) return;</code>.</p>
+<h3 id="21-reading-state">2.1 Reading state</h3>
+<div class="tw"><table><thead><tr><th>Property</th><th>Meaning</th></tr></thead><tbody><tr><td><code>api.version</code></td><td>plugin API version (2)</td></tr><tr><td><code>api.ensemble</code></td><td>the open ensemble (<code>null</code> when none) — see section 3</td></tr><tr><td><code>api.conformation</code></td><td>index of the shown conformation</td></tr><tr><td><code>api.previous</code></td><td>index of the previous conformation (<code>null</code> at first)</td></tr><tr><td><code>api.order</code></td><td>conformation indices in the current order (rank, energy, similarity path or input)</td></tr><tr><td><code>api.metric</code></td><td>key of the energy metric shown in the energy panel</td></tr><tr><td><code>api.selection</code></td><td>selected residue indices (0-based, 5′→3′)</td></tr><tr><td><code>api.coords</code></td><td>the coordinates being displayed (<code>Float32Array</code> x,y,z per atom; changes during morphs)</td></tr></tbody></table></div>
+<h3 id="22-events">2.2 Events</h3>
+<p><code>api.on(event, fn)</code>:</p>
+<div class="tw"><table><thead><tr><th>Event</th><th>Payload</th><th>When</th></tr></thead><tbody><tr><td><code>ensemble</code></td><td>the ensemble</td><td>an ensemble is opened, closed or selected</td></tr><tr><td><code>conformation</code></td><td><code>{ from, to }</code></td><td>a switch starts</td></tr><tr><td><code>morph</code></td><td><code>{ from, to, t }</code> every frame; <code>{ done: true }</code> at the end</td><td>during morphs and scrubbing</td></tr><tr><td><code>metric</code>, <code>order</code>, <code>values</code></td><td>—</td><td>the energy metric, the order or metric values changed</td></tr><tr><td><code>selection</code></td><td>residue list</td><td>the selection changed</td></tr><tr><td><code>colors</code></td><td>—</td><td>residue colours changed</td></tr><tr><td><code>hover</code></td><td>residue list</td><td>the mouse is over residues (3D, 2D window, sequence bar)</td></tr><tr><td><code>tool</code></td><td>tool id</td><td>the mouse tool changed (<code>select</code>, <code>pull</code>, <code>paint</code>, <code>label</code>, <code>measure</code>)</td></tr><tr><td><code>annotations</code>, <code>measurements</code>, <code>display</code>, <code>surface</code></td><td>—</td><td>the user edited them</td></tr><tr><td><code>tab</code></td><td>tab id</td><td>a side-panel tab was shown</td></tr></tbody></table></div>
+<h3 id="23-acting">2.3 Acting</h3>
+<div class="tw"><table><thead><tr><th>Call</th><th>Effect</th></tr></thead><tbody><tr><td><code>api.goTo(k, { duration, animate })</code></td><td>morph to conformation <code>k</code></td></tr><tr><td><code>api.select(residues, mode)</code></td><td>select residues; <code>mode</code> = <code>set</code>, <code>add</code> or <code>toggle</code></td></tr><tr><td><code>api.setMetric(key)</code></td><td>show a metric in the energy panel</td></tr><tr><td><code>api.commands.run('color orange, resi 5-9')</code></td><td>run any console command (section 2.8)</td></tr></tbody></table></div>
+<h3 id="24-user-interface">2.4 User interface</h3>
+<div class="tw"><table><thead><tr><th>Call</th><th>Effect</th></tr></thead><tbody><tr><td><code>api.ui.addPanel({ id, title, render(host) })</code></td><td>adds a tab to the right panel; <code>render</code> receives the empty tab element</td></tr><tr><td><code>api.ui.addMenuItem({ label, action, kbd })</code></td><td>adds an item to the Plugins menu</td></tr><tr><td><code>api.ui.toast(message, kind)</code></td><td>short notification; <code>kind</code> = <code>info</code>, <code>ok</code> or <code>error</code></td></tr><tr><td><code>api.ui.dialog({ title, width, body, actions })</code></td><td>modal dialog (<code>body</code> is an element or <code>b =&gt; b.append(...)</code>; <code>actions</code> = <code>[{ label, primary, close, action }]</code>)</td></tr><tr><td><code>api.ui.tooltip.show(content, x, y)</code> / <code>.hide()</code></td><td>hover tooltip</td></tr><tr><td><code>api.ui.tipRow(value, label)</code></td><td>formatted tooltip line</td></tr><tr><td><code>api.ui.icon(name)</code></td><td>one of RCV's stroke icons as an SVG element</td></tr><tr><td><code>api.util.el(tag, attrs, ...children)</code> / <code>api.util.svg(...)</code></td><td>create HTML / SVG elements (<code>text:</code> sets text, <code>on…:</code> adds listeners)</td></tr><tr><td><code>api.util.fmt(value, digits)</code></td><td>number formatting used across RCV</td></tr></tbody></table></div>
+<p>Panels that draw charts should use <code>&lt;svg class="chart"&gt;</code>: they then get RCV's publication styling, and right-click offers PDF/SVG/PNG/TIFF export automatically. To export from your own button use <code>api.export.chart(svgElement, 'pdf' | 'svg' | 'png' | 'tiff', name, { dpi })</code>.</p>
+<h3 id="25-3d-view">2.5 3D view</h3>
+<div class="tw"><table><thead><tr><th>Call</th><th>Effect</th></tr></thead><tbody><tr><td><code>api.viewer.addOverlay(id, ({ coords, ens }) =&gt; primitives)</code></td><td>draw lines and points that follow the structure; redrawn every frame and included in image exports. Primitives: <code>{ type: 'line', a: [x,y,z], b: [x,y,z], color, width, dash, label }</code>, <code>{ type: 'point', p: [x,y,z], color, r }</code></td></tr><tr><td><code>api.viewer.removeOverlay(id)</code></td><td>remove it</td></tr><tr><td><code>api.viewer.project(x, y, z)</code></td><td>model → screen pixels <code>[x, y, depth]</code></td></tr><tr><td><code>api.viewer.requestRender()</code></td><td>redraw after changing something an overlay reads</td></tr><tr><td><code>api.annotations.add({ kind, residue, text, color, size, arrow, box })</code></td><td>add a label (<code>kind: 'label'</code>), a region label (<code>kind: 'region', residues: [...]</code>) or a note (<code>kind: 'note', x, y</code> as fractions of the view); returns the annotation</td></tr><tr><td><code>api.annotations.list()</code> / <code>.remove(id)</code></td><td>read / delete annotations</td></tr><tr><td><code>api.display.color(residues, '#rrggbb')</code></td><td>custom colour on top of the colour scheme</td></tr><tr><td><code>api.display.surface(true, residues)</code></td><td>molecular surface (all residues, or the given ones)</td></tr><tr><td><code>api.display.transparency(object, opacity)</code></td><td><code>cartoon</code>, <code>bases</code>, <code>atoms</code>, <code>surface</code>, <code>overlay</code> or <code>all</code>; opacity 0.05–1</td></tr></tbody></table></div>
+<h3 id="26-colour-schemes">2.6 Colour schemes</h3>
+<pre><code>api.colors.registerScheme({
+  id: 'purines', label: 'Purine / pyrimidine',
+  residueColors: (ens, ctx) =&gt; ens.residues.map(r =&gt; ('AG'.includes(r.name) ? api.palette.colors[0] : api.palette.colors[1])),
+  legend: () =&gt; ({ title: 'Base type', items: [{ color: api.palette.colors[0], label: 'Purine' }, { color: api.palette.colors[1], label: 'Pyrimidine' }] }),
+});</code></pre>
+<p><code>residueColors</code> returns one <code>#rrggbb</code> per residue; <code>ctx.conf</code> is the conformation being coloured (schemes may differ per conformation). A legend is a list of <code>items</code> or a ramp <code>{ title, ramp: [colours], min, max }</code>. Use <code>api.palette.colors</code> (the active palette, chosen in Color ▸ Palettes) so your scheme follows the user's palette.</p>
+<h3 id="27-metrics">2.7 Metrics</h3>
+<pre><code>api.metrics.register({
+  key: 'loop_size', label: 'Apical loop size', unit: 'nt', lower_is_better: null,
+  description: 'Unpaired nucleotides between the last pair and the next pair.',
+  compute: (ens, k) =&gt; { /* return a number or null for conformation k */ },
+});</code></pre>
+<p>Metrics appear in the energy panel (profile, funnel, map), the Details table, the plot studio and the CSV export. The key is stored as <code>plugin.&lt;plugin id&gt;.&lt;key&gt;</code>.</p>
+<h3 id="28-console-commands">2.8 Console commands</h3>
+<pre><code>api.commands.register({
+  name: 'loopsize', args: '[conformation]', help: 'Apical loop size of a conformation',
+  run: (args, raw) =&gt; `loop size: ${/* ... */ 4} nt`,       // string, array of strings, or nothing; may be async
+});</code></pre>
+<p>Commands are listed by <code>help</code>, take comma-separated arguments, can be used in scripts (<code>run file.rcvs</code>) and are recorded in the ensemble's command log (saved in <code>.rcv</code> files) like built-in commands. <code>api.commands.run(line)</code> runs any command, which gives plugins the whole console vocabulary (selection language included).</p>
+<hr>
+<h2 id="3-the-ensemble-object">3. The ensemble object</h2>
+<p><code>api.ensemble</code> (read-only for plugins):</p>
+<div class="tw"><table><thead><tr><th>Member</th><th>Content</th></tr></thead><tbody><tr><td><code>name</code>, <code>sequence</code></td><td>ensemble name, sequence (A/C/G/U)</td></tr><tr><td><code>n</code>, <code>nRes</code>, <code>nAtoms</code></td><td>conformations, residues, atoms</td></tr><tr><td><code>residues[r]</code></td><td><code>{ name, comp, num, chain, first_atom, n_atoms }</code> (<code>num</code> = author numbering, may include an insertion code)</td></tr><tr><td><code>atomNames[a]</code>, <code>elements[a]</code>, <code>atomRes[a]</code></td><td>atom name, element, residue index</td></tr><tr><td><code>atomIndex[r][name]</code></td><td>atom index of a named atom in residue <code>r</code></td></tr><tr><td><code>trace[r]</code>, <code>c1[r]</code>, <code>glyco[r]</code>, <code>phos[r]</code></td><td>atom index of C4′, C1′, N1/N9, P (−1 if absent)</td></tr><tr><td><code>coords[k]</code></td><td><code>Float32Array</code> of conformation <code>k</code> (superposed; x,y,z per atom)</td></tr><tr><td><code>conformations[k]</code></td><td><code>{ id, label, rank, pairs: [[i, j, type, pseudoknot]], stacks, dbn, input_dbn, values: { metric: number }, validation, cluster, explored }</code></td></tr><tr><td><code>metrics</code>, <code>metricByKey[key]</code></td><td>metric descriptions <code>{ key, label, unit, group, lower_is_better, description }</code></td></tr><tr><td><code>rmsd[a][b]</code>, <code>rmsf[r]</code>, <code>embedding[k]</code></td><td>pairwise C4′ RMSD (Å), per-residue RMSF (Å), 2D similarity map</td></tr><tr><td><code>value(k, key)</code></td><td>metric value or <code>null</code></td></tr><tr><td><code>shortId(k)</code>, <code>resLabel(r)</code></td><td>display names, e.g. <code>conf_003</code>, <code>G34</code></td></tr><tr><td><code>partner(k)</code></td><td><code>Int32Array</code> pairing partner per residue (−1 unpaired)</td></tr><tr><td><code>pairInfo(k, r)</code></td><td><code>{ partner, type, pk }</code> or <code>null</code></td></tr><tr><td><code>residueCenter(coords, r)</code>, <code>residueDisplacement(a, b)</code></td><td>geometry helpers</td></tr></tbody></table></div>
+<p>Residue and atom indices are 0-based; selections, colours and annotations use residue indices.</p>
+<hr>
+<h2 id="4-analysis-plugins-python">4. Analysis plugins (Python)</h2>
+<pre><code>PLUGIN = {
+    'id': 'contacts', 'name': 'Tertiary contacts',
+    'metrics': [{'key': 'contacts', 'label': 'Tertiary contacts', 'unit': '', 'lower_is_better': False,
+                 'description': 'Residue pairs &gt; 3 apart with heavy atoms within 4 Å.'}],
+}
+
+def compute(sequence, residues):
+    # sequence: str 5'-&gt;3'; residues: list (one per nucleotide) of {atom_name: numpy array (3,)}, superposed
+    return {'contacts': 12}</code></pre>
+<ul><li><code>compute</code> runs for every conformation when an ensemble is opened (also for <code>.rcv</code> conversion); return numbers or <code>None</code>. Exceptions are reported as a warning and never stop loading.</li><li>The values become metrics <code>plugin.&lt;id&gt;.&lt;key&gt;</code> everywhere (energy panel, tables, plots, CSV, <code>.rcv</code> files). RCV remembers which plugins were active, so a prediction folder is re-evaluated when the plugin set changes.</li><li>numpy and scipy are available; installer builds contain only the packages RCV itself needs.</li><li>Example: <code>examples/viewer_plugins/tertiary_contacts.py</code>.</li></ul>
+<hr>
+<h2 id="5-testing-sharing-good-practice">5. Testing, sharing, good practice</h2>
+<ul><li><b>Debugging:</b> enable developer mode, open the developer tools (F12) and use <code>console.log</code>; load errors are listed in Plugins ▸ Manage plugins. For Python plugins, errors appear as warnings when the ensemble opens.</li><li><b>Automated tests:</b> keep computations in plain functions (no DOM) and test them with Node.js, as RCV does in <code>tests/js/</code> (load an ensemble document exported with <code>rcv export-document</code>).</li><li><b>Sharing:</b> a plugin is a single file — share it, or publish it with a licence header. RCV is GPL-3.0; plugins are your own work and may use any licence.</li><li><b>Style:</b> use <code>api.palette.colors</code> and <code>&lt;svg class="chart"&gt;</code> so figures match the rest of RCV; label units; never block the window for more than a moment (use <code>setTimeout</code> / <code>await</code> to split long loops).</li><li><b>Safety:</b> plugins run with your user rights, like any program. Install only plugins you trust.</li></ul></main></div>
+<footer>© 2026 Zixiang Wang · RCV is free software under the GPL-3.0 license · <a href="https://www.rnaconfviewer.com/">www.rnaconfviewer.com</a></footer>
+</body></html>

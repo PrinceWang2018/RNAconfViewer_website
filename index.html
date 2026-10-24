@@ -147,7 +147,7 @@
     </a>
     <div class="ext">
       <a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a>
-      <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">User Guide</a>
+      <a href="guide/">User Guide</a>
       <a href="https://github.com/PrinceWang2018/RNAconformer/issues">Report an Issue</a>
     </div>
   </div>
@@ -179,7 +179,7 @@
     your own computer.
   </p>
   <p>
-    <a class="btn" href="#download">Download RCV 0.5.0</a>&nbsp;
+    <a class="btn" href="#download">Download RCV 0.6.0</a>&nbsp;
     <a class="btn secondary" href="#tutorial">Get started</a>
   </p>
 
@@ -198,7 +198,8 @@
         <li><b>Linked 2D and 3D.</b> The secondary structure follows the 3D view, with shared colours, hover and selection.</li>
         <li><b>Switch analysis.</b> Boltzmann populations of 2D states and a point-mutation scan.</li>
         <li><b>Command console.</b> A selection language for RNA ensembles and familiar molecular-viewer commands.</li>
-        <li><b>Publication output.</b> Figures, figure panels, transition videos, interactive HTML pages and methods text.</li>
+        <li><b>Publication output.</b> Figures, figure panels, a plot studio (clustered RMSD matrix, RMSF, energy funnel), annotations, colour-blind-safe palettes, molecular surfaces, transition videos, interactive HTML pages and methods text.</li>
+        <li><b>Your language, your layout.</b> English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Italiano, Português and Русский; every panel can be shown, hidden or maximised.</li>
         <li><b>One file per RNA.</b> The open <code>.rcv</code> format stores all conformations, 10–14× smaller than PDB.</li>
       </ul>
     </div>
@@ -206,12 +207,15 @@
     <aside>
       <div class="sidebox">
         <h4>Current version</h4>
-        <p style="margin:0">RCV 0.5.0 &middot; 23 October 2026<br>
+        <p style="margin:0">RCV 0.6.0 &middot; 24 October 2026<br>
         <a href="#download">Download</a> &middot; <a href="#releases">What's new</a></p>
       </div>
       <div class="sidebox">
         <h4>News</h4>
         <dl class="news" style="margin:0">
+          <dt>2026-10-24</dt>
+          <dd>RCV 0.6.0 released: the interface in eleven languages, a flexible window layout, a plot studio,
+              annotations, colour palettes, molecular surfaces, and installers with the user guide.</dd>
           <dt>2026-10-23</dt>
           <dd>RCV 0.5.0 released. New name, the <code>.rcv</code> file format, 2D structure window, transition videos and the command console.</dd>
           <dt>2026-10-22</dt>
@@ -221,7 +225,7 @@
       <div class="sidebox">
         <h4>Quick links</h4>
         <ul>
-          <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">User guide</a></li>
+          <li><a href="guide/">User guide</a></li>
           <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">Engine status &amp; benchmark</a></li>
           <li><a href="#about">How to cite</a></li>
           <li><a href="#cocreation">Join the Co-creation Program</a></li>
@@ -238,22 +242,22 @@
   The desktop installers include Python, the prediction engine, ViennaRNA and the demo data; nothing else
   needs to be installed.</p>
 
-  <h3>RCV 0.5.0 <span class="muted" style="font-size:14px;font-weight:400">(23 October 2026)</span></h3>
+  <h3>RCV 0.6.0 <span class="muted" style="font-size:14px;font-weight:400">(24 October 2026)</span></h3>
   <table>
     <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
     <tr>
       <td>Windows 10/11 (64-bit)</td>
-      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-Windows-x64-Setup.exe</a></td>
-      <td>Installer with Start-menu entry and <code>.rcv</code> file association.</td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Windows-x64-Setup.exe">RCV-0.6.0-Windows-x64-Setup.exe</a> <span class="muted">(41 MB)</span></td>
+      <td>Installer with Start-menu entries (RCV, demo ensembles, user guide) and optional <code>.rcv</code> file association.</td>
     </tr>
     <tr>
       <td>macOS 11+ (Apple Silicon)</td>
-      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-macOS-arm64.dmg</a></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-arm64.dmg">RCV-0.6.0-macOS-arm64.dmg</a></td>
       <td>For M1/M2/M3/M4 Macs.</td>
     </tr>
     <tr>
       <td>macOS 11+ (Intel)</td>
-      <td><a href="https://github.com/PrinceWang2018/RNAconformer/releases/latest">RCV-0.5.0-macOS-x86_64.dmg</a></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-x86_64.dmg">RCV-0.6.0-macOS-x86_64.dmg</a></td>
       <td>For Intel-based Macs.</td>
     </tr>
     <tr>
@@ -263,10 +267,11 @@
     </tr>
   </table>
 
-  <p>Older versions are available on the
-  <a href="https://github.com/PrinceWang2018/RNAconformer/releases">GitHub releases page</a>.
+  <p class="muted" style="font-size:13px">SHA-256 of the Windows installer:
+  <code style="word-break:break-all">862d9c5935fd5da55893f101c82676104ed232138d0f3867cfc289a0f200526a</code></p>
+  <p>Earlier versions are on the <a href="https://github.com/PrinceWang2018/RNAconfViewer_website/releases">releases page</a>.
   Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
-  and projects are read by RCV 0.5.</p>
+  and projects are read by RCV 0.6.</p>
 
   <h3>System requirements</h3>
   <table>
@@ -280,7 +285,10 @@
 
   <h3>License</h3>
   <p>RCV is distributed under the <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/LICENSE">GPL-3.0 license</a>.
-  ViennaRNA is a separate package under its own license. three.js (MIT) is included in the viewer.</p>
+  The installers also contain ViennaRNA, which is free for research, educational and commercial use under its
+  own license (credit to its authors: Lorenz et al. 2011, Institute for Theoretical Chemistry, University of
+  Vienna), Python, NumPy, SciPy and three.js; their licenses are listed in <code>THIRD-PARTY-NOTICES.txt</code>
+  in the installation folder.</p>
 </section>
 
 <!-- ============================== INSTALL ============================== -->
@@ -291,10 +299,11 @@
     <div>
       <h3 style="margin-top:0">Windows</h3>
       <ol>
-        <li>Download <code>RCV-0.5.0-Windows-x64-Setup.exe</code>.</li>
+        <li>Download <code>RCV-0.6.0-Windows-x64-Setup.exe</code>.</li>
         <li>Run the installer and follow the steps. Optionally create a desktop shortcut and associate
             <code>.rcv</code> files with RCV.</li>
-        <li>Start RCV from the Start menu.</li>
+        <li>Start RCV from the Start menu. The Start menu also has <i>RCV with demo ensembles</i>, the
+            <i>RCV User Guide</i> and <i>What is new in RCV</i>.</li>
       </ol>
       <p class="muted">If Windows SmartScreen shows a warning, choose <i>More info</i> &rsaquo; <i>Run anyway</i>.
       RCV uses the Microsoft Edge WebView2 runtime, which is part of Windows 11 and current Windows 10.</p>
@@ -304,7 +313,8 @@
       <ol>
         <li>Download the <code>.dmg</code> for your Mac (Apple Silicon or Intel).</li>
         <li>Open the disk image and drag <b>RCV</b> to the Applications folder.</li>
-        <li>The first time, right-click RCV and choose <i>Open</i>.</li>
+        <li>The first time, right-click RCV and choose <i>Open</i> (or <i>System Settings &rsaquo; Privacy &amp;
+            Security &rsaquo; Open Anyway</i>), because the app is not yet notarised by Apple.</li>
       </ol>
       <p class="muted">To open an <code>.rcv</code> file on macOS, use <i>File &rsaquo; Open</i> inside RCV.</p>
     </div>
@@ -345,7 +355,7 @@ rcv               # opens the start page</code></pre>
   <h2>Tutorial</h2>
   <p>This tutorial covers the main tasks in RCV. It takes about 20 minutes, most of which is waiting for a
   prediction. For every menu, option and command, see the full
-  <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/RCV.md">user guide</a>.</p>
+  <a href="guide/">user guide</a>.</p>
 
   <p><b>Contents:</b>
     <a href="#t-start">Start page</a> &middot;
@@ -526,7 +536,9 @@ def compute(sequence, residues):
     if a is None or b is None:
         return {'end_to_end': None}
     return {'end_to_end': round(float(np.linalg.norm(a - b)), 2)}</code></pre>
-  <p>The plugin API is version 1 and unchanged since RNAconfSwitch 0.4. The built-in plugins in
+  <p>The plugin API is version 2 (RCV 0.6 added console commands, annotations, the active palette, surface and
+  transparency control and chart export); plugins written for version 1 keep working. The complete
+  <a href="guide/plugins.html">plugin developer guide</a> explains everything; the built-in plugins in
   <a href="https://github.com/PrinceWang2018/RNAconformer/tree/master/src/rcv/static/plugins"><code>src/rcv/static/plugins</code></a>
   are complete examples.</p>
 </section>
@@ -534,6 +546,29 @@ def compute(sequence, residues):
 <!-- ============================== RELEASE NOTES ============================== -->
 <section id="releases" class="page">
   <h2>Release Notes</h2>
+
+  <h3>RCV 0.6.0 &mdash; 24 October 2026</h3>
+  <h4>New</h4>
+  <ul>
+    <li><b>Eleven interface languages</b>: English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch,
+        Italiano, Português (Brasil) and Русский. Figures, charts and exports stay in English.</li>
+    <li><b>Window layout</b>: show, hide or maximise every panel and window; <kbd>H</kbd> shows only the 3D view,
+        <kbd>F11</kbd> switches to full screen.</li>
+    <li><b>Plot studio</b>: clustered pairwise RMSD matrix, RMSD to a reference, per-residue RMSF, energy funnel and
+        energy profile at journal sizes, as vector PDF/SVG or PNG/TIFF up to 1200 dpi.</li>
+    <li><b>Annotations</b>, <b>colour palettes</b> with a colour-vision check, <b>molecular surfaces</b> and
+        per-object <b>transparency</b>.</li>
+    <li><b>Mouse tools</b> (select, pull, paint, label, measure) and <b>undo / redo / clear</b>; RCV's own
+        right-click menus; the command-line tools and <i>Fetch from the PDB</i> in a <b>Tools</b> menu.</li>
+    <li>The <b>user guide inside RCV</b> (<kbd>F1</kbd>); installers with Start-menu entries for the demo and the
+        guide.</li>
+  </ul>
+  <h4>Changed and fixed</h4>
+  <ul>
+    <li>Simpler start page; figure text uses the open-licence font Liberation Sans, embedded in PDFs.</li>
+    <li>Fixed: <i>Try the demo ensembles</i> error, the old logo in the title bar and taskbar, and 2D dot sizes in
+        exported figure panels.</li>
+  </ul>
 
   <h3>RCV 0.5.0 &mdash; 23 October 2026</h3>
   <h4>Changed</h4>
@@ -567,7 +602,7 @@ def compute(sequence, residues):
     <li>0.4 &mdash; released as RNAconfSwitch.</li>
     <li>0.3 &mdash; released as RNAconformer Viewer.</li>
   </ul>
-  <p>Full history: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
+  <p>Full history: <a href="guide/changelog.html">changelog</a>.</p>
 </section>
 
 <!-- ============================== STATISTICS ============================== -->
@@ -678,13 +713,13 @@ def compute(sequence, residues):
   <ul>
     <li>Accuracy is good for hairpins and small motifs (about 2–4 Å) but limited for large multi-branched RNAs.</li>
     <li>Switch analysis is at the secondary-structure level; 3D energies are model scores, not free energies.</li>
-    <li>Molecular surfaces, non-canonical base-pair annotation and multi-chain complexes are not yet supported.</li>
+    <li>Non-canonical base-pair annotation and multi-chain complexes are not yet supported.</li>
   </ul>
   <p>Benchmark details: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">engine status and benchmark</a>.</p>
 
   <h3>How to cite</h3>
   <p>If you use RCV in your work, please cite:</p>
-  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.5.0 (2026).
+  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.6.0 (2026).
 https://github.com/PrinceWang2018/RNAconformer</code></pre>
   <p>Please also cite ViennaRNA when you use predictions from sequence:<br>
   Lorenz R. et al. ViennaRNA Package 2.0. <i>Algorithms for Molecular Biology</i> 6, 26 (2011).</p>
@@ -734,6 +769,17 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
 </footer>
 
 <script>
+  // Visit counting with GoatCounter (no cookies). Set the site code to enable it, see README.md.
+  var GOATCOUNTER_CODE = 'princewang2018';
+  if (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0) {
+    var gc = document.createElement('script');
+    gc.async = true;
+    gc.src = 'https://gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', 'https://' + GOATCOUNTER_CODE + '.goatcounter.com/count');
+    document.body.appendChild(gc);
+  }
+</script>
+<script>
   (function () {
     document.body.classList.remove('no-js');
     var pages = Array.prototype.slice.call(document.querySelectorAll('section.page'));
@@ -778,15 +824,31 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
       });
     }
 
-    fetch('stats.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
+    // GoatCounter's public counter gives the current total at once; stats.json (daily) adds countries and months.
+    var live = (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0)
+      ? fetch('https://' + GOATCOUNTER_CODE + '.goatcounter.com/counter/TOTAL.json')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (c) { var n = c ? parseInt(String(c.count).replace(/[^0-9]/g, ''), 10) : NaN; return isNaN(n) ? null : n; })
+          .catch(function () { return null; })
+      : Promise.resolve(null);
+    function showVisits(total) {
+      setStat('visits', fmt(total));
+      document.getElementById('footer-stats').hidden = false;
+    }
+
+    fetch('stats.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (s) {
+      live.then(function (n) {
+        var known = s && s.visits ? s.visits.total : 0;
+        if (n !== null && n > known) showVisits(n);
+      });
       if (!s) return;
       var v = s.visits, d = s.downloads || { total: 0, by_platform: {}, releases: [] };
       setStat('updated', s.updated);
       setStat('downloads', fmt(d.total));
       setStat('releases', fmt(d.releases.length));
       if (v) {
-        setStat('visits', fmt(v.total));
-        setStat('countries', fmt(v.country_count));
+        showVisits(v.total);
+        if (v.country_count !== null && v.country_count !== undefined) setStat('countries', fmt(v.country_count));
         var top = v.countries.slice(0, 15), rest = v.countries.slice(15).reduce(function (a, c) { return a + c.count; }, 0);
         if (rest) top.push({ name: 'Other', count: rest });
         fill('st-countries', barRows(top, v.total, 'name', true));
@@ -795,7 +857,6 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
           return { month: new Date(+p[0], +p[1] - 1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' }), count: m.count };
         });
         fill('st-monthly', barRows(months.reverse(), 0, 'month', false));
-        document.getElementById('footer-stats').hidden = false;
       }
       var platforms = Object.keys(d.by_platform).map(function (k) { return { name: k, count: d.by_platform[k] }; })
         .sort(function (a, b) { return b.count - a.count; });
@@ -805,17 +866,6 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
       }));
     }).catch(function () {});
   })();
-</script>
-<script>
-  // Visit counting with GoatCounter (no cookies). Set the site code to enable it, see README.md.
-  var GOATCOUNTER_CODE = 'princewang2018';
-  if (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0) {
-    var gc = document.createElement('script');
-    gc.async = true;
-    gc.src = 'https://gc.zgo.at/count.js';
-    gc.setAttribute('data-goatcounter', 'https://' + GOATCOUNTER_CODE + '.goatcounter.com/count');
-    document.body.appendChild(gc);
-  }
 </script>
 </body>
 </html>
