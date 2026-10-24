@@ -1,10 +1,40 @@
 {
- "updated": "2026-10-24 08:08 UTC",
- "visits": null,
+ "updated": "2026-10-24 15:54 UTC",
+ "visits": {
+  "total": 26,
+  "since": "2026-10-23",
+  "monthly": [],
+  "countries": [],
+  "country_count": null,
+  "source": "counter"
+ },
  "downloads": {
   "total": 0,
-  "by_platform": {},
-  "releases": []
+  "by_platform": {
+   "Other": 0,
+   "Windows": 0
+  },
+  "releases": [
+   {
+    "tag": "v0.6.0",
+    "name": "RCV 0.6.0",
+    "date": "2026-10-24",
+    "repo": "PrinceWang2018/RNAconfViewer_website",
+    "total": 0,
+    "assets": [
+     {
+      "name": "RCV-0.6.0-Windows-x64-Setup.exe",
+      "platform": "Windows",
+      "count": 0
+     },
+     {
+      "name": "SHA256SUMS.txt",
+      "platform": "Other",
+      "count": 0
+     }
+    ]
+   }
+  ]
  },
  "download_history": [
   {
