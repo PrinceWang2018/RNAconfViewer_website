@@ -208,11 +208,15 @@
       <div class="sidebox">
         <h4>Current version</h4>
         <p style="margin:0">RCV 0.6.0 &middot; 24 October 2026<br>
+        Windows &middot; macOS &middot; Linux<br>
         <a href="#download">Download</a> &middot; <a href="#releases">What's new</a></p>
       </div>
       <div class="sidebox">
         <h4>News</h4>
         <dl class="news" style="margin:0">
+          <dt>2026-10-25</dt>
+          <dd>RCV 0.6.0 for macOS (Apple Silicon and Intel) and Linux (<code>.deb</code> and <code>.rpm</code>
+              packages) is available.</dd>
           <dt>2026-10-24</dt>
           <dd>RCV 0.6.0 released: the interface in eleven languages, a flexible window layout, a plot studio,
               annotations, colour palettes, molecular surfaces, and installers with the user guide.</dd>
@@ -247,28 +251,44 @@
     <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
     <tr>
       <td>Windows 10/11 (64-bit)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Windows-x64-Setup.exe">RCV-0.6.0-Windows-x64-Setup.exe</a> <span class="muted">(41 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Windows-x64-Setup.exe">RCV-0.6.0-Windows-x64-Setup.exe</a> <span class="muted">(43 MB)</span></td>
       <td>Installer with Start-menu entries (RCV, demo ensembles, user guide) and optional <code>.rcv</code> file association.</td>
     </tr>
     <tr>
-      <td>macOS 11+ (Apple Silicon)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-arm64.dmg">RCV-0.6.0-macOS-arm64.dmg</a></td>
-      <td>For M1/M2/M3/M4 Macs.</td>
+      <td>macOS 14+ (Apple Silicon)</td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-arm64.dmg">RCV-0.6.0-macOS-arm64.dmg</a> <span class="muted">(43 MB)</span></td>
+      <td>For Macs with an M-series chip (M1 and later).</td>
     </tr>
     <tr>
-      <td>macOS 11+ (Intel)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-x86_64.dmg">RCV-0.6.0-macOS-x86_64.dmg</a></td>
+      <td>macOS 14+ (Intel)</td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-macOS-x86_64.dmg">RCV-0.6.0-macOS-x86_64.dmg</a> <span class="muted">(48 MB)</span></td>
       <td>For Intel-based Macs.</td>
     </tr>
     <tr>
-      <td>Linux / any platform</td>
+      <td>Linux 64-bit: Debian, Ubuntu, Linux Mint</td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Linux-amd64.deb">RCV-0.6.0-Linux-amd64.deb</a> <span class="muted">(45 MB)</span></td>
+      <td>Ubuntu 20.04, Debian 11 or newer. Adds the <code>rcv</code> command and a menu entry.</td>
+    </tr>
+    <tr>
+      <td>Linux 64-bit: Fedora, RHEL, Rocky, AlmaLinux, openSUSE</td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Linux-x86_64.rpm">RCV-0.6.0-Linux-x86_64.rpm</a> <span class="muted">(45 MB)</span></td>
+      <td>Fedora 32, RHEL 9, openSUSE Leap 15.6 or newer.</td>
+    </tr>
+    <tr>
+      <td>Any platform</td>
       <td><a href="https://github.com/PrinceWang2018/RNAconformer/archive/refs/heads/master.zip">Source code (zip)</a></td>
       <td>Requires Python 3.10 or later. See <a href="#install">Install</a>.</td>
     </tr>
   </table>
 
-  <p class="muted" style="font-size:13px">SHA-256 of the Windows installer:
-  <code style="word-break:break-all">862d9c5935fd5da55893f101c82676104ed232138d0f3867cfc289a0f200526a</code></p>
+  <details class="muted" style="font-size:13px">
+    <summary>SHA-256 checksums (also in <a href="https://www.rnaconfviewer.com/download/v0.6.0/SHA256SUMS.txt">SHA256SUMS.txt</a>)</summary>
+<pre style="white-space:pre-wrap;word-break:break-all"><code>862d9c5935fd5da55893f101c82676104ed232138d0f3867cfc289a0f200526a  RCV-0.6.0-Windows-x64-Setup.exe
+418ec8295de8bedc097705ace27924cd2da5a4256b8159db5947b85c4a692944  RCV-0.6.0-macOS-arm64.dmg
+89b41a21e43f7e10b68e84cfa62d6d766f80c27ff95efaf0522833f95204e57c  RCV-0.6.0-macOS-x86_64.dmg
+550819d5e7d60c4ddb85ea16dfb55bd8b79496cb6d4ccbe0031b1497e1e5d646  RCV-0.6.0-Linux-amd64.deb
+cbcffd702c4601e0e1860549c6da2e337208760f062b386c2b6182a3714878d4  RCV-0.6.0-Linux-x86_64.rpm</code></pre>
+  </details>
   <p>Earlier versions are on the <a href="https://github.com/PrinceWang2018/RNAconfViewer_website/releases">releases page</a>.
   Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
   and projects are read by RCV 0.6.</p>
@@ -276,7 +296,8 @@
   <h3>System requirements</h3>
   <table>
     <tr><th style="width:24%"></th><th>Minimum</th><th>Recommended</th></tr>
-    <tr><td>Operating system</td><td>Windows 10 (64-bit), macOS 11, recent Linux</td><td>Windows 11, macOS 13 or later</td></tr>
+    <tr><td>Operating system</td><td>Windows 10 (64-bit), macOS 14, 64-bit Linux (Ubuntu 20.04, Debian 11, Fedora 32,
+      RHEL 9 or newer)</td><td>Windows 11, macOS 15, a current Linux with Chrome or Chromium</td></tr>
     <tr><td>Processor</td><td>2 cores</td><td>8 or more cores (predictions run in parallel)</td></tr>
     <tr><td>Memory</td><td>4 GB</td><td>16 GB</td></tr>
     <tr><td>Graphics</td><td colspan="2">Any GPU with WebGL 2 support</td></tr>
@@ -316,11 +337,27 @@
         <li>The first time, right-click RCV and choose <i>Open</i> (or <i>System Settings &rsaquo; Privacy &amp;
             Security &rsaquo; Open Anyway</i>), because the app is not yet notarised by Apple.</li>
       </ol>
-      <p class="muted">To open an <code>.rcv</code> file on macOS, use <i>File &rsaquo; Open</i> inside RCV.</p>
+      <p class="muted">To open an <code>.rcv</code> file on macOS, use <i>File &rsaquo; Open</i> inside RCV.
+      RCV needs macOS 14 (Sonoma) or later.</p>
     </div>
   </div>
 
-  <h3>Linux and installation from source</h3>
+  <h3>Linux</h3>
+  <ol>
+    <li>Download the <code>.deb</code> (Debian, Ubuntu, Linux Mint) or the <code>.rpm</code> (Fedora, RHEL, Rocky,
+        AlmaLinux, openSUSE).</li>
+    <li>Install it from the download folder:
+<pre><code>sudo apt install ./RCV-0.6.0-Linux-amd64.deb                 # Debian, Ubuntu, Linux Mint
+sudo dnf install ./RCV-0.6.0-Linux-x86_64.rpm                # Fedora, RHEL, Rocky, AlmaLinux
+sudo zypper install --allow-unsigned-rpm ./RCV-0.6.0-Linux-x86_64.rpm   # openSUSE</code></pre></li>
+    <li>Start RCV from the applications menu or type <code>rcv</code> in a terminal. Right-click the menu entry
+        for <i>RCV with demo ensembles</i> and the <i>RCV User Guide</i>; <code>.rcv</code> files open with RCV.</li>
+  </ol>
+  <p class="muted">RCV opens in a Chrome, Chromium or Edge app window when one of them is installed, otherwise in
+  your default browser, and quits when you close that window. The user guide is also in
+  <code>/opt/rcv/docs</code>.</p>
+
+  <h3>Installation from source (any system)</h3>
   <p>Requirements: Python 3.10 or later with <code>numpy</code> and <code>scipy</code>. ViennaRNA is needed for
   prediction from sequence and for the switch analysis.</p>
 <pre><code>git clone https://github.com/PrinceWang2018/RNAconformer.git
@@ -346,7 +383,8 @@ rcv               # opens the start page</code></pre>
 
   <h3>Uninstall</h3>
   <p>Windows: <i>Settings &rsaquo; Apps &rsaquo; RCV &rsaquo; Uninstall</i>. macOS: move RCV from Applications
-  to the Trash. Source install: <code>pip uninstall rna-conformation-viewer</code>. Your projects and settings
+  to the Trash. Linux: <code>sudo apt remove rcv</code>, <code>sudo dnf remove rcv</code> or
+  <code>sudo zypper remove rcv</code>. Source install: <code>pip uninstall rna-conformation-viewer</code>. Your projects and settings
   are kept unless you delete the folders listed above.</p>
 </section>
 
@@ -561,7 +599,7 @@ def compute(sequence, residues):
     <li><b>Mouse tools</b> (select, pull, paint, label, measure) and <b>undo / redo / clear</b>; RCV's own
         right-click menus; the command-line tools and <i>Fetch from the PDB</i> in a <b>Tools</b> menu.</li>
     <li>The <b>user guide inside RCV</b> (<kbd>F1</kbd>); installers with Start-menu entries for the demo and the
-        guide.</li>
+        guide; <b>Linux packages</b> (<code>.deb</code>, <code>.rpm</code>) with a menu entry.</li>
   </ul>
   <h4>Changed and fixed</h4>
   <ul>

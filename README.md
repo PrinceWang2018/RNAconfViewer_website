@@ -31,10 +31,10 @@ To publish a version:
 
 1. On GitHub, open this repository ▸ *Releases* ▸ *Draft a new release*. Tag: `v0.6.0` (create it on
    `master`), title `RCV 0.6.0`.
-2. Drag the installers into the release: `downloads/RCV-0.6.0-Windows-x64-Setup.exe` and, for Mac, the
-   `RCV-0.6.0-macOS-arm64.dmg` and `RCV-0.6.0-macOS-x86_64.dmg` built by the *Build installers* workflow of the
-   RNAconformer repository (or let that workflow attach all of them: see `packaging/README.md` there).
-   Add `downloads/SHA256SUMS.txt` too. *Publish release*.
+2. Drag the installers into the release: `RCV-0.6.0-Windows-x64-Setup.exe`, `RCV-0.6.0-macOS-arm64.dmg`,
+   `RCV-0.6.0-macOS-x86_64.dmg`, `RCV-0.6.0-Linux-amd64.deb` and `RCV-0.6.0-Linux-x86_64.rpm` (the *Build
+   installers* workflow of the RNAconformer repository builds all of them; it can also attach them itself: see
+   `packaging/README.md` there). Add `SHA256SUMS.txt` too (`sha256sum RCV-* > SHA256SUMS.txt`). *Publish release*.
 3. In `index.html`, the Download tab links to `https://www.rnaconfviewer.com/download/v<version>/<file>`;
    change the version there for the next release. The links work as soon as the release is published.
 
