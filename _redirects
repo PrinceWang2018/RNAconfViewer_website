@@ -5,6 +5,6 @@
 # website forwards to them. GitHub counts the downloads for the Statistics tab.
 #
 #   https://www.rnaconfviewer.com/download/v0.6.0/RCV-0.6.0-Windows-x64-Setup.exe
-#   https://www.rnaconfviewer.com/download/latest/RCV-0.6.0-Windows-x64-Setup.exe   (newest release)
-/download/latest/:file  https://github.com/PrinceWang2018/RNAconfViewer_website/releases/latest/download/:file  302
+#   https://www.rnaconfviewer.com/download/RCV-0.6.0-Windows-x64-Setup.exe          (newest release)
+/download/:file         https://github.com/PrinceWang2018/RNAconfViewer_website/releases/latest/download/:file  302
 /download/:tag/:file    https://github.com/PrinceWang2018/RNAconfViewer_website/releases/download/:tag/:file    302
