@@ -59,6 +59,12 @@ def platform_of(name):
     return 'Other'
 
 
+def is_checksum(name):
+    """Checksum and signature files (SHA256SUMS.txt, *.sha256, *.asc, *.sig) are not downloads of RCV."""
+    n = name.lower()
+    return n.startswith('sha256sums') or n.endswith(('.sha256', '.asc', '.sig', '.txt'))
+
+
 def downloads():
     token = os.environ.get('GITHUB_TOKEN')
     releases, by_platform, errors = [], defaultdict(int), []
@@ -74,7 +80,7 @@ def downloads():
                 if rel.get('draft'):
                     continue
                 assets = [{'name': a['name'], 'platform': platform_of(a['name']), 'count': a['download_count']}
-                          for a in rel.get('assets', [])]
+                          for a in rel.get('assets', []) if not is_checksum(a['name'])]
                 for a in assets:
                     by_platform[a['platform']] += a['count']
                 releases.append({'tag': rel['tag_name'], 'name': rel.get('name') or rel['tag_name'],
