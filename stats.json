@@ -1,22 +1,26 @@
 {
- "updated": "2026-10-25 01:41 UTC",
+ "updated": "2026-10-25 08:25 UTC",
  "visits": {
-  "total": 38,
+  "total": 49,
   "since": "2026-10-23",
   "monthly": [
    {
     "month": "2026-10",
-    "count": 38
+    "count": 49
    }
   ],
   "countries": [
    {
     "name": "Singapore",
-    "count": 24
+    "count": 28
    },
    {
     "name": "United States",
     "count": 10
+   },
+   {
+    "name": "Switzerland",
+    "count": 6
    },
    {
     "name": "Canada",
@@ -27,18 +31,22 @@
     "count": 1
    },
    {
+    "name": "Netherlands",
+    "count": 1
+   },
+   {
     "name": "Poland",
     "count": 1
    }
   ],
-  "country_count": 5,
+  "country_count": 7,
   "source": "api"
  },
  "downloads": {
-  "total": 17,
+  "total": 18,
   "by_platform": {
    "Linux": 4,
-   "Windows": 9,
+   "Windows": 10,
    "macOS (Apple Silicon)": 2,
    "macOS (Intel)": 2
   },
@@ -48,7 +56,7 @@
     "name": "RCV 0.6.0",
     "date": "2026-10-24",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 17,
+    "total": 18,
     "assets": [
      {
       "name": "RCV-0.6.0-Linux-amd64.deb",
@@ -73,7 +81,7 @@
      {
       "name": "RCV-0.6.0-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 9
+      "count": 10
      }
     ]
    }
@@ -90,7 +98,7 @@
   },
   {
    "date": "2026-10-25",
-   "total": 17
+   "total": 18
   }
  ]
 }
