@@ -203,6 +203,7 @@
     <li><a href="#download">Download</a></li>
     <li><a href="#install">Install</a></li>
     <li><a href="#tutorial">Tutorial</a></li>
+    <li><a href="#benchmark">Benchmark</a></li>
     <li><a href="#plugins">Plugins</a></li>
     <li><a href="#releases">Release Notes</a></li>
     <li><a href="#statistics">Statistics</a></li>
@@ -239,7 +240,7 @@
     <p>RNA structure is not confined to a single answer, and neither is life.</p>
   </blockquote>
   <p>
-    <a class="btn" href="#download">Download RCV 0.7.1</a>&nbsp;
+    <a class="btn" href="#download">Download RCV 0.7.2</a>&nbsp;
     <a class="btn secondary" href="#tutorial">Get started</a>
   </p>
 
@@ -301,13 +302,19 @@
     <aside>
       <div class="sidebox">
         <h4>Current version</h4>
-        <p style="margin:0">RCV 0.7.1 &middot; 27 October 2026<br>
+        <p style="margin:0">RCV 0.7.2 &middot; 6 November 2026<br>
         Windows &middot; macOS &middot; Linux<br>
         <a href="#download">Download</a> &middot; <a href="#releases">What's new</a></p>
       </div>
       <div class="sidebox">
         <h4>News</h4>
         <dl class="news" style="margin:0">
+          <dt>2026-11-06</dt>
+          <dd>RCV 0.7.2 released for Windows, macOS and Linux: helices next to G&middot;U pairs are no longer lost
+              from predictions, clearer command-line messages. <a href="#releases">What's new</a></dd>
+          <dt>2026-11-06</dt>
+          <dd>How accurate is RCV&rsquo;s prediction engine? A <a href="#benchmark">blind-test comparison</a> with
+              AlphaFold&nbsp;3 and the best groups of CASP16 on 15 RNA targets.</dd>
           <dt>2026-10-27</dt>
           <dd>RCV 0.7.1 released for Windows, macOS and Linux: <b>how one conformation turns into another</b>
               (Pathway tab), a topology-aware ensemble map, SHAPE/DMS probing data, conditions and ligands, a
@@ -329,7 +336,8 @@
         <h4>Quick links</h4>
         <ul>
           <li><a href="guide/">User guide</a></li>
-          <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">Engine status &amp; benchmark</a></li>
+          <li><a href="#benchmark">Benchmark against AlphaFold&nbsp;3 (CASP16)</a></li>
+          <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">Engine status</a></li>
           <li><a href="#about">How to cite</a></li>
           <li><a href="#cocreation">Join the Co-creation Program</a></li>
         </ul>
@@ -345,7 +353,7 @@
   The desktop installers include Python, the prediction engine, ViennaRNA and the demo data; nothing else
   needs to be installed.</p>
 
-  <h3>RCV 0.7.1 <span class="muted" style="font-size:14px;font-weight:400">(27 October 2026)</span></h3>
+  <h3>RCV 0.7.2 <span class="muted" style="font-size:14px;font-weight:400">(6 November 2026)</span></h3>
   <p>New in this version: how an RNA switches from one conformation to another (Pathway tab), a topology-aware
   ensemble map, probing data, conditions and ligands, a confidence model, and a simpler start page.
   <a href="#releases">Release notes</a>.</p>
@@ -353,27 +361,27 @@
     <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
     <tr>
       <td>Windows 10/11 (64-bit)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.1/RCV-0.7.1-Windows-x64-Setup.exe">RCV-0.7.1-Windows-x64-Setup.exe</a> <span class="muted">(43 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.2/RCV-0.7.2-Windows-x64-Setup.exe">RCV-0.7.2-Windows-x64-Setup.exe</a> <span class="muted">(43 MB)</span></td>
       <td>Installer with Start-menu entries (RCV, demo ensembles, user guide) and optional <code>.rcv</code> file association.</td>
     </tr>
     <tr>
       <td>macOS 14+ (Apple Silicon)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.1/RCV-0.7.1-macOS-arm64.dmg">RCV-0.7.1-macOS-arm64.dmg</a> <span class="muted">(44 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.2/RCV-0.7.2-macOS-arm64.dmg">RCV-0.7.2-macOS-arm64.dmg</a> <span class="muted">(44 MB)</span></td>
       <td>For Macs with an M-series chip (M1 and later).</td>
     </tr>
     <tr>
       <td>macOS 14+ (Intel)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.1/RCV-0.7.1-macOS-x86_64.dmg">RCV-0.7.1-macOS-x86_64.dmg</a> <span class="muted">(49 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.2/RCV-0.7.2-macOS-x86_64.dmg">RCV-0.7.2-macOS-x86_64.dmg</a> <span class="muted">(49 MB)</span></td>
       <td>For Intel-based Macs.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Debian, Ubuntu, Linux Mint</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.1/RCV-0.7.1-Linux-amd64.deb">RCV-0.7.1-Linux-amd64.deb</a> <span class="muted">(46 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.2/RCV-0.7.2-Linux-amd64.deb">RCV-0.7.2-Linux-amd64.deb</a> <span class="muted">(46 MB)</span></td>
       <td>Ubuntu 20.04, Debian 11 or newer. Adds the <code>rcv</code> command and a menu entry.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Fedora, RHEL, Rocky, AlmaLinux, openSUSE</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.1/RCV-0.7.1-Linux-x86_64.rpm">RCV-0.7.1-Linux-x86_64.rpm</a> <span class="muted">(45 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.2/RCV-0.7.2-Linux-x86_64.rpm">RCV-0.7.2-Linux-x86_64.rpm</a> <span class="muted">(45 MB)</span></td>
       <td>Fedora 32, RHEL 9, openSUSE Leap 15.6 or newer.</td>
     </tr>
     <tr>
@@ -384,12 +392,12 @@
   </table>
 
   <details class="muted" style="font-size:13px">
-    <summary>SHA-256 checksums (also in <a href="https://www.rnaconfviewer.com/download/v0.7.1/SHA256SUMS.txt">SHA256SUMS.txt</a>)</summary>
-<pre style="white-space:pre-wrap;word-break:break-all"><code>edd468c875920aa3089fe6d0131a088bd438a35c36f8ea9822035025137a1dfe  RCV-0.7.1-Windows-x64-Setup.exe
-4a43d09bb42de3a819ab51d06b21bf3fd476a8217d28c5649508ddc39f293ed3  RCV-0.7.1-macOS-arm64.dmg
-3e0419edce3a3e02a2dac8379e8efcd795c8f9166235c60cf6ac3b4c6a73540d  RCV-0.7.1-macOS-x86_64.dmg
-4052c59a9e9318eb04ee202190f6bd6e34df9ec4afdc168c467aad73810c45d2  RCV-0.7.1-Linux-amd64.deb
-2e6b0e973c3416c3587a96eced2f9375be2b8aab16a6ef8654e8d59517e80b58  RCV-0.7.1-Linux-x86_64.rpm</code></pre>
+    <summary>SHA-256 checksums</summary>
+<pre style="white-space:pre-wrap;word-break:break-all"><code>e4d646a072e8bcda45cf19615ab5e1decfdc3bfc38dfe19ec098675241846b7d  RCV-0.7.2-Windows-x64-Setup.exe
+63999fc5fbdd3fe003e7fd7e76e311f19add6cef79c202c285962cc856a91f83  RCV-0.7.2-macOS-arm64.dmg
+7a9904b7d80bbd7b7b9d009b9f994ad5d2ef75268f4cf6b9ee71d91cf0d2ab00  RCV-0.7.2-macOS-x86_64.dmg
+22760f4e1ec654a45f681f4c19c41bcb83b5f971973c88c4f6588409963e1113  RCV-0.7.2-Linux-amd64.deb
+9f04e3f6d97205d446851873fd8fcdcde6b42a5882540b689a46d30cf2b329b1  RCV-0.7.2-Linux-x86_64.rpm</code></pre>
   </details>
   <p>Earlier versions are on the <a href="https://github.com/PrinceWang2018/RNAconfViewer_website/releases">releases page</a>.
   Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
@@ -422,7 +430,7 @@
     <div>
       <h3 style="margin-top:0">Windows</h3>
       <ol>
-        <li>Download <code>RCV-0.7.1-Windows-x64-Setup.exe</code>.</li>
+        <li>Download <code>RCV-0.7.2-Windows-x64-Setup.exe</code>.</li>
         <li>Run the installer and follow the steps. Optionally create a desktop shortcut and associate
             <code>.rcv</code> files with RCV.</li>
         <li>Start RCV from the Start menu. The Start menu also has <i>RCV with demo ensembles</i>, the
@@ -449,9 +457,9 @@
     <li>Download the <code>.deb</code> (Debian, Ubuntu, Linux Mint) or the <code>.rpm</code> (Fedora, RHEL, Rocky,
         AlmaLinux, openSUSE).</li>
     <li>Install it from the download folder:
-<pre><code>sudo apt install ./RCV-0.7.1-Linux-amd64.deb                 # Debian, Ubuntu, Linux Mint
-sudo dnf install ./RCV-0.7.1-Linux-x86_64.rpm                # Fedora, RHEL, Rocky, AlmaLinux
-sudo zypper install --allow-unsigned-rpm ./RCV-0.7.1-Linux-x86_64.rpm   # openSUSE</code></pre></li>
+<pre><code>sudo apt install ./RCV-0.7.2-Linux-amd64.deb                 # Debian, Ubuntu, Linux Mint
+sudo dnf install ./RCV-0.7.2-Linux-x86_64.rpm                # Fedora, RHEL, Rocky, AlmaLinux
+sudo zypper install --allow-unsigned-rpm ./RCV-0.7.2-Linux-x86_64.rpm   # openSUSE</code></pre></li>
     <li>Start RCV from the applications menu or type <code>rcv</code> in a terminal. Right-click the menu entry
         for <i>RCV with demo ensembles</i> and the <i>RCV User Guide</i>; <code>.rcv</code> files open with RCV.</li>
   </ol>
@@ -1222,6 +1230,88 @@ rcv engine predict …                    # the prediction engine itself (rnafol
 </section>
 
 <!-- ============================== PLUGINS ============================== -->
+<section id="benchmark" class="page">
+  <h2>Benchmark: RCV versus the leading RNA structure predictors</h2>
+  <p><a href="https://predictioncenter.org/casp16/">CASP16</a> (2024) is the latest community-wide blind test of
+  RNA 3D structure prediction. RCV 0.7.2 predicted its 15 single-chain RNA targets up to 250&nbsp;nt from the
+  sequence alone &mdash; 5 models per target, <i>thorough</i> sampling, 1&ndash;6 minutes each on a 16-core desktop
+  CPU. RCV&rsquo;s models and the models submitted to CASP16 by AlphaFold&nbsp;3, the trRosettaRNA server and two
+  of the top expert groups (Vfold, GuangzhouRNA) were all scored the same way, with US-align as in the official
+  assessment.</p>
+
+  <figure>
+    <img src="images/casp16_tm.svg" width="760" height="538" alt="TM-score of model 1 per CASP16 RNA target for RCV, AlphaFold 3 and the best CASP16 group" loading="lazy" style="border:0">
+    <figcaption>TM-score of the first model on every target (1 = identical to the experimental structure; above
+    about 0.45 the overall fold is right). The grey line spans the three values.</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Method</th><th>Mean TM-score, model&nbsp;1</th><th>Mean TM-score, best of 5</th><th>Median RMSD, model&nbsp;1 (&Aring;)</th><th>Overall fold right (TM&nbsp;&ge;&nbsp;0.45)</th><th>Base pairs right (INF-WC)</th></tr></thead>
+    <tbody>
+      <tr><td>RCV 0.7.2 <span class="muted">(physics-based, no deep learning)</span></td><td>0.25</td><td>0.28</td><td>15.3</td><td>0 of 15</td><td>0.75</td></tr>
+      <tr><td>AlphaFold 3</td><td>0.48</td><td>0.50</td><td>8.6</td><td>8 of 15</td><td>0.92</td></tr>
+      <tr><td>trRosettaRNA (server)</td><td>0.49</td><td>0.54</td><td>9.4</td><td>9 of 15</td><td>0.85</td></tr>
+      <tr><td>Vfold</td><td>0.53</td><td>0.56</td><td>3.5</td><td>10 of 15</td><td>0.91</td></tr>
+      <tr><td>GuangzhouRNA</td><td>0.53</td><td>0.55</td><td>5.8</td><td>9 of 15</td><td>0.93</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What the comparison shows</h3>
+  <ul>
+    <li><b>For one most-likely structure, the deep-learning and template-based tools are clearly better.</b> They
+        get the overall fold right on 8&ndash;10 of the 15 targets; RCV on none.</li>
+    <li><b>The gap is mainly the 3D arrangement of the helices</b> (junctions, coaxial stacking, tertiary
+        contacts), which RCV&rsquo;s physics-inspired engine does not model yet. On several targets RCV&rsquo;s
+        base pairs are as accurate as AlphaFold&nbsp;3&rsquo;s, but its TM-score is about half.</li>
+    <li><b>On the hardest targets the field is level.</b> Where the median CASP16 model scores below 0.3, RCV is
+        close to the median group and ahead of AlphaFold&nbsp;3 on three of five targets &mdash; though at this
+        level all predictions are essentially wrong.</li>
+    <li><b>RCV&rsquo;s strengths are elsewhere:</b> alternative folds, switching, pathways and their analysis, on
+        any computer without a GPU. A practical combination: predict a structure with a deep-learning tool,
+        <a href="#t-open">open its models in RCV</a>, and add RCV&rsquo;s own <a href="#t-predict">ensemble</a>
+        for alternative states.</li>
+  </ul>
+
+  <details>
+    <summary>TM-score of model 1 on every target</summary>
+  <table>
+    <thead><tr><th>Target</th><th>RNA</th><th>nt</th><th>RCV</th><th>AlphaFold&nbsp;3</th><th>trRosettaRNA</th><th>Vfold</th><th>GuangzhouRNA</th><th>CASP16 median</th></tr></thead>
+    <tbody>
+      <tr><td>R1203</td><td>HIV-1 RRE stem-loop II</td><td>134</td><td>0.24</td><td>0.59</td><td>0.50</td><td>0.46</td><td>0.52</td><td>0.52</td></tr>
+      <tr><td>R1205</td><td>xrRNA</td><td>59</td><td>0.28</td><td>0.34</td><td>0.28</td><td>0.33</td><td>0.23</td><td>0.29</td></tr>
+      <tr><td>R1209</td><td>HIV-1 RRE stem-loop II (Fab complex)</td><td>72</td><td>0.27</td><td>0.26</td><td>0.31</td><td>0.33</td><td>0.30</td><td>0.27</td></tr>
+      <tr><td>R1211</td><td>CVB3 cloverleaf</td><td>90</td><td>0.23</td><td>0.43</td><td>0.63</td><td>0.61</td><td>0.52</td><td>0.42</td></tr>
+      <tr><td>R1212</td><td>Fanzor2 ωRNA (247 nt, above 200)</td><td>247</td><td>0.25</td><td>0.23</td><td>0.23</td><td>0.25</td><td>0.30</td><td>0.23</td></tr>
+      <tr><td>R1221s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td>0.17</td><td>0.58</td><td>0.61</td><td>0.65</td><td>0.64</td><td>0.57</td></tr>
+      <tr><td>R1224s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td>0.18</td><td>0.59</td><td>0.60</td><td>0.60</td><td>0.64</td><td>0.59</td></tr>
+      <tr><td>R1261</td><td>ZTP riboswitch</td><td>89</td><td>0.27</td><td>0.64</td><td>0.61</td><td>0.68</td><td>0.72</td><td>0.61</td></tr>
+      <tr><td>R1262</td><td>ZTP riboswitch + AICA</td><td>89</td><td>0.27</td><td>0.65</td><td>0.60</td><td>0.67</td><td>0.69</td><td>0.62</td></tr>
+      <tr><td>R1263</td><td>ZTP riboswitch (64 nt)</td><td>64</td><td>0.29</td><td>0.66</td><td>0.80</td><td>0.93</td><td>0.93</td><td>0.60</td></tr>
+      <tr><td>R1264</td><td>ZTP riboswitch (64 nt) + ligand</td><td>64</td><td>0.27</td><td>0.63</td><td>0.72</td><td>0.79</td><td>0.79</td><td>0.59</td></tr>
+      <tr><td>R1271</td><td>tRNA (RECC complex)</td><td>77</td><td>0.23</td><td>0.61</td><td>0.63</td><td>0.64</td><td>0.62</td><td>0.62</td></tr>
+      <tr><td>R1288</td><td>SAMURI ribozyme</td><td>58</td><td>0.30</td><td>0.25</td><td>0.25</td><td>0.26</td><td>0.23</td><td>0.26</td></tr>
+      <tr><td>R1293</td><td>translation enhancer motif</td><td>82</td><td>0.24</td><td>0.37</td><td>0.31</td><td>0.47</td><td>0.43</td><td>0.28</td></tr>
+      <tr><td>R1296</td><td>tRNA (G34U mutant)</td><td>72</td><td>0.28</td><td>0.35</td><td>0.31</td><td>0.33</td><td>0.32</td><td>0.32</td></tr>
+    </tbody>
+  </table>
+  </details>
+
+  <h3>Fairness and method</h3>
+  <ul>
+    <li>The CASP16 groups predicted blind in 2024, many with templates, multiple sequence alignments, deep
+        learning and expert curation. RCV was run in 2026 but used nothing from the targets: no templates, no
+        alignments, no training on structures, and no tuning on these 15 RNAs. Its geometry parameters come from
+        178 PDB entries, none of which is a CASP16 target.</li>
+    <li>Scores: US-align with residue-index superposition on C3&prime; atoms; TM-score normalised by the
+        experimental structure (the CASP16 &ldquo;TM_score&rdquo;). Re-scoring the CASP16 models this way reproduces
+        the official CASP16 table. INF-WC: fraction of Watson&ndash;Crick and wobble base pairs that agree with the
+        experimental structure.</li>
+    <li>Everything is reproducible: scripts, per-target results and notes are in
+        <a href="https://github.com/PrinceWang2018/RNAconformer/tree/master/benchmark/casp16">benchmark/casp16</a>
+        on GitHub.</li>
+  </ul>
+</section>
+
 <section id="plugins" class="page">
   <h2>Plugins</h2>
   <p>RCV can be extended with two kinds of plugins. Place the plugin file in the <code>plugins</code> folder of
@@ -1297,6 +1387,27 @@ def compute(sequence, residues):
 <!-- ============================== RELEASE NOTES ============================== -->
 <section id="releases" class="page">
   <h2>Release Notes</h2>
+
+  <h3>RCV 0.7.2 &mdash; 6 November 2026</h3>
+  <p>Bug fixes and a <a href="#benchmark">blind-test comparison</a> of the prediction engine with AlphaFold&nbsp;3
+  and the best groups of CASP16.</p>
+  <h4>Fixed</h4>
+  <ul>
+    <li><b>Folds lost next to G&middot;U wobble pairs.</b> In about 5% of helices containing a G&middot;U pair, the
+        engine built two atoms on top of each other. Every model of that fold then failed validation and the fold
+        silently dropped out of the results, even when it was the most stable one. Helices are now built clash-free
+        (0 of 1600 test helices clash, before 81), with better base-pair geometry. On CASP16 target R1205, 18 of 20
+        trajectories are valid instead of 4.</li>
+    <li><b>Command-line tools</b> (<code>rcv info</code>, <code>extract</code>, <code>convert</code> and the others)
+        report a missing file, a file that is not an <code>.rcv</code> file, or a folder given by mistake in one line
+        with a hint, instead of a Python error dump.</li>
+  </ul>
+  <h4>New</h4>
+  <ul>
+    <li><b>CASP16 benchmark</b>: RCV&rsquo;s engine on 15 blind RNA targets next to AlphaFold&nbsp;3, trRosettaRNA,
+        Vfold and GuangzhouRNA, all scored the same way as the official assessment. Results, scripts and notes are on
+        the <a href="#benchmark">Benchmark</a> tab and on GitHub.</li>
+  </ul>
 
   <h3>RCV 0.7.1 &mdash; 27 October 2026</h3>
   <p>The first public release of the 0.7 series. It includes 0.6.1 and 0.7.0, which were not released
@@ -1509,7 +1620,7 @@ def compute(sequence, residues):
 
   <h3>How to cite</h3>
   <p>If you use RCV in your work, please cite:</p>
-  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.7.1 (2026).
+  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.7.2 (2026).
 https://github.com/PrinceWang2018/RNAconformer</code></pre>
   <p>Please also cite ViennaRNA when you use predictions from sequence:<br>
   Lorenz R. et al. ViennaRNA Package 2.0. <i>Algorithms for Molecular Biology</i> 6, 26 (2011).</p>
