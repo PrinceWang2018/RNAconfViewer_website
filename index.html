@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RCV: RNA Conformation Viewer</title>
-<meta name="description" content="RCV (RNA Conformation Viewer) is a free desktop application to predict, explore and present RNA conformational ensembles on your own computer, and to see how an RNA switches from one conformation to another.">
+<meta name="description" content="RCV (RNA Conformation Viewer) is a free, open-source desktop application for RNA 3D conformation prediction, interactive molecular visualization, conformational ensemble analysis, and RNA conformational switching studies. Runs on Windows, macOS, and Linux.">
+<meta name="keywords" content="RNA 3D structure viewer, RNA conformation visualization, RNA conformational ensemble, RNA conformational switching, RNA structure analysis, molecular visualization, bioinformatics software">
 <link rel="icon" href="favicon.ico">
 <link rel="canonical" href="https://www.rnaconfviewer.com/">
 <meta property="og:title" content="RCV: RNA Conformation Viewer">
@@ -87,6 +88,7 @@
 
   /* home */
   .lead { font-size: 17px; color: #333; max-width: 760px; }
+  .keywords { font-size: 14px; color: var(--muted); max-width: 760px; }
   .motto {
     margin: 0 0 18px; padding: 2px 0 2px 14px; max-width: 760px;
     border-left: 3px solid var(--blue); font-size: 16px; font-style: italic; color: var(--muted);
@@ -123,6 +125,36 @@
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .side-img { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
 
+  /* home: learn-more links */
+  a.more { white-space: nowrap; font-size: 13.5px; }
+
+  /* tutorial: contents sidebar */
+  .tut { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 18px; }
+  .toc {
+    position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto;
+    border: 1px solid var(--line); background: var(--bg-soft); padding: 10px 0 12px; font-size: 13.5px;
+    counter-reset: toc;
+  }
+  .toc-title { font-weight: 600; color: #111; padding: 0 14px; margin: 0 0 4px; }
+  .toc-group { margin: 10px 0 2px; padding: 0 14px; font-size: 11.5px; font-weight: 600; letter-spacing: .5px;
+    text-transform: uppercase; color: var(--muted); }
+  .toc ol { list-style: none; margin: 0; padding: 0; }
+  .toc li { margin: 0; counter-increment: toc; }
+  .toc a { display: block; padding: 3px 14px 3px 11px; border-left: 3px solid transparent; color: var(--text); line-height: 1.4; }
+  .toc a::before { content: counter(toc) ". "; color: var(--muted); }
+  .toc a:hover { background: #e8ecf2; text-decoration: none; }
+  .toc a.active { border-left-color: var(--blue); background: #e3eaf4; color: var(--blue-dark); font-weight: 600; }
+  .tut-body { min-width: 0; }
+  .tut-body h3 { margin-top: 34px; padding-top: 4px; }
+  .t-group { margin: 40px 0 0; padding-bottom: 4px; border-bottom: 2px solid var(--blue); font-size: 12.5px;
+    font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--blue); }
+  .t-group:first-child { margin-top: 0; }
+  .t-group + h3 { margin-top: 16px; }
+  .try { border-left: 3px solid var(--blue); background: #eef3fa; padding: 8px 12px; margin: 10px 0 16px; font-size: 14px; }
+  .ref { font-size: 13px; color: var(--muted); }
+  kbd { font-family: Consolas, Menlo, monospace; font-size: 12.5px; padding: 0 4px; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 3px; background: #fff; white-space: nowrap; }
+
   /* statistics */
   .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); margin: 6px 0 22px; }
   .stat-row div { padding: 12px 16px; border-left: 1px solid var(--line); }
@@ -139,6 +171,8 @@
 
   @media (max-width: 820px) {
     .home-grid, .two-col, .side-img, .stats-cols { grid-template-columns: 1fr; }
+    .tut { grid-template-columns: minmax(0, 1fr); }
+    .toc { position: static; max-height: none; }
     .stat-row { grid-template-columns: 1fr 1fr; }
     .stat-row div:nth-child(3) { border-left: 0; }
     .features { columns: 1; }
@@ -184,9 +218,22 @@
 <section id="home" class="page">
   <h2>RNA Conformation Viewer</h2>
   <p class="lead">
-    RCV is a free desktop application for predicting, exploring and presenting the conformations of an RNA.
-    It combines the <em>rnafold3d</em> prediction engine with an interactive 3D/2D viewer, and runs entirely on
-    your own computer.
+    <b>Predict, explore and present RNA conformations on your own computer.</b>
+    RCV is a free, open-source desktop application for RNA 3D conformation prediction, interactive molecular
+    visualization, conformational ensemble analysis, and RNA conformational switching studies.
+  </p>
+  <p>
+    Unlike tools focused only on displaying a single RNA structure, RCV combines 3D visualization with linked
+    secondary-structure views, multi-conformation exploration, switching analysis, mutation scanning, and
+    publication-ready figure generation.
+  </p>
+  <p>
+    RCV supports Windows, macOS, and Linux. It is designed for researchers in RNA biology, structural biology,
+    computational biology, and bioinformatics.
+  </p>
+  <p class="keywords">
+    <b>Keywords:</b> RNA 3D structure viewer, RNA conformation visualization, RNA conformational ensemble,
+    RNA conformational switching, RNA structure analysis, molecular visualization, bioinformatics software.
   </p>
   <blockquote class="motto">
     <p>RNA structure is not confined to a single answer, and neither is life.</p>
@@ -208,27 +255,39 @@
         <li><b>Pathways: how A turns into B.</b> <span class="new">New</span> The refolding barrier and routes between
             two conformations, the time to switch and any traps, the base pairs and coordinated 3D motions that
             limit the switch, and the point mutations that speed it up or slow it down (&phi;-value scan). A
-            mechanism morph plays the motion.</li>
+            mechanism morph plays the motion. <a class="more" href="#t-pathway">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Topology-aware ensemble map.</b> <span class="new">New</span> Every secondary-structure topology has
             its own region; inside it, conformations are placed by 3D similarity, with the switching routes drawn
-            on top.</li>
+            on top. <a class="more" href="#t-map">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Probing data.</b> <span class="new">New</span> Load SHAPE or DMS reactivities: see how well each
-            conformation agrees and reweight the ensemble to fit the data.</li>
+            conformation agrees and reweight the ensemble to fit the data. <a class="more" href="#t-probing">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Conditions and ligands.</b> <span class="new">New</span> Temperature, Na<sup>+</sup> and a ligand binding
-            to an aptamer change the balance between conformations and the switching path.</li>
+            to an aptamer change the balance between conformations and the switching path. <a class="more" href="#t-conditions">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Per-nucleotide confidence.</b> <span class="new">New</span> An optional small neural network estimates
-            how accurate each part of a model is. It runs on any laptop; no GPU needed.</li>
-        <li><b>Prediction from sequence.</b> Paste a sequence or a multi-sequence FASTA file; RCV returns a ranked, validated all-atom ensemble.</li>
+            how accurate each part of a model is. It runs on any laptop; no GPU needed. <a class="more" href="#t-confidence">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Prediction from sequence.</b> Paste a sequence or a multi-sequence FASTA file; RCV returns a ranked, validated all-atom ensemble. <a class="more" href="#t-predict">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Open your own structures.</b> NMR ensembles, MD snapshots, PDB/mmCIF files from any predictor. Several
-            files of one RNA, or one multi-model file, open together as one ensemble.</li>
-        <li><b>Pull to switch.</b> Drag a residue and the structure moves to the nearest stable computed conformation.</li>
-        <li><b>Linked 2D and 3D.</b> The secondary structure follows the 3D view, with shared colours, hover and selection.</li>
-        <li><b>Switch analysis.</b> Boltzmann populations of 2D states and a point-mutation scan.</li>
-        <li><b>Command console.</b> A selection language for RNA ensembles and familiar molecular-viewer commands.</li>
-        <li><b>Publication output.</b> Figures, figure panels, a plot studio (clustered RMSD matrix, RMSF, energy funnel), annotations, colour-blind-safe palettes, molecular surfaces, transition videos, interactive HTML pages and methods text.</li>
-        <li><b>Your language, your layout.</b> English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Italiano, Português and Русский; every panel can be shown, hidden or maximised.</li>
-        <li><b>One file per RNA.</b> The open <code>.rcv</code> format stores all conformations, 10–14× smaller than PDB.</li>
+            files of one RNA, or one multi-model file, open together as one ensemble. <a class="more" href="#t-open">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Pull to switch.</b> Drag a residue and the structure moves to the nearest stable computed conformation. <a class="more" href="#t-pull">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Linked 2D and 3D.</b> The secondary structure follows the 3D view, with shared colours, hover and selection. <a class="more" href="#t-2d">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Switch analysis.</b> Boltzmann populations of 2D states and a point-mutation scan. <a class="more" href="#t-switch">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Command console.</b> A selection language for RNA ensembles and familiar molecular-viewer commands. <a class="more" href="#t-console">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Publication output.</b> Figures, figure panels, a plot studio (clustered RMSD matrix, RMSF, energy funnel), annotations, colour-blind-safe palettes, molecular surfaces, transition videos, interactive HTML pages and methods text. <a class="more" href="#t-export">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Your language, your layout.</b> English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Italiano, Português and Русский; every panel can be shown, hidden or maximised. <a class="more" href="#t-layout">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>One file per RNA.</b> The open <code>.rcv</code> format stores all conformations, 10–14× smaller than PDB. <a class="more" href="#t-rcv">Learn more&nbsp;&rsaquo;</a></li>
       </ul>
+
+      <h3>More functions</h3>
+      <ul class="features">
+        <li><b>Batch prediction and command-line tools.</b> Predict up to 100 sequences from one FASTA file; convert, inspect, extract and analyse <code>.rcv</code> files without the window. <a class="more" href="#t-cli">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Fetch from the PDB.</b> Type a PDB ID and RCV downloads and opens the entry. <a class="more" href="#t-open">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Mouse tools, annotations and undo.</b> Select, pull, paint, label and measure like in a drawing program, with full undo. <a class="more" href="#t-tools">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Measurements, selections and scenes.</b> Distances, angles and dihedrals that follow every morph and can be plotted across the ensemble. <a class="more" href="#t-measure">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Colours, palettes and surface.</b> Structure-aware colour schemes, colour-blind-safe palettes with a colour-vision check, molecular surface and transparency. <a class="more" href="#t-style">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Energies and metrics.</b> Engine scores, evaluator energies and structural descriptors to compare and sort conformations. <a class="more" href="#t-metrics">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Plugins.</b> Add your own colour schemes, metrics, panels, commands and analyses. <a class="more" href="#t-plugins">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Keyboard shortcuts.</b> One key for every tool and view. <a class="more" href="#t-keys">Learn more&nbsp;&rsaquo;</a></li>
+</ul>
 
       <figure>
         <img src="images/rcv_pathway.png" width="1600" height="1000" alt="RCV Pathway tab: how one tRNA conformation turns into another">
@@ -434,149 +493,731 @@ rcv               # opens the start page</code></pre>
 <!-- ============================== TUTORIAL ============================== -->
 <section id="tutorial" class="page">
   <h2>Tutorial</h2>
-  <p>This tutorial covers the main tasks in RCV. It takes about 20 minutes, most of which is waiting for a
-  prediction. For every menu, option and command, see the full
-  <a href="guide/">user guide</a>.</p>
+  <p>This tutorial walks through everything RCV does, from the first prediction to a publication figure. Each
+  section explains what a feature is for, how to use it step by step, and how to read the result. Most sections
+  can be followed with the <b>demo ensembles</b> (start page &rsaquo; <i>Demo ensembles</i>, or
+  <code>rcv --demo</code>): the HIV-1 TAR NMR ensemble (PDB 1ANR, 20 models), a prediction of HIV-1 TAR (29 nt) and
+  a prediction of yeast tRNA<sup>Phe</sup> (76 nt), so you do not have to wait for a prediction. Use the contents
+  to jump to a section; every menu, option and command is listed in the full <a href="guide/">user guide</a>.</p>
 
-  <p><b>Contents:</b>
-    <a href="#t-start">Start page</a> &middot;
-    <a href="#t-predict">Predict</a> &middot;
-    <a href="#t-window">The window</a> &middot;
-    <a href="#t-pull">Pull to switch</a> &middot;
-    <a href="#t-switch">Switch analysis</a> &middot;
-    <a href="#t-pathway">Pathway A &rarr; B</a> &middot;
-    <a href="#t-console">Console</a> &middot;
-    <a href="#t-export">Export</a> &middot;
-    <a href="#t-keys">Shortcuts</a>
-  </p>
+  <div class="tut">
+  <nav class="toc" aria-label="Tutorial contents">
+    <p class="toc-title">Contents</p>
+    <p class="toc-group">Get started</p>
+    <ol>
+      <li><a href="#t-start">The start page</a></li>
+      <li><a href="#t-predict">Predict from sequence</a></li>
+      <li><a href="#t-open">Open your own structures</a></li>
+    </ol>
+    <p class="toc-group">Explore</p>
+    <ol>
+      <li><a href="#t-window">Explore the ensemble</a></li>
+      <li><a href="#t-2d">Linked 2D and 3D</a></li>
+      <li><a href="#t-pull">Pull to switch</a></li>
+      <li><a href="#t-tools">Mouse tools, annotations, undo</a></li>
+      <li><a href="#t-measure">Measurements, selections, scenes</a></li>
+      <li><a href="#t-style">Colours, palettes, surface</a></li>
+    </ol>
+    <p class="toc-group">Analyse</p>
+    <ol>
+      <li><a href="#t-switch">Switch analysis</a></li>
+      <li><a href="#t-pathway">Pathway A &rarr; B</a></li>
+      <li><a href="#t-map">Topology-aware ensemble map</a></li>
+      <li><a href="#t-conditions">Conditions and ligands</a></li>
+      <li><a href="#t-probing">Probing data (SHAPE, DMS)</a></li>
+      <li><a href="#t-confidence">Per-nucleotide confidence</a></li>
+      <li><a href="#t-metrics">Energies and metrics</a></li>
+    </ol>
+    <p class="toc-group">Share and automate</p>
+    <ol>
+      <li><a href="#t-export">Publication output</a></li>
+      <li><a href="#t-rcv">The .rcv file</a></li>
+      <li><a href="#t-console">Command console</a></li>
+      <li><a href="#t-cli">Command line and batch</a></li>
+    </ol>
+    <p class="toc-group">Customise</p>
+    <ol>
+      <li><a href="#t-layout">Language and layout</a></li>
+      <li><a href="#t-plugins">Plugins</a></li>
+      <li><a href="#t-keys">Keyboard shortcuts</a></li>
+    </ol>
+  </nav>
 
-  <div class="steps">
+  <div class="tut-body steps">
+
+    <!-- ---------------- GET STARTED ---------------- -->
+    <p class="t-group">Get started</p>
+
     <h3 id="t-start">The start page</h3>
     <p>When RCV starts, it shows the two ways to use it, side by side:</p>
     <ol>
       <li><b>Predict RNA conformations from sequence(s).</b> Paste one RNA sequence, or several in FASTA format,
-          and click <i>Predict conformations</i> (next step).</li>
+          and click <i>Predict conformations</i> (<a href="#t-predict">next section</a>).</li>
       <li><b>View experimental or predicted structures of one RNA.</b> Click <i>Open files&hellip;</i> or drop files
           on the card: PDB/mmCIF files, a multi-model NMR file, an <code>.rcv</code> file or a prediction folder.
           Several structure files of the same RNA open together as one ensemble. <i>Fetch PDB&hellip;</i> downloads
-          an entry from the PDB; <i>Demo ensembles</i> opens examples to look around first.</li>
+          an entry from the PDB; <i>Demo ensembles</i> opens examples to look around first
+          (<a href="#t-open">Open your own structures</a>).</li>
     </ol>
-    <p>Recent predictions are listed below the two cards.</p>
+    <p><b>Recent predictions</b>, below the two cards, lists the latest runs in your projects folder; click one to
+    reopen it instantly. <i>Browse folders&hellip;</i> and <i>All prediction runs&hellip;</i> find older ones. You can
+    come back to the start page at any time with the start-page button in the toolbar or <kbd>Ctrl+H</kbd>, and the
+    <b>globe button</b> at the top chooses the interface language.</p>
     <figure>
-      <img src="images/rcv_welcome.png" width="1200" height="570" alt="RCV start page with the two ways to use RCV">
+      <img src="images/rcv_welcome.png" width="1200" height="570" alt="RCV start page with the two ways to use RCV" loading="lazy">
       <figcaption>The start page: 1 &middot; predict from sequence(s), 2 &middot; view structures of one RNA.</figcaption>
     </figure>
+    <div class="try"><b>Try it:</b> click <i>Demo ensembles</i>. Three ensembles open in the left panel: the TAR
+    NMR ensemble and the TAR and tRNA predictions. The rest of this tutorial uses them.</div>
 
-    <h3 id="t-predict">Predict from a sequence</h3>
+    <h3 id="t-predict">Predict from sequence</h3>
+    <p>RCV predicts an <b>ensemble</b> of distinct all-atom 3D conformations from a sequence with its built-in
+    <em>rnafold3d</em> engine. The engine is physics-inspired: it builds 3D models for several ViennaRNA
+    secondary-structure hypotheses (the MFE and distinct suboptimal structures), searches their folds, validates
+    every model and keeps a ranked set of structurally different conformations (<a href="#about">How it works</a>).
+    Everything runs on your own CPU cores.</p>
+    <h4>One sequence</h4>
     <ol>
-      <li>Paste an RNA sequence (plain text or FASTA; T is read as U). Leave the box empty to run the demo sequence (HIV-1 TAR, 29 nt).</li>
-      <li>Choose the number of conformations, the sampling depth (Fast, Standard or Thorough) and the CPU cores. RCV shows an estimated run time.</li>
-      <li>Optional, under <i>Advanced</i>: a known secondary structure in dot-bracket notation and the random seed.</li>
-      <li>Click <b>Predict</b>. The progress view shows each stage, the time left and notes on what the engine is doing.</li>
+      <li>Paste the sequence into the box on the start page: plain text or FASTA, T is read as U. The line under the
+          box checks the input as you type and estimates the run time. Leave the box empty to run the demo sequence
+          (HIV-1 TAR, 29 nt).</li>
+      <li>Optional: open <i>Advanced settings</i> to set
+        <ul>
+          <li>a <b>name</b> for the run;</li>
+          <li>the <b>number of conformations</b> to keep;</li>
+          <li>the <b>sampling depth</b>: <i>Fast</i>, <i>Standard</i> or <i>Thorough</i> (2, 4 or 8 trajectories per
+              kept conformation; deeper sampling takes longer and explores more);</li>
+          <li>the number of <b>CPU cores</b>;</li>
+          <li>a <b>known secondary structure</b> in dot-bracket notation, if you have one;</li>
+          <li>the <b>random seed</b>. The same seed and version always give the same result.</li>
+        </ul></li>
+      <li>Click <b>Predict conformations</b> (or press <kbd>Ctrl+Enter</kbd>).</li>
     </ol>
-    <p>A multi-record FASTA file starts a <b>batch</b> (up to 100 sequences). When the batch ends, choose which
-    result to open; the others are saved as <code>.rcv</code> files with a summary table.</p>
+    <p>The progress view shows each stage (secondary structures &rarr; 3D sampling &rarr; validation and selection
+    &rarr; opening the viewer), a progress bar with the time left, and plain-language notes on what the engine is
+    doing: the ViennaRNA hypotheses and their energies, the cores used, trajectories that were rejected and why,
+    and the conformations kept. <i>Cancel</i> stops the engine. When the run finishes, the viewer opens. The run
+    folder holds PDB and mmCIF files, the engine manifest and a <code>&lt;name&gt;.rcv</code> file.</p>
+    <h4>Several sequences (batch)</h4>
+    <ol>
+      <li>Paste a multi-record FASTA text, or use <i>Load a FASTA file&hellip;</i> (dropping a FASTA file on the box
+          works too). A dot-bracket line after a sequence is used as its known secondary structure.</li>
+      <li>RCV lists the sequences with a check for each and offers <b>Predict N sequences</b> (up to 100). The
+          sequences run one after another, each on all chosen cores.</li>
+      <li>The progress view shows one stage per sequence and an overall time estimate. A failed sequence does not
+          stop the batch.</li>
+      <li>When the batch ends, a table lists every sequence (conformations, best score, MFE &Delta;G, number of 2D
+          states, time, status). <b>Choose the prediction to open</b> (radio button or double-click, then
+          <i>Open selected in the viewer</i>). The others stay in the batch folder as <code>.rcv</code> files, with
+          <code>batch_summary.csv</code> and <code>batch.json</code>.</li>
+    </ol>
     <p class="muted">Typical run times on an 8-core laptop: a 12–14 nt hairpin with Fast sampling, 10–60 s;
-    a 29 nt hairpin with Standard sampling, 5–7 minutes.</p>
+    a 29 nt hairpin with Standard sampling, 5–7 minutes. Accuracy for large multi-branched RNAs is limited (see the
+    <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">engine benchmark</a>).</p>
+    <p class="ref">Reference: user guide <a href="guide/#2-start-page">§2</a>,
+    <a href="guide/#3-prediction-progress-and-batch-results">§3</a>.</p>
+
+    <h3 id="t-open">Open your own structures</h3>
+    <p>RCV is also a viewer and analysis tool for structures from anywhere: NMR ensembles, MD snapshots, or models
+    from any 3D predictor.</p>
+    <ul>
+      <li><b>Formats:</b> PDB, mmCIF, multi-model (NMR) files, <em>rnafold3d</em> prediction folders,
+          <code>.rcv</code> files and RCV workspaces.</li>
+      <li><b>How to open:</b> <i>Open files&hellip;</i> on the start page, <i>File &rsaquo; Open</i>
+          (<kbd>Ctrl+O</kbd>), or drop files anywhere on the window.</li>
+      <li><b>One ensemble from several files.</b> Several structure files, or the models of one multi-model file,
+          open together as <b>one ensemble</b> of the same RNA, in file-name order (<code>model_2</code> before
+          <code>model_10</code>). The first is the reference for superposition. Residues are matched by position when
+          the sequences are identical, otherwise by author numbering. Files of different RNAs opened together give
+          one ensemble per RNA.</li>
+      <li><b>Fetch from the PDB</b> (<i>Fetch PDB&hellip;</i>, <kbd>Ctrl+Shift+F</kbd>, or console
+          <code>fetch 1ANR</code>): type a 4-character PDB ID, optionally a chain. RCV downloads the mmCIF file from
+          the RCSB PDB into <code>projects/fetched/</code> and opens it. This is the only time RCV uses the internet,
+          and only when you ask.</li>
+    </ul>
+    <p>From a terminal:</p>
+<pre><code>rcv models/*.pdb          # several files of one RNA: one ensemble, one conformation per file
+rcv models/               # the same from a folder
+rcv 1ANR.cif              # multi-model file: one conformation per model
+rcv 1ANR.cif --chain B    # one chain of a multi-chain file
+rcv a.pdb b.pdb --separate  # every file as its own ensemble</code></pre>
+    <p class="muted">Wildcards such as <code>models\*.pdb</code> also work in the Windows Command Prompt and
+    PowerShell. Multi-chain complexes and non-canonical base-pair annotation are not supported yet.</p>
+    <div class="try"><b>Try it:</b> press <kbd>Ctrl+Shift+F</kbd>, type <code>1EHZ</code> and compare the crystal
+    structure of tRNA<sup>Phe</sup> with the demo prediction.</div>
+    <p class="ref">Reference: user guide <a href="guide/#11-files-rcv-structures-workspaces">§11</a>.</p>
+
+    <!-- ---------------- EXPLORE ---------------- -->
+    <p class="t-group">Explore</p>
 
     <h3 id="t-window">Explore the ensemble</h3>
-    <p>The conformations are listed on the left, ordered by energy. Hover a conformation to preview it; click it
-    to morph the structure. The timeline below the 3D view plays through all conformations. The right panel shows
-    the energy profile, terms and the ensemble map (<i>Energy</i>), the switch analysis (<i>Switch</i>), the
-    transition between two conformations (<i>Pathway</i>) and full details (<i>Details</i>).</p>
+    <figure>
+      <img src="images/rcv_viewer.png" width="1600" height="1000" alt="RCV main window" loading="lazy">
+      <figcaption>The main window: conformations on the left, the 3D view with the 2D window and the sequence bar,
+      and the analysis panel on the right.</figcaption>
+    </figure>
+    <table>
+      <tr><th style="width:24%">Area</th><th>What it does</th></tr>
+      <tr><td>Left panel</td><td>Open ensembles and their conformations, ordered by energy or any other metric, each
+          with a value bar, a validation mark and a small 2D drawing. <b>Hover</b> = orange ghost preview,
+          <b>click</b> = morph to it, <b>right-click</b> = transition video, compare, save as PDB.</td></tr>
+      <tr><td>3D view</td><td>Drag to rotate, right-drag or Shift-drag to pan, wheel to zoom, Ctrl-drag to roll,
+          double-click to centre. <b>Right-click a residue</b> for its menu: select the residue, its pair, helix or
+          neighbours; show sticks or spheres, hide, label, colour; zoom; measure from here. Inside a selection, the
+          action applies to the whole selection.</td></tr>
+      <tr><td>Sequence bar</td><td>The sequence coloured like the structure, with the dot-bracket of the shown
+          conformation underneath (<a href="#t-2d">Linked 2D and 3D</a>).</td></tr>
+      <tr><td>Timeline</td><td>Previous / play / next, a scrubber with an energy sparkline (drag it to morph
+          continuously), morph and hold times, loop.</td></tr>
+      <tr><td>Right panel</td><td><b>Energy</b> (below), <b>Switch</b> (<a href="#t-switch">10</a>),
+          <b>Pathway</b> (<a href="#t-pathway">11</a>), <b>Details</b> (selection, named selections and scenes,
+          measurements, probing data, conformation facts, all metrics, all conformations, provenance) and plugin
+          tabs.</td></tr>
+    </table>
+    <h4>Step through the conformations</h4>
     <ul>
-      <li>Mouse: drag to rotate, right-drag to pan, wheel to zoom, double-click to centre, right-click a residue for its menu.</li>
-      <li>The <b>sequence bar</b> shows the sequence and dot-bracket of the current conformation; changed pairs are underlined.</li>
-      <li>The <b>2D window</b> (<kbd>D</kbd>) draws the secondary structure in the same colours as the 3D model and morphs with it.</li>
+      <li><kbd>&larr;</kbd>/<kbd>&rarr;</kbd> previous/next, <kbd>Home</kbd>/<kbd>End</kbd> first/last,
+          <kbd>Space</kbd> plays through all conformations.</li>
+      <li><kbd>E</kbd> overlays the whole ensemble; <kbd>P</kbd> shows putty (tube width = flexibility across the
+          ensemble).</li>
+      <li>Morphs are smooth interpolations between superposed conformations: a visual aid, not a simulated
+          pathway.</li>
     </ul>
+    <h4>The Energy tab</h4>
+    <p>Choose a <b>metric</b> at the top (energy, scores, descriptors, measurements, confidence…). The large value
+    shows it for the shown conformation, with the change from the previous one. Below are the energy profile, a
+    landscape view (<i>Funnel</i>, the topology-aware <i>Map</i> of <a href="#t-map">section 12</a>, or classical
+    <i>MDS</i>) whose marker follows every morph, the additive energy terms and a two-sided base-pair arc diagram.
+    Every chart has an <b>export button</b> (PDF, SVG, PNG, TIFF, copy, or <i>Open in the plot studio</i>); right-click
+    a table to copy it as tab- or comma-separated text.</p>
+    <p class="muted">The window behaves like a desktop program: text is not selected by accident, right-click shows
+    RCV's own menus, and browser shortcuts are replaced (<kbd>Ctrl+F</kbd> selects residues, <kbd>Ctrl+P</kbd>
+    exports an image).</p>
+    <p class="ref">Reference: user guide <a href="guide/#4-the-window">§4</a>.</p>
+
+    <h3 id="t-2d">Linked 2D and 3D</h3>
+    <p>The secondary structure is always in view and always in step with the 3D model.</p>
+    <h4>The 2D window</h4>
+    <p>Press <kbd>D</kbd> (or <i>View &rsaquo; 2D structure window</i>) for a small window in a corner of the 3D view.
+    It draws the secondary structure of the shown conformation (ViennaRNA NAView layout, 5′/3′ ends at the bottom):</p>
+    <ul>
+      <li>nucleotides are <b>coloured exactly like the 3D structure</b>, in any scheme and with custom colours;</li>
+      <li><b>hover</b> a nucleotide to highlight it in 3D and in the sequence bar (and the other way round);
+          <b>click</b> selects (Shift adds), <b>double-click</b> centres the 3D view on it;</li>
+      <li>when the conformation changes, the drawing <b>morphs with the 3D model</b>: pairs that break fade out in
+          the first half, new pairs fade in during the second half and stay <b>orange</b>; pseudoknotted pairs are
+          <b>purple</b> arcs;</li>
+      <li>buttons move it to another corner and switch between small, medium and large; maximise it from its title
+          bar.</li>
+    </ul>
+    <h4>The sequence bar</h4>
+    <p>The sequence, numbered and coloured like the structure, with the dot-bracket of the shown conformation
+    underneath. Positions whose pairing changed since the previous conformation are <b>underlined</b>. Click,
+    Shift+click or drag to select; hover to highlight in 3D and 2D.</p>
+    <p>The same 2D drawing appears in transition videos, figure panels and the interactive HTML page.</p>
+    <div class="try"><b>Try it:</b> open the TAR prediction, press <kbd>D</kbd>, then step with <kbd>&rarr;</kbd>.
+    Watch which pairs turn orange and which positions are underlined in the sequence bar.</div>
+    <p class="ref">Reference: user guide <a href="guide/#5-the-2d-structure-window">§5</a>.</p>
 
     <h3 id="t-pull">Pull to switch</h3>
-    <p>Press <kbd>G</kbd> (or hold <kbd>Alt</kbd>) and drag a residue. The structure stretches, and the computed
-    conformation that best matches the pull is shown as an orange preview with its energy change. Release to
-    morph to it. <i>Explore new conformations</i> runs the engine with the pull as a temporary bias and adds the
-    new stable conformations to the ensemble.</p>
+    <p>Ask the structure directly: <i>what happens if this part moves over there?</i></p>
+    <ol>
+      <li>Choose the <b>Pull</b> tool (<kbd>G</kbd>), or hold <kbd>Alt</kbd>.</li>
+      <li>Drag a residue. The structure stretches elastically, and the computed conformation that best matches the
+          pull is shown as an <b>orange ghost</b> with its energy change.</li>
+      <li>Release: the structure morphs to that conformation. Among about equally good matches RCV takes the most
+          stable one (relatively stable, not necessarily the lowest).</li>
+      <li>If no existing conformation fits, click <b>Explore new conformations</b>. RCV runs the engine with your pull
+          as a temporary bias, relaxes the new models without it, and adds the stable ones to the ensemble. This
+          takes a few minutes; you can keep working.</li>
+    </ol>
+    <p class="muted">In tests on TAR, the chosen conformation put the dragged residue 2.3–3.2 Å from the cursor,
+    against about 6 Å for staying put. Pull switching chooses among computed conformations; helices are rigid.</p>
+    <p class="ref">Reference: user guide <a href="guide/#6-pull-to-switch">§6</a>.</p>
+
+    <h3 id="t-tools">Mouse tools, annotations and undo</h3>
+    <p>The left mouse button works like in a drawing program. Choose the tool in the toolbar or with one key:</p>
+    <table>
+      <tr><th style="width:18%">Tool</th><th style="width:12%">Key</th><th>Left button in the 3D view</th></tr>
+      <tr><td>Select</td><td><kbd>V</kbd></td><td>Click selects a residue (Shift adds), drag rotates.</td></tr>
+      <tr><td>Pull</td><td><kbd>G</kbd> / <kbd>Alt</kbd></td><td>Drag a residue to switch conformation (<a href="#t-pull">Pull to switch</a>).</td></tr>
+      <tr><td>Paint</td><td><kbd>B</kbd></td><td>Click or drag over residues (or single atoms) to give them the paint colour. The chip next to the tool picks palette colours or any colour.</td></tr>
+      <tr><td>Label</td><td><kbd>T</kbd></td><td>Click a residue to label it; drag labels to move them; double-click or right-click a label to edit text, colour, size, arrow and box; <kbd>Delete</kbd> removes it.</td></tr>
+      <tr><td>Measure</td><td><kbd>M</kbd></td><td>Click two atoms for a distance (<a href="#t-measure">next section</a>).</td></tr>
+    </table>
+    <p><b>Annotations</b> are residue labels, region labels (a bracket over a selection, for example
+    "anticodon stem") and free notes or titles (<i>Edit &rsaquo; Add a title / note</i>). They follow the structure
+    during morphs, appear in images, figure panels and videos, and are saved in <code>.rcv</code> files.</p>
+    <p><b>Undo / redo</b> (<kbd>Ctrl+Z</kbd>, <kbd>Ctrl+Y</kbd>) step through every edit of the open ensemble:
+    annotations, paint and custom colours, labels, hidden residues, representations, measurements, selection,
+    colour scheme, style, background, surface and transparency, including changes made with console commands. Each
+    ensemble has its own history. <b>Clear</b> (eraser button, Edit menu) removes one kind of edit at a time, or
+    everything; clearing can be undone too.</p>
+    <p class="ref">Reference: user guide <a href="guide/#41-mouse-tools-annotations-undo">§4.1</a>.</p>
+
+    <h3 id="t-measure">Measurements, named selections and scenes</h3>
+    <ul>
+      <li><b>Measurements.</b> With the Measure tool (<kbd>M</kbd>), click two atoms for a distance; the console adds
+          angles and dihedrals. Measurements are dashed lines with live values that <b>follow every morph</b>. Each
+          measurement also becomes a metric, so you can plot its value across all conformations in the Energy tab
+          and export it in the CSV table.</li>
+      <li><b>Named selections</b> (console <code>select name, …</code> or <i>+ Selection</i> in the Details tab)
+          are chips you can click to reselect, zoom to or delete. Any command accepts them by name.</li>
+      <li><b>Scenes</b> (<code>view save name</code> or <i>+ Scene</i>) remember the camera, conformation, colours,
+          representation, overlay, putty and selection. Recalling a scene flies the camera there and morphs to its
+          conformation, which makes it easy to return to the same figure view.</li>
+    </ul>
+<pre><code>distance d1, 22/N1, 27/N3        # a distance between two atoms (residue/atom)
+angle a1, 22/P, 23/P, 24/P
+select bulge, resi 23-25
+view save closeup                # later: view closeup
+metric measure.d1                # plot d1 across the ensemble</code></pre>
+    <p>All of these, plus custom colours, labels and hidden residues, are saved in <code>.rcv</code> files.</p>
+    <p class="ref">Reference: user guide <a href="guide/#10-measurements-named-selections-and-scenes">§10</a>.</p>
+
+    <h3 id="t-style">Representations, colours, palettes and surface</h3>
+    <ul>
+      <li><b>Representations</b> (<kbd>1</kbd>–<kbd>5</kbd>): Cartoon, Cartoon + atoms, Sticks, Ball &amp; stick,
+          Spheres, for the whole RNA or, from the console, for part of it (<code>show sticks, switching</code>).</li>
+      <li><b>Colour schemes</b> (toolbar or <kbd>C</kbd>): Nucleotide, Helices, Structure elements (stem, hairpin loop,
+          internal loop, bulge, multibranch loop, pseudoknot, exterior), Base pairing, Pairing frequency, Switching
+          residues, Flexibility (RMSF), Displacement from previous, Position, Uniform, and, after the analyses,
+          Mutation sensitivity, Kinetic sensitivity, Mechanism, Reactivity and Confidence. Every scheme has a legend;
+          custom colours go on top.</li>
+      <li><b>Styles and backgrounds:</b> Studio, Illustrative, Glossy, Depth cue, Plain; white, paper, grey, slate,
+          dark, black or custom.</li>
+      <li><b>Palettes</b> (<i>Color &rsaquo; Palettes and custom colours&hellip;</i>): RCV, Okabe–Ito and Tol bright /
+          muted (colour-blind safe), Pastel, Grayscale for print, or your own. The palette drives helix, element and
+          nucleotide colours, the paint tool, annotations, measurements and plots, so a whole figure changes with one
+          click. <i>Duplicate to edit</i> makes an editable copy; palettes can be shared as JSON. The
+          <b>colour-vision check</b> simulates deuteranopia, protanopia and tritanopia and names the pair of colours
+          readers may confuse.</li>
+      <li><b>Molecular surface</b> (<kbd>U</kbd>, or <code>show surface, selection</code>): a smooth Gaussian surface,
+          coloured like the residues under it and recomputed during morphs and videos (a 76-nt tRNA in about
+          0.15 s).</li>
+      <li><b>Transparency per object</b> (<i>View &rsaquo; Surface and transparency&hellip;</i>, or
+          <code>set transparency, 0.5, surface</code>): separate opacity for cartoon, bases, atoms, surface and the
+          ensemble overlay, for example a 40 % surface over an opaque cartoon.</li>
+    </ul>
+    <p class="ref">Reference: user guide <a href="guide/#13-representations-colours-and-styles">§13</a>.</p>
+
+    <!-- ---------------- ANALYSE ---------------- -->
+    <p class="t-group">Analyse</p>
 
     <h3 id="t-switch">Switch analysis</h3>
     <div class="side-img">
       <div>
-        <p>The <b>Switch</b> tab lists the distinct secondary structures in the ensemble with their free
-        energy and Boltzmann population at a chosen temperature (0–95 °C).</p>
-        <p>Choose two states, A and B, to scan all point mutations. The heat map shows how each mutation shifts
-        the balance: blue favours A, orange favours B. Click a cell to select the residue, copy the mutant
-        sequence, or <b>Predict in 3D</b>.</p>
-        <p class="muted">This analysis uses ViennaRNA at the secondary-structure level. Populations are
-        estimates, not experimental values.</p>
+        <p>For an RNA switch the questions are usually: <i>which state dominates, and what would change that?</i>
+        The <b>Switch</b> tab answers them at the secondary-structure level with ViennaRNA (Turner 2004
+        energies).</p>
+        <ol>
+          <li><b>Read the 2D states.</b> The table lists the distinct secondary structures of the ensemble's
+              conformations, each with its free energy, its probability in the full ViennaRNA ensemble, its
+              <b>share of the population</b> among these states (Boltzmann) and the number of models (click to step
+              through them). The MFE and the ensemble free energy are shown for reference.</li>
+          <li><b>Change the temperature</b> (0–95 °C) to look at thermo-switches, or open <i>Conditions</i> for salt
+              and ligands (<a href="#t-conditions">section 13</a>).</li>
+          <li><b>Choose states A and B.</b> RCV evaluates every point mutation (3 × length mutants) and draws a heat
+              map of how each shifts the balance (&Delta;&Delta;G): <b>blue favours A, orange favours B</b>,
+              saturating at ±4 kcal/mol. Hover a cell for the shift of the A/B equilibrium. The tables list the
+              strongest mutations in each direction with the probabilities of A and B in the mutant.</li>
+          <li><b>Act on it.</b> Click a cell to select the residue in 3D, copy the mutant as FASTA, or
+              <b>Predict in 3D</b> (opens the start page with the mutant ready). <i>Colour 3D by mutation
+              sensitivity</i> paints each residue by its largest |&Delta;&Delta;G|; <i>Copy scan as table</i> gives
+              all mutations as tab-separated text.</li>
+        </ol>
       </div>
       <figure style="margin-top:0">
-        <img src="images/rcv_switch.png" width="358" height="890" alt="Switch tab">
+        <img src="images/rcv_switch.png" width="358" height="890" alt="Switch tab" loading="lazy">
       </figure>
     </div>
+    <p>With a ligand set in Conditions, the <b>ligand response</b> chart shows the share of every state from 1 nM to
+    1 mM and the half-way concentration of the states that bind.</p>
+    <p class="muted">These are secondary-structure estimates; the 3D model scores are not used, and populations are
+    not experimental values. A mutation that turns a pair non-canonical removes that pair from the state.</p>
+    <p class="ref">Reference: user guide <a href="guide/#7-switch-analysis-switch-tab">§7</a>.</p>
 
     <h3 id="t-pathway">Pathway A &rarr; B</h3>
-    <p>The <b>Pathway</b> tab shows how one conformation turns into another. Choose A and B (or Shift+click a
-    point on the ensemble map). RCV answers three questions:</p>
+    <p>The <b>Pathway</b> tab shows <b>how one conformation turns into another</b>. To start, choose A and B in the
+    tab (or <i>previous &rarr; shown</i>, or Shift+click a point on the ensemble map to make it B). It is also in
+    <i>Tools &rsaquo; Pathway A &rarr; B</i> and the console (<code>pathway conf_001, conf_005</code>). RCV answers
+    three questions.</p>
+    <figure>
+      <img src="images/rcv_pathway.png" width="1600" height="1000" alt="RCV Pathway tab" loading="lazy">
+      <figcaption>The Pathway tab for the tRNA prediction: the verdict, the routes on the ensemble map, the energy
+      along the refolding path, and in 3D the pairs that must open together before the saddle (orange) and the
+      nucleus of the new fold (blue).</figcaption>
+    </figure>
+
+    <h4>1. Is the switch feasible, and along which route?</h4>
     <ul>
-      <li><b>Is the switch feasible, and along which route?</b> The effective barrier, the half-life of A and a
-          plain-language verdict, with the routes through intermediate structures on the ensemble map and the
-          energy along the refolding path.</li>
-      <li><b>What limits it?</b> The base pairs that must open together before the saddle (the cooperative unit),
-          the rigid 3D modules and hinges, and the rate-limiting coordinated motion. <i>Play the mechanism</i>
-          morphs A into B in that order.</li>
-      <li><b>Which mutations change the rate?</b> The &phi;-value scan of every point mutation lists those that
-          speed the switch up or slow it down.</li>
+      <li>A and B first relax into their <b>basins</b>, the local energy minima they reach by steepest descent. A
+          structure that is not itself a minimum (a frayed NMR model, a strained pair) slides into its basin first,
+          so barriers are measured between basins. If A and B reach the <b>same basin</b>, no barrier separates them:
+          they are fluctuations of one fold, and the verdict says so.</li>
+      <li>Otherwise RCV computes the <b>direct refolding path</b> (only pairs of A open, only pairs of B form) and
+          <b>routes through intermediates</b>: the basins of the other 2D states of the ensemble and local minima
+          from Boltzmann samples (fixed seed, so the result is reproducible).</li>
+      <li>The basins and the saddles between them form a network with Arrhenius rates
+          k = k₀·exp(−(saddle − E)/RT) (k₀ adjustable, default 10⁶ s⁻¹). Transition path theory ranks the routes by
+          reactive flux, and the <b>time to switch</b> is the mean first-passage time from A to B.</li>
     </ul>
-    <p><i>Tools &rsaquo; Conditions</i> sets the temperature, Na<sup>+</sup> and a ligand, and <i>Tools &rsaquo; Load
-    probing data</i> fits the ensemble to SHAPE or DMS reactivities; both are used by the Switch and Pathway
-    tabs.</p>
-    <p class="muted">Like the switch analysis, the kinetics are computed at the secondary-structure level
-    (ViennaRNA). The 3D morph illustrates the analysed mechanism; it is not a simulated trajectory.</p>
+    <p><b>Reading the verdict card:</b> the effective barrier, the barriers of the direct path and of the best
+    single route, &Delta;G(A&rarr;B), the half-life of A, and a plain-language feasibility statement. For example,
+    a half-life over a year means the switch is not feasible by refolding alone; it needs unfolding, a helper such as
+    a helicase or chaperone, or happens during transcription. A <b>trap</b> note appears when a deeper well holds the
+    RNA for most of the switching time.</p>
+    <p><b>Reading the charts:</b> the map shows the routes through 3D conformations (2D-only intermediates are
+    listed, not drawn). The energy profile shows every base-pair move: relaxation into the basins (dotted), the route
+    (solid), the direct path (dashed) and the saddle. Hover a step to see which pairs open or form, highlighted in
+    3D.</p>
+
+    <h4>2. What limits it?</h4>
+    <ul>
+      <li>The <b>cooperative unit</b>: the base pairs that must open together on the climb to the highest saddle.
+          The <b>nucleus</b>: the B pairs that form right after it.</li>
+      <li><b>Rigid modules</b>: RCV splits the molecule into groups that move as one body between A and B (seeded by
+          the shared helices, fit within 2 Å). Each module is reported with its turn (degrees), shift (Å) and screw
+          axis relative to the largest module M1, and the time window of its base-pair events (0 = A, 1 = B).
+          <b>Hinges</b> are the flexible residues with the largest backbone change. The module that carries the
+          cooperative unit is the <b>rate-limiting coordinated motion</b>.</li>
+      <li><i>Colour by mechanism</i>, <i>by event order</i> or <i>by module</i> paints the 3D view.
+          <b>Play the mechanism</b> morphs A into B with the modules turning in the order of their events (chain
+          kept connected); <i>Rigid-module morph</i> moves all modules together; <i>Mechanism video&hellip;</i>
+          records it.</li>
+    </ul>
+
+    <h4>3. Which mutations change the rate?</h4>
+    <p>The <b>&phi;-value scan</b> (button in the tab, or console <code>phiscan</code>) evaluates every point mutation
+    along the route:</p>
+    <ul>
+      <li>&Delta;&Delta;G‡, the change of the barrier: <b>blue = faster switching, orange = slower</b>;</li>
+      <li>&Delta;&Delta;G, the change of the A/B balance;</li>
+      <li>&phi; = &Delta;&Delta;G‡/&Delta;&Delta;G (where |&Delta;&Delta;G| ≥ 0.6 kcal/mol): near 1 where the
+          nucleotide already looks as in B at the saddle, near 0 where it still looks as in A.</li>
+    </ul>
+    <p>The lists name the mutations that speed the switch up or slow it down most, with the factor on the rate.
+    <i>Colour 3D by kinetic sensitivity</i> and <i>Copy scan as table</i> work as in the Switch tab.</p>
+<pre><code>pathway conf_001, conf_005       # console
+phiscan
+mechanism staged                 # or: mechanism rigid
+rcv pathway tRNA.rcv --a conf_001 --b conf_005 --scan -o result.json   # command line</code></pre>
+    <div class="try"><b>Try it:</b> open the TAR prediction (its conformations come from two different secondary
+    structures), open the Pathway tab, choose one conformation of each as A and B, read the verdict and click
+    <i>Play the mechanism</i>.</div>
+    <p class="muted">The kinetics are computed for nested canonical pairs at the secondary-structure level
+    (ViennaRNA, under the current <a href="#t-conditions">conditions</a>). Barriers are upper bounds; rates are
+    order-of-magnitude estimates that scale with k₀. Rigid modules are only as reliable as the two 3D models, and the
+    morph illustrates the analysed mechanism; it is not a simulated trajectory.</p>
+    <p class="ref">Reference: user guide <a href="guide/#81-pathway-tab-how-a-turns-into-b">§8.1</a>.</p>
+
+    <h3 id="t-map">Topology-aware ensemble map</h3>
+    <p>The <b>Map</b> view (Energy tab, also in the Pathway tab, the plot studio and the HTML page) shows the whole
+    ensemble at a glance:</p>
+    <ul>
+      <li>Every secondary-structure <b>topology</b>, the abstract shape of the 2D structure (<code>[]</code> one
+          hairpin, <code>[][]</code> two hairpins, <code>[[][]]</code> a multibranch helix), has its own
+          <b>disk</b>, labelled T1, T2, … with a small drawing of its 2D structure. No other topology enters it.</li>
+      <li>Disks are arranged by 3D similarity and linked when their topologies differ by one helix. Inside a disk,
+          conformations are placed by C4′ RMSD, and conformations with the same 2D state stay together.</li>
+      <li><b>Click</b> a point to morph to it; <b>Shift+click</b> makes it B in the Pathway tab, whose routes are
+          drawn on the map.</li>
+      <li>The caption reports how faithful the map is (trustworthiness, topology purity, stress), compared with
+          classical MDS, which is still available as <i>MDS</i>.</li>
+    </ul>
+    <p>In the plot studio, the map can be coloured by any metric and exported with the A &rarr; B routes.</p>
+    <p class="ref">Reference: user guide <a href="guide/#82-ensemble-map">§8.2</a>; validation in
+    <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V07_VALIDATION.md">V07_VALIDATION.md</a>.</p>
+
+    <h3 id="t-conditions">Conditions and ligands</h3>
+    <p>The balance between conformations depends on the environment. Open <i>Tools &rsaquo; Conditions&hellip;</i>, or
+    the conditions link in the Switch and Pathway tabs, and set:</p>
+    <ul>
+      <li><b>Temperature</b> in °C;</li>
+      <li><b>Na⁺ concentration</b> in mM (ViennaRNA salt correction; 1021 mM is the standard state of the Turner
+          parameters);</li>
+      <li>a <b>ligand</b> that binds an aptamer forming a hairpin or interior loop: the preset
+          <b>theophylline</b> aptamer (Kd 0.32 µM), or your own motif and Kd, and its concentration in µM. Every
+          structure that forms the motif is stabilised by −RT ln(1 + c/Kd) (two-state binding, ligand in excess). If
+          the motif does not occur in the sequence, RCV tells you.</li>
+      <li>optionally, <b>probing data as pseudo-energies</b> (<a href="#t-probing">next section</a>).</li>
+    </ul>
+    <p><i>Standard conditions</i> resets everything. Conditions are kept per ensemble, saved in <code>.rcv</code>
+    files and used by both the Switch and Pathway tabs, so you can compare, for example, the switching time with and
+    without ligand.</p>
+<pre><code>conditions 25, 150 mM, theophylline 10 µM
+conditions 37, no ligand
+conditions standard</code></pre>
+    <p class="ref">Reference: user guide <a href="guide/#83-conditions-temperature-salt-and-ligands">§8.3</a>.</p>
+
+    <h3 id="t-probing">Probing data (SHAPE, DMS)</h3>
+    <p>Chemical probing tells you which nucleotides are unpaired in solution. RCV uses it to check and reweight the
+    ensemble.</p>
+    <ol>
+      <li><i>Tools &rsaquo; Load probing data (SHAPE / DMS)&hellip;</i> and choose a file: position and value
+          (RNAstructure <code>.shape</code> and most lab formats), ShapeMapper <code>.map</code>, CSV with a
+          <i>reactivity</i> column, or one value per line. −999 and NaN mean no data.
+<pre><code>1	0.12
+2	0.85
+3	-999</code></pre></li>
+      <li>Keep <i>Normalise (2–8 % rule)</i> on unless your data are already normalised. For DMS, only A and C are
+          used.</li>
+      <li>Read the results:
+        <ul>
+          <li>the colour scheme <b>Reactivity</b> paints the structure, and the Details tab shows the profile under
+              the pairing of the shown conformation;</li>
+          <li>the metric <b>SHAPE agreement (AUC)</b> scores each conformation: how well reactivity predicts its
+              unpaired nucleotides (1 = perfect, 0.5 = random);</li>
+          <li>the metric <b>SHAPE data weight</b> is each conformation's weight after a maximum-entropy reweighting
+              of the ensemble to fit the data. θ sets how far the data may move the weights (smaller = more). χ²
+              before and after and the effective number of conformations are reported. Weights near the prior mean
+              the data do not distinguish the conformations.</li>
+        </ul></li>
+      <li>Optionally, use the reactivities as <b>pseudo-energies</b> for the 2D-state populations in the Conditions
+          dialog (Deigan et al. 2009). These are data-informed estimates, not free energies.</li>
+    </ol>
+    <p>The profile, the fit and the weights are saved in <code>.rcv</code> files. Console:
+    <code>probing file.shape, SHAPE</code> &middot; <code>probing clear</code>. Command line:
+    <code>rcv probing x.rcv --data file.shape [--dms]</code>.</p>
+    <p class="muted">The model treats unpaired nucleotides as reactive and paired ones as protected; it does not model
+    flexibility within loops or protection by tertiary contacts or proteins.</p>
+    <p class="ref">Reference: user guide <a href="guide/#84-probing-data-shape-dms">§8.4</a>.</p>
+
+    <h3 id="t-confidence">Per-nucleotide confidence</h3>
+    <p>When an ensemble opens, RCV estimates how accurate each nucleotide of every conformation is likely to be: its
+    predicted <b>lDDT</b> against the true structure (0–1, higher is better). This works for any model, predicted by
+    RCV or by another tool.</p>
+    <ul>
+      <li>The metric <b>Confidence (predicted lDDT)</b>, the mean over the nucleotides, appears in the Energy tab,
+          the conformation list, the plot studio and the HTML page.</li>
+      <li>The colour scheme <b>Confidence (per nucleotide)</b> shows four bands: high (≥ 0.8), medium, low and very
+          low (&lt; 0.5). Use it to see which parts of a model to trust, for example a well-defined stem next to an
+          uncertain loop.</li>
+    </ul>
+    <p>The model is a small neural network (two dense layers, about 3,200 parameters) that runs on your CPU in a
+    fraction of a second, with no GPU and nothing to download. It reads only the coordinates (pairing, stacking,
+    backbone and sugar geometry, packing, clashes, chain breaks) and never changes a structure. Turn it off in
+    <i>View &rsaquo; Preferences</i>. Command line: <code>rcv confidence x.rcv -o confidence.json</code>.</p>
+    <p class="muted">Cross-validated per-nucleotide correlation r = 0.82; on benchmark RNAs never seen in training,
+    r = 0.75–0.84. Picking the top model by confidence is not reliably better than the engine's own ranking, so the
+    ranking is kept and confidence is shown as an additional guide.</p>
+    <p class="ref">Reference: user guide <a href="guide/#85-confidence-model-optional">§8.5</a>.</p>
+
+    <h3 id="t-metrics">Energies and metrics</h3>
+    <p>Choose any of these in the metric selector of the Energy tab, sort the conformation list by it, or plot it.</p>
+    <table>
+      <tr><th style="width:28%">Metric</th><th>What it means</th></tr>
+      <tr><td>Model score</td><td>The engine's score for its own predictions (dimensionless), split into terms
+          (clashes, chain closure, loops, stacking, electrostatics…). It ranks models; it is not a free energy, and
+          ranks are not populations.</td></tr>
+      <tr><td>Evaluator energy</td><td>For every source, kcal/mol-scaled: ΔG of the 2D structure (Turner) +
+          electrostatics + loop/tertiary stacking + clash penalty. A transparent heuristic for comparing conformations
+          of one sequence.</td></tr>
+      <tr><td>Descriptors</td><td>Base pairs, pseudoknotted pairs, stacks, radius of gyration, overlaps, C4′ RMSD to
+          the first conformation and to the mean.</td></tr>
+      <tr><td>Measurements</td><td>Every distance, angle or dihedral you measure (<a href="#t-measure">section 8</a>).</td></tr>
+      <tr><td>Confidence, SHAPE agreement, data weight</td><td>After the confidence model and probing data
+          (<a href="#t-confidence">15</a>, <a href="#t-probing">14</a>).</td></tr>
+    </table>
+    <p class="ref">Reference: user guide <a href="guide/#12-energies-and-metrics">§12</a>.</p>
+
+    <!-- ---------------- SHARE ---------------- -->
+    <p class="t-group">Share and automate</p>
+
+    <h3 id="t-export">Publication output</h3>
+    <table>
+      <tr><th style="width:24%">Output</th><th>How</th></tr>
+      <tr><td>Image</td><td><kbd>Ctrl+E</kbd>. PNG, TIFF or PDF at journal sizes and 300–1200 dpi, transparent
+          background, legend, labels, annotations, measurements and the energy panel (vector in PDF). <kbd>S</kbd> saves
+          a quick PNG.</td></tr>
+      <tr><td>Plot studio</td><td><i>Export &rsaquo; Plot studio</i>, or the export button of any chart.</td></tr>
+      <tr><td>Figure panels</td><td><i>Export &rsaquo; Figure panels</i>. Several conformations in the same
+          orientation, each with its 2D structure.</td></tr>
+      <tr><td>Video</td><td><i>Export &rsaquo; Video</i> or <i>Transition A &rarr; B</i>. MP4, WebM or PNG frames,
+          720p to 4K.</td></tr>
+      <tr><td>Interactive HTML</td><td><i>Export &rsaquo; Interactive HTML page</i>. One file that opens in any
+          browser.</td></tr>
+      <tr><td>Methods text</td><td><i>Export &rsaquo; Methods text</i>. A methods paragraph, references and
+          citation.</td></tr>
+      <tr><td>Data</td><td>PDB of one or all conformations, energy table as CSV, <code>.rcv</code>.</td></tr>
+    </table>
+    <p>All figure text uses <b>Liberation Sans</b> (bundled, free to embed, same letter widths as Helvetica/Arial),
+    and PDF files embed it, so figures look the same on every computer. Interface translations never change figure
+    text.</p>
+
+    <h4>Plot studio</h4>
+    <p>Publication plots of the ensemble at journal widths (single column 89 mm, 1.5 column 120 mm, double column
+    183 mm, or custom), with font size in points, optional title and axis labels, as PDF/SVG (vector) or PNG/TIFF at
+    300–1200 dpi:</p>
+    <ul>
+      <li><b>Pairwise RMSD matrix</b>, optionally clustered with a dendrogram and values in the cells;</li>
+      <li><b>RMSD to a reference</b> (first, best, shown, previous or mean structure);</li>
+      <li><b>Per-residue flexibility (RMSF)</b> with a pairing track;</li>
+      <li><b>Energy vs RMSD funnel</b>, coloured by 2D state; energy profile; 2D structure as a vector drawing;</li>
+      <li><b>Ensemble map</b>, coloured by any metric, optionally with the A &rarr; B routes;</li>
+      <li><b>Refolding path A &rarr; B</b> and the <b>&phi;-value scan</b> heat map from the Pathway tab.</li>
+    </ul>
+    <figure>
+      <img src="images/rcv_plots.png" width="1081" height="611" alt="Plot studio with a clustered RMSD matrix" loading="lazy">
+      <figcaption>Plot studio: a clustered pairwise RMSD matrix.</figcaption>
+    </figure>
+
+    <h4>Figure panels</h4>
+    <p>Several conformations in the <b>same orientation</b>, lettered A, B, C…, each with its name, energy, base-pair
+    count and its 2D structure beside it, and one shared legend. Choose single, 1.5 or double column width; square,
+    4:3 or portrait panels; 300 or 600 dpi; PNG, TIFF or PDF. Presets: one panel per 2D state, the first four, or
+    previous + current. Set the view, colours and labels first; the panels use them.</p>
+    <figure>
+      <img src="images/rcv_panels.png" width="1206" height="1000" alt="Figure panels export" loading="lazy">
+      <figcaption>Figure panels: conformations A–D with their 2D structures and a shared legend.</figcaption>
+    </figure>
+
+    <h4>Videos</h4>
+    <p>A conformation tour, rotation, rock, tour + rotation, or a <b>transition A &rarr; B</b>: hold on A, morph to B
+    directly, <b>through intermediates</b> (the ensemble conformations on the lowest-RMSD route) or as the
+    <b>mechanism</b> of the Pathway tab, hold on B, optionally return to A, with an optional slow turn. The overlay
+    names A and B with their energies, plots the metric along the route, and the <b>2D inset morphs with the
+    structure</b>. Right-click a conformation for <i>Transition video current &rarr; this</i>.</p>
+    <figure>
+      <img src="images/rcv_transition.png" width="3200" height="1800" alt="A frame of a transition video" loading="lazy">
+      <figcaption>A frame of a transition video with the 2D inset and the energy along the route.</figcaption>
+    </figure>
+
+    <h4>Interactive HTML page</h4>
+    <p>One self-contained file (about 1.3 MB) that opens in any current browser without installation or internet,
+    for supplementary material, reviewers and collaborators. It shows the 3D structure, the conformation list with
+    play and morph, representations and colours, the energy profile, the morphing 2D structure, the ensemble map,
+    the pathway (when computed, with <i>Play the mechanism</i>), the sequence and the methods text. Command line:
+    <code>rcv html x.rcv -o page.html</code>.</p>
+
+    <h4>Methods text and citation</h4>
+    <p>A methods paragraph built from what the ensemble records (engine and ViennaRNA versions, sampling, seeds,
+    validation, superposition, RMSD range), extended with paragraphs on the pathway, &phi;-value scan, ensemble map,
+    probing data and confidence model when you used them, a list of references, the software citation and the
+    command log as a reproducible recipe. Check it against your protocol before use.</p>
+    <p class="ref">Reference: user guide <a href="guide/#14-publication-output">§14</a>.</p>
+
+    <h3 id="t-rcv">The .rcv file</h3>
+    <p>Save with <kbd>Ctrl+S</kbd> (<i>File &rsaquo; Save as .rcv</i>). One <code>.rcv</code> file holds <b>everything
+    about one RNA</b>: all conformations, energies, 2D structures and layouts, validation reports, provenance
+    (engine version, parameters, seeds, source-file checksums), conditions, probing data, and your view: camera,
+    colours, selections, labels, measurements, annotations, scenes and the command log.</p>
+    <ul>
+      <li>It is typically <b>10–14× smaller than PDB</b> (the 20-model TAR NMR ensemble: 77 kB instead of 1.0 MB)
+          and opens instantly, without re-evaluation.</li>
+      <li>It is an open format: a ZIP archive (rename it to <code>.zip</code> to look inside) with a JSON manifest,
+          compressed coordinates at 0.001 Å precision, the session, a thumbnail, the methods text and a README.
+          Damaged files are detected by a checksum.</li>
+      <li>The installers can register <code>.rcv</code> files, so they open with a double-click.</li>
+      <li>To keep <b>several RNAs</b> together, save a workspace (<kbd>Ctrl+Shift+S</kbd>): every open ensemble in one
+          JSON file.</li>
+    </ul>
+<pre><code>rcv convert models/*.pdb -o my_rna.rcv   # structures to one .rcv
+rcv info my_rna.rcv --methods            # what is inside, and the methods text
+rcv extract my_rna.rcv -o pdb/           # back to PDB files (--multi: one multi-model PDB)</code></pre>
+    <p>The same tools are in the <b>Tools</b> menu: <i>Convert structures to .rcv&hellip;</i>, <i>Inspect an .rcv
+    file&hellip;</i>, <i>Extract conformations as PDB&hellip;</i></p>
+    <p class="ref">Reference: user guide <a href="guide/#the-rcv-format-rcv1">the .rcv format</a>.</p>
 
     <h3 id="t-console">Command console</h3>
-    <p>Open the console with <kbd>`</kbd>. Type one command per line; <kbd>Tab</kbd> completes and
-    <code>help</code> lists all commands. Some examples:</p>
+    <p>Open the console with <kbd>`</kbd> (or the terminal button). Type one command per line, arguments separated
+    by commas. <kbd>&uarr;</kbd>/<kbd>&darr;</kbd> recall history, <kbd>Tab</kbd> completes commands, keywords, names
+    and conformation ids, pasting several lines runs them as a script, and <code>help</code> or
+    <code>help &lt;command&gt;</code> explains everything. The verbs follow the vocabulary of common molecular
+    viewers.</p>
+    <h4>Selection language</h4>
+    <table>
+      <tr><th style="width:36%">Selection</th><th>Meaning</th></tr>
+      <tr><td><code>resi 5-12+20</code> &middot; <code>pos 1-10</code></td><td>author residue numbers &middot; sequence positions</td></tr>
+      <tr><td><code>resn A+G</code> &middot; <code>chain A</code></td><td>nucleotide type &middot; chain</td></tr>
+      <tr><td><code>paired</code>, <code>unpaired</code>, <code>pk</code></td><td>base-paired / unpaired / pseudoknotted in the shown conformation</td></tr>
+      <tr><td><code>helix H2</code></td><td>residues of a helix</td></tr>
+      <tr><td><code>switching</code> &middot; <code>changed</code></td><td>pairing partner differs across the ensemble &middot; since the previous conformation</td></tr>
+      <tr><td><code>rmsf &gt; 3</code> &middot; <code>moved &gt; 2</code></td><td>flexible across the ensemble &middot; moved since the previous conformation (Å)</td></tr>
+      <tr><td><code>within 6 of resi 20</code></td><td>residues with an atom within 6 Å</td></tr>
+    </table>
+    <p>Combine with <code>and</code>, <code>or</code>, <code>not</code> and parentheses. Atoms are written
+    <code>residue/atom</code>, for example <code>34/N1</code> or <code>12/C4'</code>.</p>
+    <h4>Examples</h4>
 <pre><code>select loop, resi 23-27 and unpaired
 color orange, loop
 show sticks, switching
 distance d1, 22/N1, 27/N3
 orient helix H2
+align 1, 4, helix H1              # superpose conformations 1 and 4 on helix H1
+morph conf_001, conf_005, 2
+conditions 25, 150 mM
+pathway conf_001, conf_005
 png 3000, 2000, 600</code></pre>
-    <p>Commands can be saved in a script file (<code>.rcvs</code>) and run with <code>run script.rcvs</code>.
-    Every command is stored in the <code>.rcv</code> file as a reproducible record.</p>
+    <p>Save commands in a script file (<code>.rcvs</code>, one command per line, <code>#</code> comments) and run it
+    with <code>run script.rcvs</code>. The example <code>examples/scripts/tar_switch_figure.rcvs</code> builds a
+    reproducible figure of the TAR switch. Every command run on an ensemble is stored in its <code>.rcv</code> file,
+    and the <i>Methods text</i> dialog shows it as a recipe.</p>
     <figure>
-      <img src="images/rcv_console.png" width="972" height="890" alt="Console with selections, colours, labels and measurements">
+      <img src="images/rcv_console.png" width="972" height="890" alt="Console with selections, colours, labels and measurements" loading="lazy">
     </figure>
+    <p class="ref">Reference: user guide <a href="guide/#9-command-console">§9</a> (all commands).</p>
 
-    <h3 id="t-export">Save and export</h3>
-    <table>
-      <tr><th style="width:30%">Output</th><th>How</th></tr>
-      <tr><td>.rcv file</td><td><kbd>Ctrl+S</kbd>. All conformations, energies, 2D structures and your current view in one file.</td></tr>
-      <tr><td>Image</td><td><kbd>Ctrl+E</kbd>. PNG, TIFF or PDF, 300–1200 dpi, optional legend and energy panel.</td></tr>
-      <tr><td>Figure panels</td><td><i>Export &rsaquo; Figure panels</i>. Several conformations in the same orientation, each with its 2D structure.</td></tr>
-      <tr><td>Video</td><td><i>Export &rsaquo; Video</i> or <i>Transition A &rarr; B</i>. MP4, WebM or PNG frames, 720p to 4K.</td></tr>
-      <tr><td>Interactive HTML</td><td><i>Export &rsaquo; Interactive HTML page</i>. One file that opens in any browser, for supplements and reviewers.</td></tr>
-      <tr><td>Methods text</td><td><i>Export &rsaquo; Methods text</i>. A methods paragraph and citation generated from the ensemble record.</td></tr>
-    </table>
-    <figure>
-      <img src="images/rcv_panels.png" width="1206" height="1000" alt="Figure panels export">
-      <figcaption>Figure panels: conformations A–D with their 2D structures and a shared legend.</figcaption>
-    </figure>
+    <h3 id="t-cli">Command line and batch</h3>
+    <p>RCV also works without the window, for scripts and pipelines:</p>
+<pre><code>rcv                                     # start page
+rcv --demo                              # the demo ensembles
+rcv models/*.pdb                        # several structure files of one RNA: one ensemble
+rcv batch my_rnas.fasta -o out/         # predict every sequence, one .rcv each + batch_summary.csv
+rcv convert models/*.pdb -o my_rna.rcv  # structures to one .rcv file
+rcv info my_rna.rcv --methods           # contents and methods paragraph
+rcv extract my_rna.rcv -o pdb/          # back to PDB files
+rcv html my_rna.rcv -o my_rna.html      # interactive web page
+rcv pathway my_rna.rcv --a 1 --b 5 --scan -o r.json   # how conformation 1 turns into 5
+rcv probing my_rna.rcv --data r.shape [--dms]          # agreement with probing data, reweighting
+rcv confidence my_rna.rcv -o confidence.json           # per-nucleotide confidence
+rcv engine predict …                    # the prediction engine itself (rnafold3d)</code></pre>
+    <p>Useful options: <code>--projects-dir DIR</code> (where predictions are stored), <code>--chain B</code>,
+    <code>--separate</code>, <code>--shell browser</code> (open in your browser), <code>--port</code>,
+    <code>--verbose</code>. If <code>rcv</code> is not on your path, <code>python -m rcv …</code> does the same.</p>
+    <p class="ref">Reference: user guide <a href="guide/#1-install-and-start">§1</a>.</p>
+
+    <!-- ---------------- CUSTOMISE ---------------- -->
+    <p class="t-group">Customise</p>
+
+    <h3 id="t-layout">Language and window layout</h3>
+    <p><b>Language.</b> RCV speaks English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Italiano,
+    Português (Brasil) and Русский. Choose with the <b>globe button</b> (menu bar and start page) or in
+    <i>View &rsaquo; Preferences</i>; the switch is immediate and remembered. Until you choose, RCV follows your system
+    language. Figures, charts, exports, the console and the methods text stay in English on purpose, so results look
+    the same everywhere.</p>
+    <p><b>Layout</b> (<i>Window</i> menu). Every part of the window can be shown or hidden: the ensembles panel, the
+    analysis panel, the 2D window, the console, the sequence bar, the toolbar, the playback bar, the status bar, and
+    the title and legend on the 3D view.</p>
+    <ul>
+      <li>Panels have a × in their title bar; <i>Show all panels</i> brings them back.</li>
+      <li>Side panels, the 2D window and the console can be <b>maximised</b> (title-bar button or double-click);
+          <kbd>Esc</kbd> restores them.</li>
+      <li><kbd>H</kbd> hides everything around the 3D view, <kbd>F11</kbd> switches to full screen, and
+          <i>Reset window layout</i> returns to the original arrangement. The layout is remembered.</li>
+    </ul>
+    <p class="ref">Reference: user guide <a href="guide/#43-language-and-window-layout">§4.3</a>.</p>
+
+    <h3 id="t-plugins">Plugins</h3>
+    <p>Add your own colour schemes, metrics, panels, console commands or analyses. Interface plugins are JavaScript
+    modules; analysis plugins are Python files with a <code>compute(sequence, residues)</code> function.
+    <i>Plugins &rsaquo; New plugin from template&hellip;</i> writes a working, commented template, and
+    <i>Plugins &rsaquo; Plugin developer guide</i> explains the API. Built-in examples: Distance tracker and
+    Similarity matrix. Plugins run with your user rights; install only plugins you trust.</p>
+    <p>See the <a href="#plugins">Plugins</a> page for details.</p>
 
     <h3 id="t-keys">Keyboard shortcuts</h3>
     <table>
-      <tr><td><kbd>G</kbd> pull</td><td><kbd>D</kbd> 2D window</td><td><kbd>M</kbd> measure</td><td><kbd>`</kbd> console</td></tr>
-      <tr><td><kbd>&larr;</kbd>/<kbd>&rarr;</kbd> previous/next</td><td><kbd>Space</kbd> play</td><td><kbd>1</kbd>–<kbd>5</kbd> representation</td><td><kbd>C</kbd> colour scheme</td></tr>
-      <tr><td><kbd>R</kbd> reset view</td><td><kbd>S</kbd> snapshot</td><td><kbd>Ctrl+O</kbd> open</td><td><kbd>?</kbd> help</td></tr>
+      <tr><th style="width:20%">Group</th><th>Keys</th></tr>
+      <tr><td>Tools</td><td><kbd>V</kbd> select &middot; <kbd>G</kbd> pull (or <kbd>Alt</kbd>+drag) &middot; <kbd>B</kbd> paint &middot; <kbd>T</kbd> label &middot; <kbd>M</kbd> measure &middot; <kbd>Delete</kbd> remove the selected label</td></tr>
+      <tr><td>View</td><td><kbd>1</kbd>–<kbd>5</kbd> representation &middot; <kbd>C</kbd> colour scheme &middot; <kbd>U</kbd> surface &middot; <kbd>D</kbd> 2D window &middot; <kbd>`</kbd> console &middot; <kbd>E</kbd> overlay &middot; <kbd>P</kbd> putty &middot; <kbd>L</kbd> labels &middot; <kbd>F</kbd> centre on selection &middot; <kbd>R</kbd> reset &middot; <kbd>A</kbd> auto-rotate &middot; <kbd>S</kbd> snapshot</td></tr>
+      <tr><td>Conformations</td><td><kbd>&larr;</kbd>/<kbd>&rarr;</kbd> previous/next &middot; <kbd>Home</kbd>/<kbd>End</kbd> first/last &middot; <kbd>Space</kbd> play</td></tr>
+      <tr><td>Edit</td><td><kbd>Ctrl+Z</kbd> undo &middot; <kbd>Ctrl+Y</kbd> redo &middot; <kbd>Ctrl+A</kbd> select all &middot; <kbd>Ctrl+F</kbd> select (console) &middot; <kbd>Esc</kbd> cancel / clear</td></tr>
+      <tr><td>Files</td><td><kbd>Ctrl+N</kbd> new prediction &middot; <kbd>Ctrl+H</kbd> start page &middot; <kbd>Ctrl+O</kbd> open &middot; <kbd>Ctrl+Shift+F</kbd> fetch from the PDB &middot; <kbd>Ctrl+S</kbd> save .rcv &middot; <kbd>Ctrl+Shift+S</kbd> workspace &middot; <kbd>Ctrl+E</kbd> export image</td></tr>
+      <tr><td>Window</td><td><kbd>H</kbd> only the 3D view &middot; <kbd>F11</kbd> full screen &middot; <kbd>Esc</kbd> restore a maximised panel &middot; <kbd>F1</kbd> user guide &middot; <kbd>?</kbd> keyboard and mouse</td></tr>
+      <tr><td>Mouse</td><td>drag rotate &middot; right-drag pan &middot; wheel zoom &middot; Ctrl-drag roll &middot; left button = current tool &middot; double-click centre &middot; right-click residue menu</td></tr>
     </table>
-
-    <h3>Command line</h3>
-    <p>RCV also works without the window:</p>
-<pre><code>rcv models/*.pdb                        # several structure files of one RNA: one ensemble
-rcv batch my_rnas.fasta                 # predict every sequence, one .rcv each
-rcv convert models/*.pdb -o my_rna.rcv  # structures to one .rcv file
-rcv pathway my_rna.rcv --a 1 --b 5      # how conformation 1 turns into 5
-rcv info my_rna.rcv --methods           # contents and methods paragraph
-rcv extract my_rna.rcv -o pdb/          # back to PDB files
-rcv html my_rna.rcv -o my_rna.html      # interactive web page</code></pre>
+  </div>
   </div>
 </section>
 
@@ -953,6 +1594,63 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
       if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: location.pathname + location.hash });
     });
     show();
+  })();
+
+  // ---- tutorial contents: highlight the section being read, keep it in view ----
+  (function () {
+    var page = document.getElementById('tutorial');
+    var toc = page && page.querySelector('.toc');
+    if (!toc) return;
+    var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#t-"]'));
+    var heads = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var pinned = null, pinnedY = null, ticking = false;
+
+    function setActive(id) {
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('active', on);
+        if (on && toc.scrollHeight > toc.clientHeight) {
+          if (a.offsetTop < toc.scrollTop) toc.scrollTop = a.offsetTop - 30;
+          else if (a.offsetTop + a.offsetHeight > toc.scrollTop + toc.clientHeight) toc.scrollTop = a.offsetTop + a.offsetHeight - toc.clientHeight + 30;
+        }
+      });
+    }
+    function spy() {
+      ticking = false;
+      if (!page.classList.contains('active')) return;
+      // right after a jump, keep the chosen section (short last sections cannot reach the top)
+      if (pinned) {
+        if (pinnedY === null) pinnedY = window.scrollY;
+        if (Math.abs(window.scrollY - pinnedY) < 4) { setActive(pinned); return; }
+        pinned = null;
+      }
+      var current = heads[0];
+      heads.forEach(function (h) { if (h && h.getBoundingClientRect().top < 140) current = h; });
+      var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) current = heads[heads.length - 1];
+      setActive(current.id);
+    }
+    function schedule() { if (!ticking) { ticking = true; window.requestAnimationFrame(spy); } }
+    function pinToHash() {
+      var id = location.hash.slice(1);
+      pinned = heads.some(function (h) { return h && h.id === id; }) ? id : null;
+      pinnedY = null;
+      setTimeout(spy, 0);
+    }
+    // clicking the link of the section already in the address bar does not fire hashchange: scroll anyway
+    links.forEach(function (a) {
+      a.addEventListener('click', function () {
+        if (location.hash === a.getAttribute('href')) {
+          var h = document.getElementById(a.getAttribute('href').slice(1));
+          if (h) h.scrollIntoView();
+          pinToHash();
+        }
+      });
+    });
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', pinToHash);
+    pinToHash();
   })();
 
   // ---- statistics (stats.json is refreshed daily by .github/workflows/update-stats.yml) ----
