@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-05 10:56 UTC",
+ "updated": "2026-11-06 10:53 UTC",
  "visits": {
-  "total": 130,
+  "total": 132,
   "since": "2026-10-23",
   "monthly": [
    {
@@ -10,17 +10,17 @@
    },
    {
     "month": "2026-11",
-    "count": 5
+    "count": 16
    }
   ],
   "countries": [
    {
     "name": "Singapore",
-    "count": 56
+    "count": 62
    },
    {
     "name": "United States",
-    "count": 23
+    "count": 28
    },
    {
     "name": "China",
@@ -208,6 +208,10 @@
   },
   {
    "date": "2026-11-05",
+   "total": 99
+  },
+  {
+   "date": "2026-11-06",
    "total": 99
   }
  ]
