@@ -1291,7 +1291,7 @@ rcv engine predict …                    # the prediction engine itself (rnafol
   the same way, with US-align as in the official assessment.</p>
 
   <figure>
-    <img src="images/casp16_tm.svg" width="760" height="538" alt="TM-score of model 1 per CASP16 RNA target for RCV with and without templates, AlphaFold 3 and the best CASP16 group" loading="lazy" style="border:0">
+    <img src="images/casp16_tm.svg" width="760" height="538" alt="TM-score of model 1 per CASP16 RNA target for RCV, AlphaFold 3 and the best CASP16 group" loading="lazy" style="border:0">
     <figcaption>TM-score of the first model on every target (1 = identical to the experimental structure; above
     about 0.45 the overall fold is right). The grey line spans the values.</figcaption>
   </figure>
@@ -1300,7 +1300,6 @@ rcv engine predict …                    # the prediction engine itself (rnafol
     <thead><tr><th>Method</th><th>Mean TM-score, model&nbsp;1</th><th>Mean TM-score, best of 5</th><th>Median RMSD, model&nbsp;1 (&Aring;)</th><th>Overall fold right (TM&nbsp;&ge;&nbsp;0.45)</th><th>Base pairs right (INF-WC)</th></tr></thead>
     <tbody>
       <tr><td><b>RCV 0.7.3</b> <span class="muted">(physics + templates, no deep learning, CPU)</span></td><td><b>0.49</b></td><td><b>0.51</b></td><td>10.7</td><td>8 of 15</td><td>0.83</td></tr>
-      <tr><td>RCV 0.7.3 without templates</td><td>0.27</td><td>0.29</td><td>18.0</td><td>0 of 15</td><td>0.74</td></tr>
       <tr><td>RCV 0.7.2</td><td>0.25</td><td>0.28</td><td>15.3</td><td>0 of 15</td><td>0.75</td></tr>
       <tr><td>AlphaFold 3</td><td>0.48</td><td>0.50</td><td>8.6</td><td>8 of 15</td><td>0.92</td></tr>
       <tr><td>trRosettaRNA (server)</td><td>0.49</td><td>0.54</td><td>9.4</td><td>9 of 15</td><td>0.85</td></tr>
