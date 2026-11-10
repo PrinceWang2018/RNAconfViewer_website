@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09 11:32 UTC",
+ "updated": "2026-11-10 11:12 UTC",
  "visits": {
   "total": 160,
   "since": "2026-10-23",
@@ -10,17 +10,17 @@
    },
    {
     "month": "2026-11",
-    "count": 16
+    "count": 44
    }
   ],
   "countries": [
    {
     "name": "Singapore",
-    "count": 62
+    "count": 88
    },
    {
     "name": "United States",
-    "count": 28
+    "count": 29
    },
    {
     "name": "China",
@@ -69,18 +69,22 @@
    {
     "name": "Poland",
     "count": 1
+   },
+   {
+    "name": "Taiwan",
+    "count": 1
    }
   ],
-  "country_count": 14,
+  "country_count": 15,
   "source": "api"
  },
  "downloads": {
-  "total": 162,
+  "total": 169,
   "by_platform": {
-   "Linux": 67,
-   "Windows": 44,
-   "macOS (Apple Silicon)": 26,
-   "macOS (Intel)": 25
+   "Linux": 70,
+   "Windows": 45,
+   "macOS (Apple Silicon)": 27,
+   "macOS (Intel)": 27
   },
   "releases": [
    {
@@ -88,32 +92,32 @@
     "name": "RCV v0.7.3",
     "date": "2026-11-07",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 19,
+    "total": 26,
     "assets": [
      {
       "name": "RCV-0.7.3-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 4
+      "count": 6
      },
      {
       "name": "RCV-0.7.3-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 4
+      "count": 5
      },
      {
       "name": "RCV-0.7.3-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 3
+      "count": 4
      },
      {
       "name": "RCV-0.7.3-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 3
+      "count": 5
      },
      {
       "name": "RCV-0.7.3-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 5
+      "count": 6
      }
     ]
    },
@@ -293,6 +297,10 @@
   {
    "date": "2026-11-09",
    "total": 162
+  },
+  {
+   "date": "2026-11-10",
+   "total": 169
   }
  ]
 }
