@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-11 10:58 UTC",
+ "updated": "2026-11-12 11:11 UTC",
  "visits": {
-  "total": 162,
+  "total": 168,
   "since": "2026-10-23",
   "monthly": [
    {
@@ -79,12 +79,12 @@
   "source": "api"
  },
  "downloads": {
-  "total": 178,
+  "total": 186,
   "by_platform": {
-   "Linux": 75,
-   "Windows": 46,
-   "macOS (Apple Silicon)": 29,
-   "macOS (Intel)": 28
+   "Linux": 77,
+   "Windows": 50,
+   "macOS (Apple Silicon)": 30,
+   "macOS (Intel)": 29
   },
   "releases": [
    {
@@ -92,32 +92,32 @@
     "name": "RCV v0.7.3",
     "date": "2026-11-07",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 34,
+    "total": 40,
     "assets": [
      {
       "name": "RCV-0.7.3-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 8
+      "count": 9
      },
      {
       "name": "RCV-0.7.3-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 7
+      "count": 8
      },
      {
       "name": "RCV-0.7.3-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 6
+      "count": 7
      },
      {
       "name": "RCV-0.7.3-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 6
+      "count": 7
      },
      {
       "name": "RCV-0.7.3-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 7
+      "count": 9
      }
     ]
    },
@@ -126,7 +126,7 @@
     "name": "RCV v0.7.2",
     "date": "2026-11-06",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 20,
+    "total": 21,
     "assets": [
      {
       "name": "RCV-0.7.2-Linux-amd64.deb",
@@ -151,7 +151,7 @@
      {
       "name": "RCV-0.7.2-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 4
+      "count": 5
      }
     ]
    },
@@ -160,7 +160,7 @@
     "name": "RCV 0.7.1",
     "date": "2026-10-27",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 80,
+    "total": 81,
     "assets": [
      {
       "name": "RCV-0.7.1-Linux-amd64.deb",
@@ -185,7 +185,7 @@
      {
       "name": "RCV-0.7.1-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 19
+      "count": 20
      }
     ]
    },
@@ -305,6 +305,10 @@
   {
    "date": "2026-11-11",
    "total": 178
+  },
+  {
+   "date": "2026-11-12",
+   "total": 186
   }
  ]
 }
