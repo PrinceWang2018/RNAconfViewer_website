@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-12 11:11 UTC",
+ "updated": "2026-11-13 10:59 UTC",
  "visits": {
-  "total": 168,
+  "total": 172,
   "since": "2026-10-23",
   "monthly": [
    {
@@ -10,13 +10,13 @@
    },
    {
     "month": "2026-11",
-    "count": 44
+    "count": 56
    }
   ],
   "countries": [
    {
     "name": "Singapore",
-    "count": 88
+    "count": 99
    },
    {
     "name": "United States",
@@ -39,11 +39,11 @@
     "count": 5
    },
    {
-    "name": "Canada",
-    "count": 2
+    "name": "United Kingdom",
+    "count": 3
    },
    {
-    "name": "United Kingdom",
+    "name": "Canada",
     "count": 2
    },
    {
@@ -79,45 +79,53 @@
   "source": "api"
  },
  "downloads": {
-  "total": 186,
+  "total": 191,
   "by_platform": {
-   "Linux": 77,
-   "Windows": 50,
-   "macOS (Apple Silicon)": 30,
-   "macOS (Intel)": 29
+   "Linux": 79,
+   "Windows": 51,
+   "macOS (Apple Silicon)": 31,
+   "macOS (Intel)": 30
   },
   "releases": [
+   {
+    "tag": "v0.7.3",
+    "name": "RNA Conformation Viewer",
+    "date": "2026-11-12",
+    "repo": "PrinceWang2018/RNAconformer",
+    "total": 0,
+    "assets": []
+   },
    {
     "tag": "v0.7.3",
     "name": "RCV v0.7.3",
     "date": "2026-11-07",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 40,
+    "total": 45,
     "assets": [
      {
       "name": "RCV-0.7.3-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 9
+      "count": 10
      },
      {
       "name": "RCV-0.7.3-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 8
+      "count": 9
      },
      {
       "name": "RCV-0.7.3-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 7
+      "count": 8
      },
      {
       "name": "RCV-0.7.3-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 7
+      "count": 8
      },
      {
       "name": "RCV-0.7.3-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 9
+      "count": 10
      }
     ]
    },
@@ -309,6 +317,10 @@
   {
    "date": "2026-11-12",
    "total": 186
+  },
+  {
+   "date": "2026-11-13",
+   "total": 191
   }
  ]
 }
