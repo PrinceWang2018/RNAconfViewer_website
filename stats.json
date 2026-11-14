@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-13 10:59 UTC",
+ "updated": "2026-11-14 10:26 UTC",
  "visits": {
-  "total": 172,
+  "total": 177,
   "since": "2026-10-23",
   "monthly": [
    {
@@ -79,12 +79,12 @@
   "source": "api"
  },
  "downloads": {
-  "total": 191,
+  "total": 202,
   "by_platform": {
-   "Linux": 79,
-   "Windows": 51,
-   "macOS (Apple Silicon)": 31,
-   "macOS (Intel)": 30
+   "Linux": 85,
+   "Windows": 52,
+   "macOS (Apple Silicon)": 33,
+   "macOS (Intel)": 32
   },
   "releases": [
    {
@@ -100,32 +100,32 @@
     "name": "RCV v0.7.3",
     "date": "2026-11-07",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 45,
+    "total": 55,
     "assets": [
      {
       "name": "RCV-0.7.3-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 10
+      "count": 13
      },
      {
       "name": "RCV-0.7.3-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 9
+      "count": 11
      },
      {
       "name": "RCV-0.7.3-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 8
+      "count": 10
      },
      {
       "name": "RCV-0.7.3-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 8
+      "count": 10
      },
      {
       "name": "RCV-0.7.3-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 10
+      "count": 11
      }
     ]
    },
@@ -134,7 +134,7 @@
     "name": "RCV v0.7.2",
     "date": "2026-11-06",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 21,
+    "total": 22,
     "assets": [
      {
       "name": "RCV-0.7.2-Linux-amd64.deb",
@@ -144,7 +144,7 @@
      {
       "name": "RCV-0.7.2-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 3
+      "count": 4
      },
      {
       "name": "RCV-0.7.2-macOS-arm64.dmg",
@@ -321,6 +321,10 @@
   {
    "date": "2026-11-13",
    "total": 191
+  },
+  {
+   "date": "2026-11-14",
+   "total": 202
   }
  ]
 }
