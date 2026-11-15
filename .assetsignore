@@ -1,0 +1,14 @@
+# Files of this repository that are not part of the website (Cloudflare does not upload them as static assets).
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+worker
+scripts
+downloads
+node_modules
+README.md
+LICENSE
+__pycache__
+.wrangler

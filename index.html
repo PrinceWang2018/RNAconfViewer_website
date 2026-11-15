@@ -166,6 +166,18 @@
   td.bar i { display: block; height: 10px; background: #7d9cc4; min-width: 1px; }
   .stats-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 
+  .fb-form { max-width: 680px; }
+  .fb-form label { display: block; font-weight: 600; margin: 14px 0 4px; }
+  .fb-form textarea, .fb-form input { width: 100%; font: inherit; padding: 8px 10px; border: 1px solid var(--line);
+    border-radius: 3px; background: #fff; }
+  .fb-form textarea:focus, .fb-form input:focus { outline: 2px solid #9db8dd; border-color: var(--blue); }
+  .fb-form button.btn { border: 1px solid var(--blue); cursor: pointer; font: inherit; }
+  .fb-form button.btn[disabled] { opacity: .6; cursor: default; }
+  .fb-count { text-align: right; font-size: 12px; margin-top: 2px; }
+  .fb-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  #fb-status { margin-left: 10px; }
+  #fb-status.ok { color: #23703a; } #fb-status.err { color: #b3261e; }
+
   footer { border-top: 1px solid var(--line); background: var(--bg-soft); font-size: 13px; color: var(--muted); }
   footer .wrap { padding: 18px 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
@@ -207,7 +219,7 @@
     <li><a href="#plugins">Plugins</a></li>
     <li><a href="#releases">Release Notes</a></li>
     <li><a href="#statistics">Statistics</a></li>
-    <li><a href="#cocreation">Co-creation Program</a></li>
+    <li><a href="#feedback">Feedback</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -240,9 +252,11 @@
     <p>RNA structure is not confined to a single answer, and neither is life.</p>
   </blockquote>
   <p>
-    <a class="btn" href="#download">Download RCV 0.7.3</a>&nbsp;
-    <a class="btn secondary" href="#tutorial">Get started</a>
+    <a class="btn" href="#download">Download RCV 0.7.5</a>&nbsp;
+    <a class="btn secondary" href="#tutorial">Get started</a>&nbsp;
+    <a class="btn secondary" href="#cite">Cite RCV</a>
   </p>
+  <p><a href="https://doi.org/10.5281/zenodo.24163503"><img src="https://zenodo.org/badge/1428242301.svg" alt="DOI: 10.5281/zenodo.24163503" style="vertical-align:middle"></a></p>
 
   <div class="home-grid">
     <div>
@@ -253,11 +267,23 @@
 
       <h3>Main features</h3>
       <ul class="features">
-        <li><b>Accurate 3D structures on a laptop.</b> <span class="new">New</span> Predictions build on related
+        <li><b>Compound screening for RNAs that switch.</b> <span class="new">New</span> <i>Experimental.</i> Find
+            the pockets of each conformation, then screen a compound file against two conformations and rank the
+            compounds by how much better they fit one than the other: the ones that could hold the switch in one
+            state. A ranking to choose compounds to test, never an affinity; the benchmarks, including where it
+            fails, are shown next to the results. <a class="more" href="#t-screening">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Advanced analyses inside the tabs.</b> <span class="new">New</span> Experiments that tell two states
+            apart (disrupt-and-rescue mutants, probing, FRET/DEER label pairs), effects of variants, folding during
+            transcription, structural motifs and tertiary contacts, pockets, target sites for antisense
+            oligonucleotides, and comparison with another ensemble. <a class="more" href="#t-advanced">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>SAXS, FRET and cryo-EM data.</b> <span class="new">New</span> See how well each conformation agrees
+            with a SAXS profile, FRET distances or a density map, and reweight the ensemble to fit several datasets
+            together. <a class="more" href="#t-expdata">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Accurate 3D structures on a laptop.</b> Predictions build on related
             experimental structures from a built-in library of 3,964 RNA chains (21.5 MB). On the CASP16 blind test
             RCV&rsquo;s first models are as accurate as AlphaFold&nbsp;3&rsquo;s (mean TM-score 0.49 and 0.48), in
             1&ndash;7 minutes per RNA on a laptop CPU, no GPU. <a class="more" href="#benchmark">Learn more&nbsp;&rsaquo;</a></li>
-        <li><b>AlphaFold&nbsp;3 inside RCV.</b> <span class="new">New</span> Run your own AlphaFold&nbsp;3 installation
+        <li><b>AlphaFold&nbsp;3 inside RCV.</b> Run your own AlphaFold&nbsp;3 installation
             from the start page, or open an AlphaFold Server result: all models open as one ensemble, coloured by
             pLDDT, with all of RCV&rsquo;s analyses. <a class="more" href="#t-af3">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Pathways: how A turns into B.</b> The refolding barrier and routes between
@@ -295,6 +321,8 @@
         <li><b>Energies and metrics.</b> Engine scores, evaluator energies and structural descriptors to compare and sort conformations. <a class="more" href="#t-metrics">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Plugins.</b> Add your own colour schemes, metrics, panels, commands and analyses. <a class="more" href="#t-plugins">Learn more&nbsp;&rsaquo;</a></li>
         <li><b>Keyboard shortcuts.</b> One key for every tool and view. <a class="more" href="#t-keys">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Presentation mode and adjustable panels.</b> <span class="new">New</span> Only the 3D view, full screen, for talks (<kbd>F5</kbd>); drag the side panels to the width you want. <a class="more" href="#t-layout">Learn more&nbsp;&rsaquo;</a></li>
+        <li><b>Check for updates.</b> <span class="new">New</span> RCV tells you when a new version is out; nothing is installed without you. <a class="more" href="#updates">Learn more&nbsp;&rsaquo;</a></li>
 </ul>
 
       <figure>
@@ -309,7 +337,7 @@
     <aside>
       <div class="sidebox">
         <h4>Current version</h4>
-        <p style="margin:0">RCV 0.7.3 &middot; 7 November 2026<br>
+        <p style="margin:0">RCV 0.7.5 &middot; 15 November 2026<br>
         Windows &middot; macOS &middot; Linux<br>
         <a href="#download">Download</a> &middot; <a href="#releases">What's new</a></p>
       </div>
@@ -327,6 +355,12 @@
       <div class="sidebox">
         <h4>News</h4>
         <dl class="news" style="margin:0">
+          <dt>2026-11-15</dt>
+          <dd>RCV 0.7.5 released for Windows, macOS and Linux: <b>compound screening for RNAs that switch</b>
+              (experimental), seven advanced analyses inside the tabs, SAXS, FRET and cryo-EM data, a more accurate
+              engine, presentation mode and update check. <a href="#releases">What's new</a></dd>
+          <dt>2026-11-15</dt>
+          <dd>New <a href="#feedback">Feedback</a> page: send comments and suggestions straight from the website.</dd>
           <dt>2026-11-07</dt>
           <dd>RCV 0.7.3 released for Windows, macOS and Linux: <b>3D models from related experimental
               structures</b>, as accurate as AlphaFold&nbsp;3 on the CASP16 blind test, on a laptop CPU without GPU;
@@ -364,7 +398,7 @@
           <li><a href="#benchmark">Benchmark against AlphaFold&nbsp;3 (CASP16)</a></li>
           <li><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">Engine status</a></li>
           <li><a href="#about">How to cite</a></li>
-          <li><a href="#cocreation">Join the Co-creation Program</a></li>
+          <li><a href="#feedback">Send feedback</a></li>
         </ul>
       </div>
     </aside>
@@ -378,51 +412,47 @@
   The desktop installers include Python, the prediction engine, ViennaRNA and the demo data; nothing else
   needs to be installed.</p>
 
-  <h3>RCV 0.7.3 <span class="muted" style="font-size:14px;font-weight:400">(7 November 2026)</span></h3>
-  <p>New in this version: 3D models from related experimental structures (a built-in library of 3,964 RNA
-  chains), as accurate as AlphaFold&nbsp;3 on the CASP16 blind test on a laptop CPU, and AlphaFold&nbsp;3 and
-  AlphaFold Server results inside RCV. <a href="#releases">Release notes</a>.</p>
+  <h3>RCV 0.7.5 <span class="muted" style="font-size:14px;font-weight:400">(15 November 2026)</span></h3>
+  <p>New in this version: compound screening for RNAs that switch (experimental), seven advanced analyses inside
+  the tabs, SAXS, FRET and cryo-EM data, a more accurate engine (motif fragments, structure-aware template
+  search), presentation mode, adjustable panels and an update check. <a href="#releases">Release notes</a>.</p>
   <table>
     <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
     <tr>
       <td>Windows 10/11 (64-bit)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.3/RCV-0.7.3-Windows-x64-Setup.exe">RCV-0.7.3-Windows-x64-Setup.exe</a> <span class="muted">(65 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Windows-x64-Setup.exe">RCV-0.7.5-Windows-x64-Setup.exe</a> <span class="muted">(@SIZE_WIN@)</span></td>
       <td>Installer with Start-menu entries (RCV, demo ensembles, user guide) and optional <code>.rcv</code> file association.</td>
     </tr>
     <tr>
       <td>macOS 14+ (Apple Silicon)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.3/RCV-0.7.3-macOS-arm64.dmg">RCV-0.7.3-macOS-arm64.dmg</a> <span class="muted">(66 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-arm64.dmg">RCV-0.7.5-macOS-arm64.dmg</a> <span class="muted">(@SIZE_ARM@)</span></td>
       <td>For Macs with an M-series chip (M1 and later).</td>
     </tr>
     <tr>
       <td>macOS 14+ (Intel)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.3/RCV-0.7.3-macOS-x86_64.dmg">RCV-0.7.3-macOS-x86_64.dmg</a> <span class="muted">(71 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-x86_64.dmg">RCV-0.7.5-macOS-x86_64.dmg</a> <span class="muted">(@SIZE_MACX@)</span></td>
       <td>For Intel-based Macs.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Debian, Ubuntu, Linux Mint</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.3/RCV-0.7.3-Linux-amd64.deb">RCV-0.7.3-Linux-amd64.deb</a> <span class="muted">(68 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-amd64.deb">RCV-0.7.5-Linux-amd64.deb</a> <span class="muted">(@SIZE_DEB@)</span></td>
       <td>Ubuntu 20.04, Debian 11 or newer. Adds the <code>rcv</code> command and a menu entry.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Fedora, RHEL, Rocky, AlmaLinux, openSUSE</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.3/RCV-0.7.3-Linux-x86_64.rpm">RCV-0.7.3-Linux-x86_64.rpm</a> <span class="muted">(67 MB)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-x86_64.rpm">RCV-0.7.5-Linux-x86_64.rpm</a> <span class="muted">(@SIZE_RPM@)</span></td>
       <td>Fedora 32, RHEL 9, openSUSE Leap 15.6 or newer.</td>
     </tr>
     <tr>
       <td>Any platform</td>
-      <td><a href="https://github.com/PrinceWang2018/RNAconformer/archive/refs/heads/master.zip">Source code (zip)</a></td>
+      <td><a href="https://github.com/PrinceWang2018/RNAconformer/archive/refs/tags/v0.7.5.zip">Source code (zip)</a></td>
       <td>Requires Python 3.10 or later. See <a href="#install">Install</a>.</td>
     </tr>
   </table>
 
   <details class="muted" style="font-size:13px">
     <summary>SHA-256 checksums</summary>
-<pre style="white-space:pre-wrap;word-break:break-all"><code>e16808842fc33808c90e44c6e387415800eb5cf80b3d24cb1ffdc1dfe4a16ecb  RCV-0.7.3-Windows-x64-Setup.exe
-3ee722f51bc894d79aa926249a496595e32774c6bbae3b031e4749f3d953b69e  RCV-0.7.3-macOS-arm64.dmg
-254f7905db7de0dbb737027f92021831c9cad4f4c767b5a7c94456f117af9f5c  RCV-0.7.3-macOS-x86_64.dmg
-721df47e22644eb766ea5c57a2be5844825c7df3f15544c8310d8cfa5661ea5a  RCV-0.7.3-Linux-amd64.deb
-f18ba9a9c3c7d73fa52589dff6d990292116fbbce967bad576f40e75733502ef  RCV-0.7.3-Linux-x86_64.rpm</code></pre>
+<pre style="white-space:pre-wrap;word-break:break-all"><code>@CHECKSUMS@</code></pre>
   </details>
   <p>Earlier versions are on the <a href="https://github.com/PrinceWang2018/RNAconfViewer_website/releases">releases page</a>.
   Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
@@ -455,7 +485,7 @@ f18ba9a9c3c7d73fa52589dff6d990292116fbbce967bad576f40e75733502ef  RCV-0.7.3-Linu
     <div>
       <h3 style="margin-top:0">Windows</h3>
       <ol>
-        <li>Download <code>RCV-0.7.3-Windows-x64-Setup.exe</code>.</li>
+        <li>Download <code>RCV-0.7.5-Windows-x64-Setup.exe</code>.</li>
         <li>Run the installer and follow the steps. Optionally create a desktop shortcut and associate
             <code>.rcv</code> files with RCV.</li>
         <li>Start RCV from the Start menu. The Start menu also has <i>RCV with demo ensembles</i>, the
@@ -482,9 +512,9 @@ f18ba9a9c3c7d73fa52589dff6d990292116fbbce967bad576f40e75733502ef  RCV-0.7.3-Linu
     <li>Download the <code>.deb</code> (Debian, Ubuntu, Linux Mint) or the <code>.rpm</code> (Fedora, RHEL, Rocky,
         AlmaLinux, openSUSE).</li>
     <li>Install it from the download folder:
-<pre><code>sudo apt install ./RCV-0.7.3-Linux-amd64.deb                 # Debian, Ubuntu, Linux Mint
-sudo dnf install ./RCV-0.7.3-Linux-x86_64.rpm                # Fedora, RHEL, Rocky, AlmaLinux
-sudo zypper install --allow-unsigned-rpm ./RCV-0.7.3-Linux-x86_64.rpm   # openSUSE</code></pre></li>
+<pre><code>sudo apt install ./RCV-0.7.5-Linux-amd64.deb                 # Debian, Ubuntu, Linux Mint
+sudo dnf install ./RCV-0.7.5-Linux-x86_64.rpm                # Fedora, RHEL, Rocky, AlmaLinux
+sudo zypper install --allow-unsigned-rpm ./RCV-0.7.5-Linux-x86_64.rpm   # openSUSE</code></pre></li>
     <li>Start RCV from the applications menu or type <code>rcv</code> in a terminal. Right-click the menu entry
         for <i>RCV with demo ensembles</i> and the <i>RCV User Guide</i>; <code>.rcv</code> files open with RCV.</li>
   </ol>
@@ -515,6 +545,14 @@ rcv               # opens the start page</code></pre>
     <tr><td>Linux</td><td><code>~/.local/share/rcv</code></td></tr>
   </table>
   <p>Predictions are saved in <code>Documents/RCV/projects</code> by default (<i>View &rsaquo; Preferences</i>).</p>
+
+  <h3 id="updates">Updates</h3>
+  <p>From 0.7.5, RCV checks once a day at start-up whether a newer version is available and, if so, offers the
+  installer for your computer: <i>Download</i> opens it in your web browser, <i>Skip this version</i> or
+  <i>Later</i>. Nothing is downloaded or installed without you. Check by hand with <i>Help &rsaquo; Check for
+  updates&hellip;</i>; turn the automatic check off there or in <i>View &rsaquo; Preferences</i>. The request
+  sends only <code>RCV/&lt;version&gt;</code>. To update, install the new version over the old one; projects and
+  settings are kept.</p>
 
   <h3>Uninstall</h3>
   <p>Windows: <i>Settings &rsaquo; Apps &rsaquo; RCV &rsaquo; Uninstall</i>. macOS: move RCV from Applications
@@ -560,6 +598,9 @@ rcv               # opens the start page</code></pre>
       <li><a href="#t-conditions">Conditions and ligands</a></li>
       <li><a href="#t-probing">Probing data (SHAPE, DMS)</a></li>
       <li><a href="#t-confidence">Per-nucleotide confidence</a></li>
+      <li><a href="#t-expdata">SAXS, FRET, cryo-EM</a></li>
+      <li><a href="#t-advanced">Advanced analyses</a></li>
+      <li><a href="#t-screening">Compound screening</a></li>
       <li><a href="#t-metrics">Energies and metrics</a></li>
     </ol>
     <p class="toc-group">Share and automate</p>
@@ -1061,6 +1102,70 @@ conditions standard</code></pre>
     ranking is kept and confidence is shown as an additional guide.</p>
     <p class="ref">Reference: user guide <a href="guide/#85-confidence-model-optional">§8.5</a>.</p>
 
+    <h3 id="t-expdata">SAXS, FRET and cryo-EM data</h3>
+    <p>The same idea as probing data, for measurements of the overall shape: which conformations agree with the
+    data, and which mix of them fits best.</p>
+    <ol>
+      <li><i>Tools &rsaquo; Load SAXS, FRET or cryo-EM data&hellip;</i> and choose a file: a SAXS profile
+          (<i>q</i>, intensity, error), FRET distances or efficiencies between two nucleotides (with R₀), or a
+          density map (MRC/CCP4). Several datasets can be loaded together.</li>
+      <li>RCV computes what each conformation predicts: the SAXS curve from all heavy atoms with a fitted scale and
+          background (χ² and R<sub>g</sub>), the FRET distances, or the correlation of the conformation&rsquo;s
+          simulated density with the map after placing it in the map.</li>
+      <li>The results are in a closed section of the <i>Details</i> tab: the curve, the agreement of every
+          conformation, and the weights of a maximum-entropy reweighting of the ensemble that fits all datasets
+          jointly.</li>
+    </ol>
+    <p>Data and fits are saved in <code>.rcv</code> files and described in the methods text.</p>
+    <p class="ref">Reference: user guide <a href="guide/#84-probing-data-shape-dms">§8.4</a>.</p>
+
+    <h3 id="t-advanced">Advanced analyses</h3>
+    <p>Seven analyses sit at the bottom of the Switch, Pathway and Details tabs as closed sections marked
+    <i>advanced</i>. Nothing is computed until you open a section and press its button. A click on a row selects
+    the nucleotides in 3D and 2D, and every table copies into a spreadsheet.</p>
+    <ul>
+      <li><b>Switch &rsaquo; Experiments that tell A from B</b>: disrupt-and-rescue double mutants (one mutation
+          breaks a pair only one state has, the second restores it), the segments where SHAPE/DMS reactivity
+          should differ, and nucleotide pairs for FRET or DEER labels whose distance differs most.</li>
+      <li><b>Switch &rsaquo; Variants</b>: paste substitutions such as <code>G34U</code> or
+          <code>A12C+G30C</code>; RCV reports how much the pairing changes (the riboSNitch measure), pairs gained
+          and lost, and with two states the shift between them.</li>
+      <li><b>Pathway &rsaquo; Folding during transcription</b>: the most stable structure of the growing RNA at
+          every length, which pairs are kept and which are temporary, and where the structure rearranges.</li>
+      <li><b>Details &rsaquo; Structural motifs</b>: hairpin loop types (GNRA, UNCG&hellip;), bulges and internal
+          loops with their bend, junctions and coaxial stacks, pseudoknots, non-canonical pairs, base triples and
+          A-minor contacts.</li>
+      <li><b>Details &rsaquo; Pockets</b>: open space that could hold a small molecule, ranked; with <i>Compare
+          with</i>, the sites that open or close between two conformations.</li>
+      <li><b>Details &rsaquo; Target sites</b>: the cost of opening every 14&ndash;25-nt window and how often it is
+          unpaired, for antisense oligonucleotides, siRNAs and probes, with the antisense sequence.</li>
+      <li><b>Details &rsaquo; Compare with another ensemble</b> of the same RNA (wild type and mutant, RCV and
+          AlphaFold&nbsp;3): the regions that moved, RMSD, TM-score, local agreement and pairing differences.</li>
+    </ul>
+    <p class="ref">Reference: user guide <a href="guide/#86-advanced-analyses-inside-the-tabs-074-075">§8.6</a>.</p>
+
+    <h3 id="t-screening">Compound screening <span class="muted" style="font-size:14px;font-weight:400">(experimental)</span></h3>
+    <p>Which compounds fit conformation A much better than conformation B &mdash; the ones that could hold the switch
+    in A? This is the question an ensemble makes possible and a docking program on one structure cannot ask.</p>
+    <ol>
+      <li><i>Tools &rsaquo; Compound screening&hellip;</i> (or the button in the Switch tab) opens the screening
+          window; the main window stays as it is.</li>
+      <li><b>Target</b>: choose A (to stabilise) and B (to block; optional) and the site: a pocket, or the
+          nucleotides selected in the main window.</li>
+      <li><b>Library</b>: an SDF, MOL or MOL2 file with 3D coordinates and hydrogens. Try the four example
+          compounds first; a run takes about a minute.</li>
+      <li><b>Run</b> and watch the table fill. <i>Selectivity</i> = score(B) &minus; score(A), positive when the
+          compound prefers A. <i>Show in 3D</i> draws the pose; export as CSV or as an SDF of poses.</li>
+    </ol>
+    <p>Command line: <code>rnafold3d pockets x.pdb</code>,
+    <code>rnafold3d dock --receptor rna.pdb --ligand compound.sdf --pocket 1 --out poses.sdf</code> and
+    <code>rnafold3d screen</code>.</p>
+    <p class="muted">The result is a ranking to choose a few compounds to test, not an affinity and not a claim
+    that a compound binds. The RNA is rigid in both conformations. The window shows what the scoring function was
+    measured at (mean AUC 0.864 on six targets; poor where the ligand binds through Mg<sup>2+</sup>).</p>
+    <p class="ref">Reference: user guide <a href="guide/#87-compound-screening-window-075-experimental">§8.7</a> and
+    <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/SCREENING_STATUS.md">screening status</a>.</p>
+
     <h3 id="t-metrics">Energies and metrics</h3>
     <p>Choose any of these in the metric selector of the Energy tab, sort the conformation list by it, or plot it.</p>
     <table>
@@ -1253,6 +1358,10 @@ rcv engine predict …                    # the prediction engine itself (rnafol
           <kbd>Esc</kbd> restores them.</li>
       <li><kbd>H</kbd> hides everything around the 3D view, <kbd>F11</kbd> switches to full screen, and
           <i>Reset window layout</i> returns to the original arrangement. The layout is remembered.</li>
+      <li><b>Panel widths</b>: drag the inner edge of a side panel; double-click it, or <i>Window &rsaquo; Default
+          panel widths</i>, for the default. A hidden side panel folds to a strip of icons; one click opens it.</li>
+      <li><b>Presentation mode</b> (<kbd>F5</kbd>, <i>Window</i> menu): only the 3D view, full screen, with large
+          labels, title and legend. <kbd>Esc</kbd> or <kbd>F5</kbd> leaves it.</li>
     </ul>
     <p class="ref">Reference: user guide <a href="guide/#43-language-and-window-layout">§4.3</a>.</p>
 
@@ -1283,8 +1392,8 @@ rcv engine predict …                    # the prediction engine itself (rnafol
 <section id="benchmark" class="page">
   <h2>Benchmark: RCV versus the leading RNA structure predictors</h2>
   <p><a href="https://predictioncenter.org/casp16/">CASP16</a> (2024) is the latest community-wide blind test of
-  RNA 3D structure prediction. RCV 0.7.3 predicted its 15 single-chain RNA targets up to 250&nbsp;nt from the
-  sequence &mdash; 5 models per target, <i>thorough</i> sampling, 1&ndash;7 minutes each on a laptop CPU (Intel
+  RNA 3D structure prediction. RCV 0.7.5 predicted its 15 single-chain RNA targets up to 250&nbsp;nt from the
+  sequence &mdash; 5 models per target, <i>thorough</i> sampling, 1&ndash;9 minutes each on a laptop CPU (Intel
   Core Ultra&nbsp;9, 16 cores), no GPU &mdash; using as templates only structures released before 1 May 2024, the
   start of the CASP16 prediction season. RCV&rsquo;s models and the models submitted to CASP16 by
   AlphaFold&nbsp;3, the trRosettaRNA server and two of the top expert groups (Vfold, GuangzhouRNA) were all scored
@@ -1299,7 +1408,8 @@ rcv engine predict …                    # the prediction engine itself (rnafol
   <table>
     <thead><tr><th>Method</th><th>Mean TM-score, model&nbsp;1</th><th>Mean TM-score, best of 5</th><th>Median RMSD, model&nbsp;1 (&Aring;)</th><th>Overall fold right (TM&nbsp;&ge;&nbsp;0.45)</th><th>Base pairs right (INF-WC)</th></tr></thead>
     <tbody>
-      <tr><td><b>RCV 0.7.3</b> <span class="muted">(physics + templates, no deep learning, CPU)</span></td><td><b>0.49</b></td><td><b>0.51</b></td><td>10.7</td><td>8 of 15</td><td>0.83</td></tr>
+      <tr><td><b>RCV 0.7.5</b> <span class="muted">(physics + templates, no deep learning, CPU)</span></td><td><b>0.50</b></td><td><b>0.53</b></td><td>7.8</td><td>8 of 15</td><td>0.81</td></tr>
+      <tr><td>RCV 0.7.3</td><td>0.49</td><td>0.51</td><td>10.7</td><td>8 of 15</td><td>0.83</td></tr>
       <tr><td>RCV 0.7.2</td><td>0.25</td><td>0.28</td><td>15.3</td><td>0 of 15</td><td>0.75</td></tr>
       <tr><td>AlphaFold 3</td><td>0.48</td><td>0.50</td><td>8.6</td><td>8 of 15</td><td>0.92</td></tr>
       <tr><td>trRosettaRNA (server)</td><td>0.49</td><td>0.54</td><td>9.4</td><td>9 of 15</td><td>0.85</td></tr>
@@ -1310,19 +1420,25 @@ rcv engine predict …                    # the prediction engine itself (rnafol
 
   <h3>What the comparison shows</h3>
   <ul>
-    <li><b>RCV is now as accurate as AlphaFold&nbsp;3 on CASP16.</b> The mean TM-score of its first model is 0.49
-        (AlphaFold&nbsp;3 0.48) and the overall fold is right on 8 of the 15 targets, as for AlphaFold&nbsp;3.
-        RCV 0.7.2 had 0.25 and none.</li>
+    <li><b>RCV is as accurate as AlphaFold&nbsp;3 on CASP16.</b> The mean TM-score of its first model is 0.495
+        (AlphaFold&nbsp;3 0.480), of the best of five 0.527 (0.501); the overall fold is right on 8 of the 15
+        targets, as for AlphaFold&nbsp;3, and RCV&rsquo;s first model is the better one on 8 of 15. RCV 0.7.2, without
+        templates, had 0.25 and none.</li>
     <li><b>Where a related structure is known (9 targets), RCV&rsquo;s models follow it closely:</b> mean 0.64
         (AlphaFold&nbsp;3 0.60), for example the ZTP riboswitch R1263 0.93 (AlphaFold&nbsp;3 0.66), the CVB3
-        cloverleaf R1211 0.67 (0.43) and the pre-tRNA R1221s3 0.64 (0.58).</li>
-    <li><b>Small and fast.</b> The installer is 65&ndash;71&nbsp;MB with everything included; a prediction takes
-        1&ndash;7 minutes on a laptop CPU and at most 1.3&nbsp;GB of memory. AlphaFold&nbsp;3 needs an NVIDIA GPU,
+        cloverleaf R1211 0.67 (0.43) and the pre-tRNA R1221s3 0.63 (0.58).</li>
+    <li><b>New in 0.7.5, better without a template.</b> Hairpin loops now take their shape from known loops with a
+        matching sequence. On the 6 targets without a template, model&nbsp;1 rose from 0.26 to 0.28
+        (AlphaFold&nbsp;3 0.30), most on R1209 (0.25 &rarr; 0.34); over all 15 the median RMSD of model&nbsp;1 fell
+        from 10.7 to 7.8&nbsp;&Aring;. With 15 targets these gains are within the noise (against the engine
+        without fragments, the 95% interval of the change in mean TM-score is &minus;0.016 to +0.026).</li>
+    <li><b>Small and fast.</b> The installer is @INSTALLER_MB@&nbsp;MB with everything included; a prediction takes
+        1&ndash;9 minutes on a laptop CPU and at most 1.3&nbsp;GB of memory. AlphaFold&nbsp;3 needs an NVIDIA GPU,
         1&nbsp;GB of model weights and 630&nbsp;GB of sequence databases.</li>
     <li><b>Made for RNAs that move.</b> RCV returns an ensemble of distinct conformations from different
         secondary-structure and template hypotheses. On the two coronavirus SL5 RNAs solved in 10 and 30 cryo-EM
         conformations, RCV&rsquo;s five models cover the experimental conformations better than AlphaFold&nbsp;3&rsquo;s
-        (mean best TM-score 0.65 and 0.39; AlphaFold&nbsp;3 0.37 and 0.26).</li>
+        (mean best TM-score 0.65 and 0.38; AlphaFold&nbsp;3 0.37 and 0.26).</li>
   </ul>
 
   <h3>Size, speed and RNAs that move</h3>
@@ -1330,30 +1446,30 @@ rcv engine predict …                    # the prediction engine itself (rnafol
     <img src="images/rcv_comparison.svg" width="1240" height="1010" alt="RCV next to deep-learning RNA structure predictors: download size, time per RNA on a laptop CPU, coverage of RNAs solved in several conformations, and features for RNAs that move" loading="lazy" style="border:0">
     <figcaption>(a) Download and disk space: RCV&rsquo;s complete installer next to the model weights and sequence
     databases of AlphaFold&nbsp;3, RoseTTAFold2NA, RhoFold+ and trRosettaRNA2 (log scale). (b) Time per CASP16 RNA
-    on a laptop CPU, with 16 and 4 cores. (c) CASP16 RNAs solved in several conformations: how well the five
+    on a laptop CPU, with 16 cores (0.7.5) and 4 cores (measured with 0.7.4, which has the same run time). (c) CASP16 RNAs solved in several conformations: how well the five
     models of each method cover them. (d) What each tool provides for an RNA that moves.</figcaption>
   </figure>
 
   <details>
     <summary>TM-score of model 1 on every target</summary>
   <table>
-    <thead><tr><th>Target</th><th>RNA</th><th>nt</th><th>RCV 0.7.3</th><th>Template (PDB)</th><th>AlphaFold&nbsp;3</th><th>trRosettaRNA</th><th>Vfold</th><th>GuangzhouRNA</th><th>CASP16 median</th></tr></thead>
+    <thead><tr><th>Target</th><th>RNA</th><th>nt</th><th>RCV 0.7.5</th><th>Template (PDB)</th><th>AlphaFold&nbsp;3</th><th>trRosettaRNA</th><th>Vfold</th><th>GuangzhouRNA</th><th>CASP16 median</th></tr></thead>
     <tbody>
-      <tr><td>R1203</td><td>HIV-1 RRE stem-loop II</td><td>134</td><td><b>0.43</b></td><td>7LYF_A + 1I9F_A</td><td>0.59</td><td>0.50</td><td>0.46</td><td>0.52</td><td>0.52</td></tr>
-      <tr><td>R1205</td><td>xrRNA</td><td>59</td><td><b>0.30</b></td><td>&ndash;</td><td>0.34</td><td>0.28</td><td>0.33</td><td>0.23</td><td>0.29</td></tr>
-      <tr><td>R1209</td><td>HIV-1 RRE stem-loop II (Fab complex)</td><td>72</td><td><b>0.25</b></td><td>&ndash;</td><td>0.26</td><td>0.31</td><td>0.33</td><td>0.30</td><td>0.27</td></tr>
+      <tr><td>R1203</td><td>HIV-1 RRE stem-loop II</td><td>134</td><td><b>0.48</b></td><td>7LYF_A + 1I9F_A</td><td>0.59</td><td>0.50</td><td>0.46</td><td>0.52</td><td>0.52</td></tr>
+      <tr><td>R1205</td><td>xrRNA</td><td>59</td><td><b>0.28</b></td><td>&ndash;</td><td>0.34</td><td>0.28</td><td>0.33</td><td>0.23</td><td>0.29</td></tr>
+      <tr><td>R1209</td><td>HIV-1 RRE stem-loop II (Fab complex)</td><td>72</td><td><b>0.34</b></td><td>&ndash;</td><td>0.26</td><td>0.31</td><td>0.33</td><td>0.30</td><td>0.27</td></tr>
       <tr><td>R1211</td><td>CVB3 cloverleaf</td><td>90</td><td><b>0.67</b></td><td>8DP3_R</td><td>0.43</td><td>0.63</td><td>0.61</td><td>0.52</td><td>0.42</td></tr>
       <tr><td>R1212</td><td>Fanzor2 &omega;RNA</td><td>247</td><td><b>0.24</b></td><td>&ndash;</td><td>0.23</td><td>0.23</td><td>0.25</td><td>0.30</td><td>0.23</td></tr>
-      <tr><td>R1221s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td><b>0.64</b></td><td>7UO1_C</td><td>0.58</td><td>0.61</td><td>0.65</td><td>0.64</td><td>0.57</td></tr>
-      <tr><td>R1224s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td><b>0.65</b></td><td>7UO1_C</td><td>0.59</td><td>0.60</td><td>0.60</td><td>0.64</td><td>0.59</td></tr>
-      <tr><td>R1261</td><td>ZTP riboswitch</td><td>89</td><td><b>0.58</b></td><td>5BTP_B</td><td>0.64</td><td>0.61</td><td>0.68</td><td>0.72</td><td>0.61</td></tr>
-      <tr><td>R1262</td><td>ZTP riboswitch + AICA</td><td>89</td><td><b>0.58</b></td><td>5BTP_B</td><td>0.65</td><td>0.60</td><td>0.67</td><td>0.69</td><td>0.62</td></tr>
+      <tr><td>R1221s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td><b>0.63</b></td><td>7UO1_C</td><td>0.58</td><td>0.61</td><td>0.65</td><td>0.64</td><td>0.57</td></tr>
+      <tr><td>R1224s3</td><td>RNase P substrate (pre-tRNA)</td><td>86</td><td><b>0.63</b></td><td>7UO1_C</td><td>0.59</td><td>0.60</td><td>0.60</td><td>0.64</td><td>0.59</td></tr>
+      <tr><td>R1261</td><td>ZTP riboswitch</td><td>89</td><td><b>0.61</b></td><td>5BTP_B</td><td>0.64</td><td>0.61</td><td>0.68</td><td>0.72</td><td>0.61</td></tr>
+      <tr><td>R1262</td><td>ZTP riboswitch + AICA</td><td>89</td><td><b>0.61</b></td><td>5BTP_B</td><td>0.65</td><td>0.60</td><td>0.67</td><td>0.69</td><td>0.62</td></tr>
       <tr><td>R1263</td><td>ZTP riboswitch (64 nt)</td><td>64</td><td><b>0.93</b></td><td>4XWF_A</td><td>0.66</td><td>0.80</td><td>0.93</td><td>0.93</td><td>0.60</td></tr>
       <tr><td>R1264</td><td>ZTP riboswitch (64 nt) + ligand</td><td>64</td><td><b>0.79</b></td><td>4XWF_A</td><td>0.63</td><td>0.72</td><td>0.79</td><td>0.79</td><td>0.59</td></tr>
-      <tr><td>R1271</td><td>tRNA (RECC complex)</td><td>77</td><td><b>0.50</b></td><td>7LJ3_B</td><td>0.61</td><td>0.63</td><td>0.64</td><td>0.62</td><td>0.62</td></tr>
+      <tr><td>R1271</td><td>tRNA (RECC complex)</td><td>77</td><td><b>0.39</b></td><td>7LJ3_B</td><td>0.61</td><td>0.63</td><td>0.64</td><td>0.62</td><td>0.62</td></tr>
       <tr><td>R1288</td><td>SAMURI ribozyme</td><td>58</td><td><b>0.28</b></td><td>&ndash;</td><td>0.25</td><td>0.25</td><td>0.26</td><td>0.23</td><td>0.26</td></tr>
-      <tr><td>R1293</td><td>translation enhancer motif</td><td>82</td><td><b>0.25</b></td><td>&ndash;</td><td>0.37</td><td>0.31</td><td>0.47</td><td>0.43</td><td>0.28</td></tr>
-      <tr><td>R1296</td><td>HIV-1 RRE stem-loop II (G34U mutant)</td><td>72</td><td><b>0.27</b></td><td>&ndash;</td><td>0.35</td><td>0.31</td><td>0.33</td><td>0.32</td><td>0.32</td></tr>
+      <tr><td>R1293</td><td>translation enhancer motif</td><td>82</td><td><b>0.23</b></td><td>&ndash;</td><td>0.37</td><td>0.31</td><td>0.47</td><td>0.43</td><td>0.28</td></tr>
+      <tr><td>R1296</td><td>HIV-1 RRE stem-loop II (G34U mutant)</td><td>72</td><td><b>0.31</b></td><td>&ndash;</td><td>0.35</td><td>0.31</td><td>0.33</td><td>0.32</td><td>0.32</td></tr>
     </tbody>
   </table>
   </details>
@@ -1395,8 +1511,8 @@ rcv engine predict …                    # the prediction engine itself (rnafol
     <tr><td>Similarity matrix</td><td>Built-in</td><td>Pairwise RMSD matrix of all conformations in the ensemble.</td></tr>
     <tr><td><a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/examples/viewer_plugins/tertiary_contacts.py">Tertiary contacts</a></td><td>Python</td><td>Counts tertiary contacts and the 5′–3′ end distance for each conformation. Example plugin.</td></tr>
   </table>
-  <p>Have you written a plugin that others could use? Send it to us and we will list it here
-  (see <a href="#cocreation">Co-creation Program</a>).</p>
+  <p>Have you written a plugin that others could use? Tell us on the <a href="#feedback">Feedback</a> page
+  and we will list it here.</p>
 
   <h3>Writing an interface plugin (JavaScript)</h3>
   <p>An interface plugin is an ES module whose default export has an <code>activate(api)</code> function.
@@ -1448,6 +1564,67 @@ def compute(sequence, residues):
 <!-- ============================== RELEASE NOTES ============================== -->
 <section id="releases" class="page">
   <h2>Release Notes</h2>
+
+  <h3>RCV 0.7.5 &mdash; 15 November 2026</h3>
+  <p>Compound screening for RNAs that switch, seven advanced analyses inside the existing tabs, experimental data
+  beyond probing, and a more accurate engine. The main interface is unchanged: the new functions sit in closed
+  sections of the tabs or in a window of their own. This release also contains 0.7.4, which was not released on
+  its own.</p>
+  <h4>New</h4>
+  <ul>
+    <li><b>Compound screening</b> <i>(experimental)</i>: <i>Tools &rsaquo; Compound screening&hellip;</i> (also a
+        button in the Switch tab) screens an SDF, MOL or MOL2 file against two conformations at a pocket or at the
+        nucleotides you select, and ranks the compounds by <b>selectivity</b>: how much better they fit
+        conformation A than B. Live progress, a sortable table, CSV and SDF export, and <i>Show in 3D</i> for the
+        pose. RCV&rsquo;s own pocket finding, an RNA scoring function (stacking on the bases, electrostatics with
+        the phosphate charges, desolvation) and a docking search, all on your computer. Four example compounds
+        are included; no library ships with RCV. Command line: <code>rnafold3d pockets</code>,
+        <code>dock</code> and <code>screen</code> (<a href="#t-screening">tutorial</a>).</li>
+    <li>What it was measured at, shown in the screening window: known binders against property-matched decoys,
+        mean AUC <b>0.864</b> over six RNA targets (random 0.5), but chance on the TPP riboswitch, whose ligand
+        binds through Mg<sup>2+</sup>; redocking of 30 experimental complexes, right pose (&lt;&nbsp;2.5&nbsp;&Aring;)
+        in 10 of 30. The selectivity benchmark is still to come. Scores are a ranking, never an affinity.</li>
+    <li><b>Advanced analyses</b>, as closed sections at the bottom of the tabs, computed only when you open
+        them (<a href="#t-advanced">tutorial</a>):
+      <ul>
+        <li><i>Switch</i>: <b>experiments that tell A from B</b> (disrupt-and-rescue double mutants, SHAPE/DMS
+            segments, FRET/DEER label pairs) and <b>variants</b> (paste <code>G34U</code>,
+            <code>A12C+G30C</code>: change of the pairing profile, pairs gained and lost, &Delta;&Delta;G);</li>
+        <li><i>Pathway</i>: <b>folding during transcription</b>, the structure of the growing RNA at every length;</li>
+        <li><i>Details</i>: <b>structural motifs</b> (loop types, junctions, coaxial stacks, non-canonical pairs,
+            base triples, A-minor contacts), <b>pockets</b> where a compound could bind and how they differ
+            between two conformations, <b>target sites</b> for antisense oligonucleotides, siRNAs and probes,
+            and <b>comparison with another ensemble</b> of the same RNA.</li>
+      </ul></li>
+    <li><b>SAXS, FRET and cryo-EM maps</b>: <i>Tools &rsaquo; Load SAXS, FRET or cryo-EM data&hellip;</i> shows
+        what each conformation predicts, how well it agrees, and reweights the ensemble to fit several datasets
+        together (<a href="#t-expdata">tutorial</a>).</li>
+    <li><b>Your own data in the prediction</b>: SHAPE reactivities and an alignment of homologs on the start page
+        (<i>Advanced settings</i>).</li>
+    <li><b>Window</b>: drag the side panels to the width you want (double-click for the default); a hidden panel
+        folds to a strip of icons; <b>presentation mode</b> (<kbd>F5</kbd>) shows only the 3D view, full screen,
+        with large labels. A more compact window leaves more room for the structure.</li>
+    <li><b>Check for updates</b> (<i>Help</i> menu, and once a day at start-up): RCV offers the installer for your
+        computer; nothing is installed automatically (<a href="#updates">details</a>).</li>
+    <li>The software citation in <i>Export &rsaquo; Methods text</i> now gives the Zenodo DOI (<a href="#cite">How to cite</a>).</li>
+  </ul>
+  <h4>Engine (rnafold3d 2.3.0)</h4>
+  <ul>
+    <li><b>Structure-aware template search</b>: related structures whose sequence has diverged are found by
+        aligning sequence and secondary structure together, and the five models now cover the different templates
+        found (template benchmark of 916 chains: mean TM-score of the first template 0.416 &rarr; 0.428).</li>
+    <li><b>Motif fragments</b>: hairpin loops take their shape from library loops with a matching sequence (26
+        development chains: mean TM-score of model 1 0.284 &rarr; 0.291, without a template 0.216 &rarr; 0.227).</li>
+    <li>CASP16 (15 targets): model 1 0.490 &rarr; 0.495, best of 5 0.511 &rarr; 0.527 (AlphaFold&nbsp;3: 0.480
+        and 0.501); with 15 targets the gain is not statistically established.</li>
+    <li>Optional and off by default, with the measurements that say why: pseudoknots in the search
+        (<code>--pseudoknots auto</code>) and domain assembly for RNAs of 240&nbsp;nt and more
+        (<code>--domains auto</code>, experimental). Predictions differ from 0.7.3 for the same seed.</li>
+  </ul>
+  <h4>Fixed</h4>
+  <ul>
+    <li>An advanced section could close itself again when its tab redrew a moment after the click.</li>
+  </ul>
 
   <h3>RCV 0.7.3 &mdash; 7 November 2026</h3>
   <p>The prediction engine builds on related experimental structures and is as accurate as AlphaFold&nbsp;3 on the
@@ -1646,40 +1823,35 @@ def compute(sequence, residues):
   </p>
 </section>
 
-<!-- ============================== CO-CREATION ============================== -->
-<section id="cocreation" class="page">
-  <h2>Co-creation Program</h2>
-  <p>RCV is developed together with the people who use it. The Co-creation Program is open to research groups,
-  students, educators and developers who want to help shape the software. Participation is free.</p>
+<!-- ============================== FEEDBACK ============================== -->
+<section id="feedback" class="page">
+  <h2>Feedback</h2>
+  <p>Tell us what works, what does not, and what you would like RCV to do. Every comment is read by the
+  developer. Leave your email address if you would like an answer; it is optional and is used only to reply
+  to you.</p>
 
-  <h3>Ways to take part</h3>
-  <table>
-    <tr><th style="width:26%">Role</th><th>What you do</th></tr>
-    <tr><td>Early tester</td><td>Try pre-release versions on your own RNAs and report problems or unclear behaviour.</td></tr>
-    <tr><td>Data contributor</td><td>Share structures, NMR ensembles or experimental data that can be used for testing and benchmarking.</td></tr>
-    <tr><td>Plugin developer</td><td>Write plugins for analyses you need. Good plugins are listed on the <a href="#plugins">Plugins</a> page.</td></tr>
-    <tr><td>Code contributor</td><td>Fix bugs or add features through pull requests on GitHub.</td></tr>
-    <tr><td>Teaching partner</td><td>Use RCV in courses and help prepare tutorials and teaching material.</td></tr>
-    <tr><td>Translator</td><td>Help translate the interface and documentation.</td></tr>
-  </table>
+  <form id="fb-form" class="fb-form" novalidate>
+    <label for="fb-message">Comment or suggestion <span class="muted">(required)</span></label>
+    <textarea id="fb-message" name="message" rows="8" maxlength="5000" required
+      placeholder="What did you try, what happened, what would help? Include the RCV version (Help &rsaquo; About) and your system for a problem."></textarea>
+    <div class="muted fb-count"><span id="fb-count">0</span> / 5000</div>
 
-  <h3>What participants receive</h3>
-  <ul>
-    <li>Early access to new versions and direct contact with the developer.</li>
-    <li>Influence on the development plan; requests from participants are considered first.</li>
-    <li>Acknowledgement in the release notes and on this website.</li>
-    <li>For substantial scientific contributions, co-authorship on related publications may be discussed.</li>
-  </ul>
+    <label for="fb-email">Email <span class="muted">(optional, for a reply)</span></label>
+    <input id="fb-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
 
-  <h3>How to join</h3>
-  <ol>
-    <li>Send an email to <a href="mailto:princewang2018@gmail.com?subject=RCV%20Co-creation%20Program">princewang2018@gmail.com</a>
-        with the subject “RCV Co-creation Program”.</li>
-    <li>Tell us briefly who you are, what you work on, and how you would like to take part.</li>
-    <li>We will reply within a few working days.</li>
-  </ol>
-  <p>You can also start directly by opening an issue or a pull request on
-  <a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a>.</p>
+    <label for="fb-version">RCV version <span class="muted">(optional)</span></label>
+    <input id="fb-version" name="version" type="text" maxlength="40" placeholder="e.g. 0.7.5">
+
+    <div class="fb-hp" aria-hidden="true"><label for="fb-website">Leave this empty</label>
+      <input id="fb-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+
+    <p><button class="btn" type="submit" id="fb-submit">Submit</button>
+      <span id="fb-status" role="status" aria-live="polite"></span></p>
+  </form>
+  <p class="muted" style="font-size:13px">Your comment, the optional email address, the version, your country
+  and browser are stored for the developer only; nothing is published or shared. Bug reports with files are
+  also welcome on <a href="https://github.com/PrinceWang2018/RNAconformer/issues">GitHub Issues</a>, and
+  plugins you would like listed on the <a href="#plugins">Plugins</a> page can be sent here too.</p>
 </section>
 
 <!-- ============================== ABOUT ============================== -->
@@ -1713,10 +1885,16 @@ def compute(sequence, residues):
   </ul>
   <p>Benchmark details: <a href="https://github.com/PrinceWang2018/RNAconformer/blob/master/docs/V2_STATUS.md">engine status and benchmark</a>.</p>
 
-  <h3>How to cite</h3>
+  <h3 id="cite">How to cite</h3>
+  <p><a href="https://doi.org/10.5281/zenodo.24163503"><img src="https://zenodo.org/badge/1428242301.svg" alt="DOI: 10.5281/zenodo.24163503" style="vertical-align:middle"></a></p>
   <p>If you use RCV in your work, please cite:</p>
-  <pre><code>Wang Z. RCV: RNA Conformation Viewer, version 0.7.3 (2026).
-https://github.com/PrinceWang2018/RNAconformer</code></pre>
+  <pre><code>Wang Z. RCV: RNA Conformation Viewer (2026). Zenodo.
+https://doi.org/10.5281/zenodo.24163503</code></pre>
+  <p>
+    <a class="btn" href="cite/RCV.bib" download="RCV.bib">Download citation (BibTeX)</a>&nbsp;
+    <a class="btn secondary" href="cite/RCV.ris" download="RCV.ris">RIS (EndNote, Zotero, Mendeley)</a>
+  </p>
+  <p class="muted">The DOI always resolves to the latest release on Zenodo, where each version also has its own DOI.</p>
   <p>Please also cite ViennaRNA when you use predictions from sequence:<br>
   Lorenz R. et al. ViennaRNA Package 2.0. <i>Algorithms for Molecular Biology</i> 6, 26 (2011).</p>
   <p class="muted">The methods text generated by RCV (<i>Export &rsaquo; Methods text</i>) includes the exact versions and parameters of each run.</p>
@@ -1738,7 +1916,8 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
     <tr><th style="width:30%">For</th><th>Where</th></tr>
     <tr><td>Bug reports and feature requests</td><td><a href="https://github.com/PrinceWang2018/RNAconformer/issues">GitHub Issues</a></td></tr>
     <tr><td>Questions about using RCV</td><td><a href="https://github.com/PrinceWang2018/RNAconformer/issues">GitHub Issues</a> or email</td></tr>
-    <tr><td>Collaboration and Co-creation Program</td><td><a href="mailto:princewang2018@gmail.com">princewang2018@gmail.com</a></td></tr>
+    <tr><td>Comments and suggestions</td><td><a href="#feedback">Feedback</a></td></tr>
+    <tr><td>Collaboration</td><td><a href="mailto:princewang2018@gmail.com">princewang2018@gmail.com</a></td></tr>
     <tr><td>Source code</td><td><a href="https://github.com/PrinceWang2018/RNAconformer">github.com/PrinceWang2018/RNAconformer</a></td></tr>
   </table>
 
@@ -1896,6 +2075,8 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
       });
       if (!s) return;
       var v = s.visits, d = s.downloads || { total: 0, by_platform: {}, releases: [] };
+      // releases without installer files (the source-code release on RNAconformer that Zenodo archives) are not downloads
+      d.releases = (d.releases || []).filter(function (r) { return r.assets && r.assets.length; });
       setStat('updated', s.updated);
       setStat('downloads', fmt(d.total));
       setStat('releases', fmt(d.releases.length));
@@ -1918,6 +2099,34 @@ https://github.com/PrinceWang2018/RNAconformer</code></pre>
         return '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.date) + '</td><td class="num">' + fmt(r.total) + '</td></tr>';
       }));
     }).catch(function () {});
+  })();
+</script>
+<script>
+  (function () {
+    var form = document.getElementById('fb-form');
+    if (!form) return;
+    var msg = document.getElementById('fb-message'), count = document.getElementById('fb-count');
+    var status = document.getElementById('fb-status'), button = document.getElementById('fb-submit');
+    function say(text, cls) { status.textContent = text; status.className = cls || ''; }
+    msg.addEventListener('input', function () { count.textContent = msg.value.length; });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = { message: msg.value.trim(), email: form.email.value.trim(), version: form.version.value.trim(),
+                   website: form.website.value };
+      if (data.message.length < 3) { say('Please write a comment or suggestion.', 'err'); msg.focus(); return; }
+      if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        say('The email address does not look right (it is optional; leave it empty).', 'err'); form.email.focus(); return;
+      }
+      button.disabled = true; say('Sending\u2026');
+      fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (r) {
+          if (r.ok) { form.reset(); count.textContent = '0'; say('Thank you! Your feedback has been sent.', 'ok'); }
+          else say(r.error || 'Sending failed. Please try again later or send an email.', 'err');
+        })
+        .catch(function () { say('Sending failed (no connection). Please try again later.', 'err'); })
+        .then(function () { button.disabled = false; });
+    });
   })();
 </script>
 </body>

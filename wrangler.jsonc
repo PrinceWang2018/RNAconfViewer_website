@@ -1,0 +1,23 @@
+// Cloudflare Worker of www.rnaconfviewer.com: the static site plus the feedback form (README.md, "Feedback").
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must be the name of the existing Worker (Workers & Pages overview), or a second Worker is created.
+  "name": "rnaconfviewer-website",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    // Only the feedback addresses run the script; every other request is a static file, as before.
+    "run_worker_first": ["/api/*", "/admin/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "FEEDBACK_DB",
+      "database_name": "rcv-feedback",
+      // Storage & Databases > D1 > rcv-feedback: the "Database ID".
+      "database_id": "8eb94b2e-100a-45a0-a01d-7abe4e21a04a"
+    }
+  ],
+  "observability": { "enabled": true }
+}

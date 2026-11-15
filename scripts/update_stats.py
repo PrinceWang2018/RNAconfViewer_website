@@ -1,7 +1,8 @@
 """Collect website and download statistics into stats.json (run daily by .github/workflows/update-stats.yml).
 
 Sources
-  downloads  GitHub release assets (download_count) of the repositories in STATS_REPOS
+  downloads  GitHub release assets (download_count) of the repositories in STATS_REPOS; releases without
+             installer files (e.g. the source-code release that Zenodo archives) are left out
   visits     GoatCounter (GOATCOUNTER_CODE + GOATCOUNTER_TOKEN, a read-only API token)
 
 Environment
@@ -81,6 +82,10 @@ def downloads():
                     continue
                 assets = [{'name': a['name'], 'platform': platform_of(a['name']), 'count': a['download_count']}
                           for a in rel.get('assets', []) if not is_checksum(a['name'])]
+                if not assets:
+                    # A release without installer files is not a download: the GitHub release of the source
+                    # repository that Zenodo archives for the DOI (named "RNA Conformation Viewer") has none.
+                    continue
                 for a in assets:
                     by_platform[a['platform']] += a['count']
                 releases.append({'tag': rel['tag_name'], 'name': rel.get('name') or rel['tag_name'],

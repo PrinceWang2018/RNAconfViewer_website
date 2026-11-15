@@ -2,3 +2,6 @@
 # part of the site: upload them to a GitHub release of this repository instead (see README.md, "Downloads").
 downloads/
 __pycache__/
+.wrangler/
+node_modules/
+.dev.vars
