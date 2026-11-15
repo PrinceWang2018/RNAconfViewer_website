@@ -420,27 +420,27 @@
     <tr><th style="width:24%">Platform</th><th>File</th><th style="width:34%">Notes</th></tr>
     <tr>
       <td>Windows 10/11 (64-bit)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Windows-x64-Setup.exe">RCV-0.7.5-Windows-x64-Setup.exe</a> <span class="muted">(@SIZE_WIN@)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Windows-x64-Setup.exe">RCV-0.7.5-Windows-x64-Setup.exe</a> <span class="muted">(65 MB)</span></td>
       <td>Installer with Start-menu entries (RCV, demo ensembles, user guide) and optional <code>.rcv</code> file association.</td>
     </tr>
     <tr>
       <td>macOS 14+ (Apple Silicon)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-arm64.dmg">RCV-0.7.5-macOS-arm64.dmg</a> <span class="muted">(@SIZE_ARM@)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-arm64.dmg">RCV-0.7.5-macOS-arm64.dmg</a> <span class="muted">(67 MB)</span></td>
       <td>For Macs with an M-series chip (M1 and later).</td>
     </tr>
     <tr>
       <td>macOS 14+ (Intel)</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-x86_64.dmg">RCV-0.7.5-macOS-x86_64.dmg</a> <span class="muted">(@SIZE_MACX@)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-macOS-x86_64.dmg">RCV-0.7.5-macOS-x86_64.dmg</a> <span class="muted">(71 MB)</span></td>
       <td>For Intel-based Macs.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Debian, Ubuntu, Linux Mint</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-amd64.deb">RCV-0.7.5-Linux-amd64.deb</a> <span class="muted">(@SIZE_DEB@)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-amd64.deb">RCV-0.7.5-Linux-amd64.deb</a> <span class="muted">(68 MB)</span></td>
       <td>Ubuntu 20.04, Debian 11 or newer. Adds the <code>rcv</code> command and a menu entry.</td>
     </tr>
     <tr>
       <td>Linux 64-bit: Fedora, RHEL, Rocky, AlmaLinux, openSUSE</td>
-      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-x86_64.rpm">RCV-0.7.5-Linux-x86_64.rpm</a> <span class="muted">(@SIZE_RPM@)</span></td>
+      <td><a href="https://www.rnaconfviewer.com/download/v0.7.5/RCV-0.7.5-Linux-x86_64.rpm">RCV-0.7.5-Linux-x86_64.rpm</a> <span class="muted">(67 MB)</span></td>
       <td>Fedora 32, RHEL 9, openSUSE Leap 15.6 or newer.</td>
     </tr>
     <tr>
@@ -452,7 +452,11 @@
 
   <details class="muted" style="font-size:13px">
     <summary>SHA-256 checksums</summary>
-<pre style="white-space:pre-wrap;word-break:break-all"><code>@CHECKSUMS@</code></pre>
+<pre style="white-space:pre-wrap;word-break:break-all"><code>8e72054db354ea46bc10c7ce71c7171b5c5e633443757a1a8211e5693e14fe2a  RCV-0.7.5-Windows-x64-Setup.exe
+2b905e894a0cb419208afb6bb922ece20dcb23ba4125628b36da891d3ff65d31  RCV-0.7.5-macOS-arm64.dmg
+c34766eb2b20a55452c975651e74f50c79374af839aada9bfe835f86a2f19bce  RCV-0.7.5-macOS-x86_64.dmg
+18b408f9ea1aeb27cb9eafda73011223f5628333c8184f610d38a4b349762ca4  RCV-0.7.5-Linux-amd64.deb
+54329be23bf8c9eb39369e38082050957f39aa5aea31628c16cd7dc2c66ee610  RCV-0.7.5-Linux-x86_64.rpm</code></pre>
   </details>
   <p>Earlier versions are on the <a href="https://github.com/PrinceWang2018/RNAconfViewer_website/releases">releases page</a>.
   Earlier releases were named RNAconfSwitch (0.4) and RNAconformer Viewer (0.3); their settings, plugins
@@ -1432,7 +1436,7 @@ rcv engine predict …                    # the prediction engine itself (rnafol
         (AlphaFold&nbsp;3 0.30), most on R1209 (0.25 &rarr; 0.34); over all 15 the median RMSD of model&nbsp;1 fell
         from 10.7 to 7.8&nbsp;&Aring;. With 15 targets these gains are within the noise (against the engine
         without fragments, the 95% interval of the change in mean TM-score is &minus;0.016 to +0.026).</li>
-    <li><b>Small and fast.</b> The installer is @INSTALLER_MB@&nbsp;MB with everything included; a prediction takes
+    <li><b>Small and fast.</b> The installer is 65&ndash;71&nbsp;MB with everything included; a prediction takes
         1&ndash;9 minutes on a laptop CPU and at most 1.3&nbsp;GB of memory. AlphaFold&nbsp;3 needs an NVIDIA GPU,
         1&nbsp;GB of model weights and 630&nbsp;GB of sequence databases.</li>
     <li><b>Made for RNAs that move.</b> RCV returns an ensemble of distinct conformations from different
