@@ -2060,23 +2060,13 @@ https://doi.org/10.5281/zenodo.24163503</code></pre>
       });
     }
 
-    // GoatCounter's public counter gives the current total at once; stats.json (daily) adds countries and months.
-    var live = (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0)
-      ? fetch('https://' + GOATCOUNTER_CODE + '.goatcounter.com/counter/TOTAL.json')
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (c) { var n = c ? parseInt(String(c.count).replace(/[^0-9]/g, ''), 10) : NaN; return isNaN(n) ? null : n; })
-          .catch(function () { return null; })
-      : Promise.resolve(null);
+    // All visit numbers (total, countries, months) come from stats.json, refreshed once a day.
     function showVisits(total) {
       setStat('visits', fmt(total));
       document.getElementById('footer-stats').hidden = false;
     }
 
     fetch('stats.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (s) {
-      live.then(function (n) {
-        var known = s && s.visits ? s.visits.total : 0;
-        if (n !== null && n > known) showVisits(n);
-      });
       if (!s) return;
       var v = s.visits, d = s.downloads || { total: 0, by_platform: {}, releases: [] };
       // releases without installer files (the source-code release on RNAconformer that Zenodo archives) are not downloads

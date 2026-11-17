@@ -43,7 +43,7 @@ Downloads are counted by GitHub and appear in the Statistics tab.
 ## Statistics
 
 The *Statistics* tab and the footer read `stats.json`, which `.github/workflows/update-stats.yml` refreshes
-once a day with `scripts/update_stats.py`; the page also asks GoatCounter for the current total of visits.
+once a day with `scripts/update_stats.py`, so every number on it, including the total of visits, changes once a day.
 
 * **Downloads** — `download_count` of the release files of `PrinceWang2018/RNAconformer` and of this
   repository (GitHub API; nothing to configure). Releases without installer files are left out: the
