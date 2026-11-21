@@ -8,3 +8,8 @@
 #   https://www.rnaconfviewer.com/download/RCV-0.6.0-Windows-x64-Setup.exe          (newest release)
 /download/:file         https://github.com/PrinceWang2018/RNAconfViewer_website/releases/latest/download/:file  302
 /download/:tag/:file    https://github.com/PrinceWang2018/RNAconfViewer_website/releases/download/:tag/:file    302
+
+# Microsoft Store page of RCV. The README, the website and the user guide link to https://www.rnaconfviewer.com/store,
+# so only this line changes. Until the Store listing is published it opens a Store search; then replace the target
+# with the listing's address from Partner Center (https://apps.microsoft.com/detail/<Store ID>).
+/store                  https://apps.microsoft.com/search?query=RCV%20RNA%20Conformation%20Viewer  302

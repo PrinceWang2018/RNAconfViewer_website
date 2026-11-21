@@ -1,5 +1,5 @@
 // POST /api/feedback — stores a comment from the Feedback tab in the D1 database bound as FEEDBACK_DB.
-// (Part of the site's Worker, worker/index.js; setup in README.md, "Feedback".)
+// (Part of the site's Worker, worker/index.js; setup in README_for_developer.md, "Feedback".)
 //
 // Body (JSON or form): message (required, up to 5,000 characters), email (optional), page, version, website
 // (a hidden field that people leave empty; anything in it is a bot). One address may send at most 5 comments

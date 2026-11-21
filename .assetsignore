@@ -9,6 +9,7 @@ scripts
 downloads
 node_modules
 README.md
+README_for_developer.md
 LICENSE
 __pycache__
 .wrangler

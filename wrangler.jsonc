@@ -1,4 +1,4 @@
-// Cloudflare Worker of www.rnaconfviewer.com: the static site plus the feedback form (README.md, "Feedback").
+// Cloudflare Worker of www.rnaconfviewer.com: the static site plus the feedback form (README_for_developer.md, "Feedback").
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   // Must be the name of the existing Worker (Workers & Pages overview), or a second Worker is created.

@@ -1,5 +1,5 @@
 // /admin/feedback — the comments sent from the Feedback tab, for the site owner only.
-// (Part of the site's Worker, worker/index.js; setup in README.md, "Feedback".)
+// (Part of the site's Worker, worker/index.js; setup in README_for_developer.md, "Feedback".)
 //
 // Protected by HTTP basic authentication: user "admin", password = the secret FEEDBACK_ADMIN_PASSWORD of the
 // Worker. Without that secret the page is closed. Actions (POST, same page): mark a comment read or
@@ -50,7 +50,7 @@ export async function onRequest({ request, env }) {
     });
   }
   const db = env.FEEDBACK_DB;
-  if (!db) return page('<h1>RCV feedback</h1><p>The D1 database is not bound: add the binding <code>FEEDBACK_DB</code> (README.md, "Feedback").</p>', 503);
+  if (!db) return page('<h1>RCV feedback</h1><p>The D1 database is not bound: add the binding <code>FEEDBACK_DB</code> (README_for_developer.md, "Feedback").</p>', 503);
   await db.prepare(SCHEMA).run();
   const url = new URL(request.url);
 
