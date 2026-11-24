@@ -1,94 +1,387 @@
 {
- "updated": "2026-11-23 12:41 UTC",
+ "updated": "2026-11-24 13:12 UTC",
  "visits": {
-  "total": 233,
+  "total": 5521,
   "since": "2026-10-23",
+  "requests": 73687,
+  "page_views": 7627,
   "monthly": [
    {
     "month": "2026-10",
-    "count": 116
+    "count": 1729
    },
    {
     "month": "2026-11",
-    "count": 110
+    "count": 3792
    }
   ],
   "countries": [
    {
-    "name": "Singapore",
-    "count": 150
+    "code": "US",
+    "count": 980,
+    "requests": 8890
    },
    {
-    "name": "United States",
-    "count": 31
+    "code": "SG",
+    "count": 603,
+    "requests": 4721
    },
    {
-    "name": "China",
-    "count": 14
+    "code": "NL",
+    "count": 602,
+    "requests": 5625
    },
    {
-    "name": "Switzerland",
-    "count": 7
+    "code": "CA",
+    "count": 535,
+    "requests": 22589
    },
    {
-    "name": "Germany",
-    "count": 6
+    "code": "BE",
+    "count": 526,
+    "requests": 5562
    },
    {
-    "name": "Bulgaria",
-    "count": 5
+    "code": "HK",
+    "count": 347,
+    "requests": 8080
    },
    {
-    "name": "United Kingdom",
-    "count": 3
+    "code": "PL",
+    "count": 337,
+    "requests": 4077
    },
    {
-    "name": "Canada",
-    "count": 2
+    "code": "DE",
+    "count": 200,
+    "requests": 1872
    },
    {
-    "name": "Australia",
-    "count": 1
+    "code": "GB",
+    "count": 167,
+    "requests": 1273
    },
    {
-    "name": "Brazil",
-    "count": 1
+    "code": "FR",
+    "count": 161,
+    "requests": 1934
    },
    {
-    "name": "France",
-    "count": 1
+    "code": "TW",
+    "count": 161,
+    "requests": 1041
    },
    {
-    "name": "India",
-    "count": 1
+    "code": "CN",
+    "count": 137,
+    "requests": 878
    },
    {
-    "name": "Netherlands",
-    "count": 1
+    "code": "CH",
+    "count": 109,
+    "requests": 833
    },
    {
-    "name": "Poland",
-    "count": 1
+    "code": "SE",
+    "count": 85,
+    "requests": 953
    },
    {
-    "name": "Taiwan",
-    "count": 1
+    "code": "KR",
+    "count": 80,
+    "requests": 650
    },
    {
-    "name": "Kosovo",
-    "count": 1
+    "code": "FI",
+    "count": 77,
+    "requests": 964
+   },
+   {
+    "code": "IN",
+    "count": 77,
+    "requests": 464
+   },
+   {
+    "code": "JP",
+    "count": 74,
+    "requests": 1034
+   },
+   {
+    "code": "RO",
+    "count": 66,
+    "requests": 417
+   },
+   {
+    "code": "AU",
+    "count": 52,
+    "requests": 610
+   },
+   {
+    "code": "ID",
+    "count": 45,
+    "requests": 422
+   },
+   {
+    "code": "BR",
+    "count": 36,
+    "requests": 279
+   },
+   {
+    "code": "TH",
+    "count": 9,
+    "requests": 69
+   },
+   {
+    "code": "IE",
+    "count": 6,
+    "requests": 31
+   },
+   {
+    "code": "BD",
+    "count": 5,
+    "requests": 33
+   },
+   {
+    "code": "RU",
+    "count": 4,
+    "requests": 36
+   },
+   {
+    "code": "TR",
+    "count": 4,
+    "requests": 33
+   },
+   {
+    "code": "CZ",
+    "count": 4,
+    "requests": 15
+   },
+   {
+    "code": "T1",
+    "count": 3,
+    "requests": 58
+   },
+   {
+    "code": "BG",
+    "count": 3,
+    "requests": 27
+   },
+   {
+    "code": "UA",
+    "count": 3,
+    "requests": 25
+   },
+   {
+    "code": "IT",
+    "count": 2,
+    "requests": 14
+   },
+   {
+    "code": "MY",
+    "count": 2,
+    "requests": 10
+   },
+   {
+    "code": "MX",
+    "count": 2,
+    "requests": 8
+   },
+   {
+    "code": "PK",
+    "count": 1,
+    "requests": 24
+   },
+   {
+    "code": "ZA",
+    "count": 1,
+    "requests": 16
+   },
+   {
+    "code": "NO",
+    "count": 1,
+    "requests": 12
+   },
+   {
+    "code": "EE",
+    "count": 1,
+    "requests": 9
+   },
+   {
+    "code": "NG",
+    "count": 1,
+    "requests": 8
+   },
+   {
+    "code": "XK",
+    "count": 1,
+    "requests": 8
+   },
+   {
+    "code": "ES",
+    "count": 1,
+    "requests": 7
+   },
+   {
+    "code": "AE",
+    "count": 1,
+    "requests": 7
+   },
+   {
+    "code": "AR",
+    "count": 1,
+    "requests": 7
+   },
+   {
+    "code": "VN",
+    "count": 1,
+    "requests": 7
+   },
+   {
+    "code": "IQ",
+    "count": 1,
+    "requests": 5
+   },
+   {
+    "code": "CO",
+    "count": 1,
+    "requests": 3
+   },
+   {
+    "code": "BS",
+    "count": 1,
+    "requests": 3
+   },
+   {
+    "code": "CL",
+    "count": 1,
+    "requests": 3
+   },
+   {
+    "code": "MD",
+    "count": 1,
+    "requests": 2
+   },
+   {
+    "code": "SA",
+    "count": 0,
+    "requests": 4
+   },
+   {
+    "code": "HU",
+    "count": 0,
+    "requests": 3
+   },
+   {
+    "code": "PA",
+    "count": 0,
+    "requests": 3
+   },
+   {
+    "code": "IL",
+    "count": 0,
+    "requests": 3
+   },
+   {
+    "code": "BY",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "DK",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "DZ",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "VE",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "AT",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "SI",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "LB",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "BO",
+    "count": 0,
+    "requests": 2
+   },
+   {
+    "code": "LT",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "MA",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "UZ",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "CD",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "CG",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "GF",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "NI",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "CR",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "EG",
+    "count": 0,
+    "requests": 1
+   },
+   {
+    "code": "GH",
+    "count": 0,
+    "requests": 1
    }
   ],
-  "country_count": 16,
-  "source": "api"
+  "country_count": 70,
+  "source": "cloudflare"
  },
  "downloads": {
-  "total": 268,
+  "total": 280,
   "by_platform": {
-   "Linux": 112,
-   "Windows": 67,
-   "macOS (Apple Silicon)": 46,
-   "macOS (Intel)": 43
+   "Linux": 118,
+   "Windows": 70,
+   "macOS (Apple Silicon)": 48,
+   "macOS (Intel)": 44
   },
   "releases": [
    {
@@ -96,32 +389,32 @@
     "name": "RCV v0.7.6",
     "date": "2026-11-21",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 11,
+    "total": 21,
     "assets": [
      {
       "name": "RCV-0.7.6-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 3
+      "count": 6
      },
      {
       "name": "RCV-0.7.6-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 3
+      "count": 5
      },
      {
       "name": "RCV-0.7.6-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 2
+      "count": 4
      },
      {
       "name": "RCV-0.7.6-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 1
+      "count": 2
      },
      {
       "name": "RCV-0.7.6-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 2
+      "count": 4
      }
     ]
    },
@@ -164,7 +457,7 @@
     "name": "RCV v0.7.3",
     "date": "2026-11-07",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 66,
+    "total": 67,
     "assets": [
      {
       "name": "RCV-0.7.3-Linux-amd64.deb",
@@ -189,7 +482,7 @@
      {
       "name": "RCV-0.7.3-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 14
+      "count": 15
      }
     ]
    },
@@ -198,12 +491,12 @@
     "name": "RCV v0.7.2",
     "date": "2026-11-06",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 24,
+    "total": 25,
     "assets": [
      {
       "name": "RCV-0.7.2-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 5
+      "count": 6
      },
      {
       "name": "RCV-0.7.2-Linux-x86_64.rpm",
@@ -425,6 +718,10 @@
   {
    "date": "2026-11-23",
    "total": 268
+  },
+  {
+   "date": "2026-11-24",
+   "total": 280
   }
  ]
 }

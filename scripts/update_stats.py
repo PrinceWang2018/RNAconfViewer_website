@@ -3,17 +3,17 @@
 Sources
   downloads  GitHub release assets (download_count) of the repositories in STATS_REPOS; releases without
              installer files (e.g. the source-code release that Zenodo archives) are left out
-  visits     GoatCounter (GOATCOUNTER_CODE + GOATCOUNTER_TOKEN, a read-only API token)
+  visits     Cloudflare's analytics of the www.rnaconfviewer.com zone (GraphQL Analytics API, daily totals);
+             every day is also kept in data/visits_daily.json, so the totals go back to the first day on record
 
 Environment
   STATS_REPOS        comma-separated owner/name list (default: the RCV source and website repositories)
   GITHUB_TOKEN       optional, raises the GitHub API rate limit
-  GOATCOUNTER_CODE   site code (default "princewang2018" -> https://princewang2018.goatcounter.com)
-  GOATCOUNTER_TOKEN  GoatCounter API token with "read statistics" permission; needed for countries and months.
-                     Without it only the total number of visits is collected (GoatCounter's public counter).
-  STATS_SINCE        first day to count visits from (default 2026-10-23, when counting started)
+  CLOUDFLARE_API_TOKEN  API token with the permission Zone > Analytics > Read for the zone (secret)
+  CLOUDFLARE_ZONE_ID    the zone's ID (Cloudflare dashboard > the domain > Overview > API > Zone ID)
+  CLOUDFLARE_SINCE      first day to ask Cloudflare for (default 2026-10-01)
 
-Only aggregate numbers are stored; GoatCounter does not record personal data. Problems are printed as GitHub
+Only aggregate numbers are stored (per day and country); no addresses or other personal data. Problems are printed as GitHub
 Actions warnings, so they show up on the workflow run page.
 """
 import datetime as dt
@@ -29,8 +29,9 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parent.parent / 'stats.json'
 REPOS = [r.strip() for r in os.environ.get(
     'STATS_REPOS', 'PrinceWang2018/RNAconformer,PrinceWang2018/RNAconfViewer_website').split(',') if r.strip()]
-SINCE = os.environ.get('STATS_SINCE') or '2026-10-23'
-GC_CODE = os.environ.get('GOATCOUNTER_CODE') or 'princewang2018'
+DAILY = Path(__file__).resolve().parent.parent / 'data' / 'visits_daily.json'
+CF_FIRST = os.environ.get('CLOUDFLARE_SINCE') or '2026-10-01'
+NOT_COUNTRIES = {'XX', 'T1'}              # Cloudflare: unknown country, Tor network
 
 
 def warn(msg):
@@ -99,43 +100,83 @@ def downloads():
             'releases': releases}, errors
 
 
-def counter_total():
-    """Total visits from GoatCounter's public counter (no token needed; 'Allow adding visitor counts' is on)."""
-    d = get_json(f'https://{GC_CODE}.goatcounter.com/counter/TOTAL.json')
-    return int(re.sub(r'\D', '', str(d.get('count', ''))) or 0)
+def cf_graphql(query, variables, token):
+    req = urllib.request.Request('https://api.cloudflare.com/client/v4/graphql',
+                                 data=json.dumps({'query': query, 'variables': variables}).encode(),
+                                 headers={'Content-Type': 'application/json', 'User-Agent': 'rcv-website-stats',
+                                          'Authorization': f'Bearer {token}'})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        d = json.load(r)
+    if d.get('errors'):
+        raise ValueError('; '.join(e.get('message', str(e)) for e in d['errors']))
+    return d['data']
 
 
-def visits(now):
-    """Visits since SINCE: total, per month and per country (API token), or only the total (public counter)."""
-    token = os.environ.get('GOATCOUNTER_TOKEN')
-    if not token:
-        warn('GOATCOUNTER_TOKEN is not set: only the total number of visits is collected (no countries or months). '
-             'Add the secret in Settings > Secrets and variables > Actions.')
-        return {'total': counter_total(), 'since': SINCE, 'monthly': [], 'countries': [], 'country_count': None,
-                'source': 'counter'}, []
-    base = f'https://{GC_CODE}.goatcounter.com/api/v0'
-    start = dt.datetime.fromisoformat(SINCE).replace(tzinfo=dt.timezone.utc)
-    end = now.replace(minute=0, second=0, microsecond=0) + dt.timedelta(hours=1)     # the API wants whole hours
-    if start >= end:
-        start = end - dt.timedelta(days=1)
-    fmt = '%Y-%m-%dT%H:%M:%SZ'
-    rng = f'start={start.strftime(fmt)}&end={end.strftime(fmt)}'
-    total = get_json(f'{base}/stats/total?{rng}', token)
-    months = defaultdict(int)
-    for day in total.get('stats') or []:
-        months[day['day'][:7]] += day.get('daily') or 0
-    countries, offset = [], 0
-    while True:
-        loc = get_json(f'{base}/stats/locations?{rng}&limit=100&offset={offset}', token)
-        countries += [{'name': s['name'] or 'Unknown', 'count': s['count']} for s in loc.get('stats') or []]
-        if not loc.get('more'):
-            break
-        offset += 100
-    known = [c for c in countries if c['name'] != 'Unknown']
-    return {'total': total.get('total', 0), 'since': SINCE,
+CF_SETTINGS = """query ($zone: String!) { viewer { zones(filter: {zoneTag: $zone}) {
+  settings { httpRequests1dGroups { maxDuration notOlderThan } } } } }"""
+CF_DAYS = """query ($zone: String!, $from: Date!, $to: Date!) { viewer { zones(filter: {zoneTag: $zone}) {
+  httpRequests1dGroups(limit: 1000, orderBy: [date_ASC], filter: {date_geq: $from, date_leq: $to}) {
+    dimensions { date }
+    sum { requests pageViews countryMap { clientCountryName requests } }
+    uniq { uniques } } } } }"""
+
+
+def cloudflare_days(today):
+    """The days Cloudflare still keeps: {date: {uniques, requests, page_views, countries: {code: requests}}}."""
+    token, zone = os.environ.get('CLOUDFLARE_API_TOKEN'), os.environ.get('CLOUDFLARE_ZONE_ID')
+    if not token or not zone:
+        raise ValueError('CLOUDFLARE_API_TOKEN (secret) or CLOUDFLARE_ZONE_ID (variable) is not set')
+    oldest, step = 364, 31                                   # days; replaced by the zone's own limits below
+    try:
+        st = cf_graphql(CF_SETTINGS, {'zone': zone}, token)['viewer']['zones'][0]['settings']['httpRequests1dGroups']
+        oldest = int(st['notOlderThan']) // 86400 - 1
+        step = max(1, int(st['maxDuration']) // 86400 - 1)
+    except (urllib.error.URLError, KeyError, IndexError, TypeError, ValueError) as e:
+        warn(f'Cloudflare query limits not available ({http_error(e)}); asking for the last {oldest + 1} days')
+    days, start = {}, max(today - dt.timedelta(days=oldest), dt.date.fromisoformat(CF_FIRST))
+    while start <= today:
+        end = min(start + dt.timedelta(days=step), today)
+        zones = cf_graphql(CF_DAYS, {'zone': zone, 'from': start.isoformat(), 'to': end.isoformat()},
+                           token)['viewer']['zones']
+        for g in (zones[0]['httpRequests1dGroups'] if zones else []):
+            s = g['sum']
+            days[g['dimensions']['date']] = {
+                'uniques': g['uniq']['uniques'], 'requests': s['requests'], 'page_views': s['pageViews'],
+                'countries': {c['clientCountryName']: c['requests'] for c in s['countryMap'] if c['requests']}}
+        start = end + dt.timedelta(days=1)
+    return days
+
+
+def visits(today):
+    """Visitors from Cloudflare, from the first day on record.
+
+    Cloudflare keeps daily totals for a limited time (a year on the Free plan), so every day is also kept in
+    data/visits_daily.json and the totals are summed from that file. Visitors are Cloudflare's unique visitors
+    (distinct network addresses) per day, summed over the days. Cloudflare counts requests, not visitors, per
+    country, so a country's visitors are estimated by sharing each day's visitors out by the requests."""
+    archive = json.loads(DAILY.read_text(encoding='utf-8')) if DAILY.exists() else {}
+    archive.update(cloudflare_days(today))
+    archive = {d: archive[d] for d in sorted(archive)}
+    DAILY.parent.mkdir(exist_ok=True)
+    DAILY.write_text('{\n' + ',\n'.join(f'{json.dumps(d)}: {json.dumps(v, separators=(",", ":"))}'
+                                         for d, v in archive.items()) + '\n}\n', encoding='utf-8')   # a line a day
+    counted = [d for d in archive if archive[d]['requests']]
+    months, est, req = defaultdict(int), defaultdict(float), defaultdict(int)
+    for d in counted:
+        day = archive[d]
+        months[d[:7]] += day['uniques']
+        total_req = sum(day['countries'].values()) or 1
+        for c, n in day['countries'].items():
+            est[c] += day['uniques'] * n / total_req
+            req[c] += n
+    countries = sorted(({'code': c, 'count': round(est[c]), 'requests': req[c]} for c in est),
+                       key=lambda c: (-c['count'], -c['requests']))
+    real = [c for c in countries if c['code'] not in NOT_COUNTRIES]
+    return {'total': sum(archive[d]['uniques'] for d in counted), 'since': counted[0] if counted else None,
+            'requests': sum(archive[d]['requests'] for d in counted),
+            'page_views': sum(archive[d]['page_views'] for d in counted),
             'monthly': [{'month': m, 'count': months[m]} for m in sorted(months)],
-            'countries': sorted(countries, key=lambda c: -c['count']), 'country_count': len(known),
-            'source': 'api'}, []
+            'countries': countries, 'country_count': len(real), 'source': 'cloudflare'}
 
 
 def http_error(e):
@@ -154,18 +195,12 @@ def main():
     today = now.date()
     old = json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     dl, errors = downloads()
+    verr = []
     try:
-        vis, verr = visits(now)
-    except (urllib.error.URLError, KeyError, ValueError) as e:
-        verr = [f'GoatCounter API: {http_error(e)}']
-        try:                                                       # at least the total, from the public counter
-            vis = {'total': counter_total(), 'since': SINCE, 'monthly': [], 'countries': [], 'country_count': None,
-                   'source': 'counter'}
-            if old.get('visits') and old['visits'].get('source') == 'api':
-                vis = {**old['visits'], 'total': max(old['visits']['total'], vis['total'])}   # keep the last details
-        except (urllib.error.URLError, ValueError) as e2:
-            vis = old.get('visits')
-            verr.append(f'GoatCounter counter: {http_error(e2)}')
+        vis = visits(today)
+    except (urllib.error.URLError, KeyError, IndexError, TypeError, ValueError) as e:
+        vis = old.get('visits')                                     # keep the last numbers
+        verr.append(f'Cloudflare analytics: {http_error(e)}')
     errors += verr
     history = [h for h in old.get('download_history', []) if h['date'] != today.isoformat()]
     history.append({'date': today.isoformat(), 'total': dl['total']})

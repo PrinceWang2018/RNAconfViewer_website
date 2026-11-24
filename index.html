@@ -191,6 +191,19 @@
   td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   td.bar { width: 40%; }
   td.bar i { display: block; height: 10px; background: #7d9cc4; min-width: 1px; }
+  .geo { position: relative; margin: 6px 0 22px; }
+  .geo svg { display: block; width: 100%; height: auto; }
+  .geo path { fill: #e8e8e6; stroke: #fff; stroke-width: .5; stroke-linejoin: round; }
+  .geo .has { cursor: default; }
+  .geo .has:hover, .geo .has.hot { stroke: #1d2430; stroke-width: 1.2; }
+  .geo circle.dot { stroke: #fff; stroke-width: 1.5; }
+  .geo circle.hit { fill: transparent; }
+  .geo-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; font-size: 12.5px; color: var(--muted); }
+  .geo-legend i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .geo-tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--line); border-radius: 6px;
+    padding: 6px 9px; font-size: 13px; line-height: 1.4; box-shadow: 0 2px 8px rgba(0,0,0,.12); white-space: nowrap; }
+  .geo-tip b { display: block; }
+  .geo-tip span { color: var(--muted); }
   .stats-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 
   .fb-form { max-width: 680px; }
@@ -1848,24 +1861,29 @@ def compute(sequence, residues):
   <p>Usage of this website and downloads of RCV. The numbers are updated once a day.</p>
 
   <div class="stat-row">
-    <div><b data-stat="visits">&ndash;</b><span>Website visits</span></div>
+    <div><b data-stat="visits">&ndash;</b><span>Website visitors</span></div>
     <div><b data-stat="countries">&ndash;</b><span>Countries and regions</span></div>
     <div><b data-stat="downloads">&ndash;</b><span>Downloads</span></div>
     <div><b data-stat="releases">&ndash;</b><span>Releases</span></div>
+  </div>
+
+  <h3>Visitors around the world</h3>
+  <div class="geo" id="st-map" aria-label="World map of visitors by country; the table below lists the countries">
+    <p class="muted">The map is loading&hellip;</p>
   </div>
 
   <div class="stats-cols">
     <div>
       <h3 style="margin-top:0">Visitors by country (top 10)</h3>
       <table id="st-countries">
-        <thead><tr><th>Country / region</th><th class="num">Visits</th><th class="num">Share</th><th></th></tr></thead>
+        <thead><tr><th>Country / region</th><th class="num">Visitors</th><th class="num">Share</th><th></th></tr></thead>
         <tbody><tr><td colspan="4" class="muted">No data yet.</td></tr></tbody>
       </table>
     </div>
     <div>
-      <h3 style="margin-top:0">Visits per month</h3>
+      <h3 style="margin-top:0">Visitors per month</h3>
       <table id="st-monthly">
-        <thead><tr><th>Month</th><th class="num">Visits</th><th></th></tr></thead>
+        <thead><tr><th>Month</th><th class="num">Visitors</th><th></th></tr></thead>
         <tbody><tr><td colspan="3" class="muted">No data yet.</td></tr></tbody>
       </table>
     </div>
@@ -1885,9 +1903,11 @@ def compute(sequence, residues):
 
   <p class="muted" style="font-size:13px">
     Last updated: <span data-stat="updated">&ndash;</span>.
-    Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies and
-    stores no personal data; a visit is one visitor per page per day, and countries are derived from the
-    visitor&rsquo;s network address, which is not stored. Downloads are the installer downloads from GitHub
+    Visitors are counted by <a href="https://www.cloudflare.com/">Cloudflare</a>, which serves this website: the
+    unique visitors of each day (distinct network addresses), added up over the days<span data-stat="since"></span>.
+    They include automated visitors such as search-engine crawlers. Cloudflare reports the requests per country,
+    so the visitors of a country are estimated from its share of each day&rsquo;s requests. No cookies are used
+    and no addresses are stored. Downloads are the installer downloads from GitHub
     releases; copies of the source code are not counted.
   </p>
 </section>
@@ -1959,8 +1979,8 @@ def compute(sequence, residues):
   and settings stay on your computer. RCV connects to the internet only when you ask it to: <i>Fetch from the
   PDB</i> downloads an entry from the RCSB PDB, and links you click (this website, the user guide online) open in
   your browser. If you run your own AlphaFold&nbsp;3 installation from RCV, it runs on your computer too.</p>
-  <p class="muted">This website counts visits with <a href="https://www.goatcounter.com">GoatCounter</a> (no cookies,
-  no personal data). Feedback sent from the <a href="#feedback">Feedback</a> page is stored with the country, the
+  <p class="muted">This website counts visitors from the daily totals of Cloudflare, which serves it (no cookies,
+  no tracking script, no personal data). Feedback sent from the <a href="#feedback">Feedback</a> page is stored with the country, the
   browser name and a salted hash of the IP address (to stop abuse), and is used only to read and answer it; an
   email address is optional and used only to reply.</p>
 
@@ -2016,23 +2036,12 @@ https://zenodo.org/records/24413591</code></pre>
   <div class="wrap">
     <span>&copy; 2026 Zixiang Wang. RCV is free software under the GPL-3.0 license.</span>
     <span style="flex:1"></span>
-    <span id="footer-stats" hidden><a href="#statistics"><span data-stat="visits"></span> visits &middot;
+    <span id="footer-stats" hidden><a href="#statistics"><span data-stat="visits"></span> visitors &middot;
       <span data-stat="downloads"></span> downloads</a> &middot; </span>
     <span><a href="https://github.com/PrinceWang2018/RNAconformer">GitHub</a> &middot; <a href="#contact">Contact</a></span>
   </div>
 </footer>
 
-<script>
-  // Visit counting with GoatCounter (no cookies). Set the site code to enable it, see README.md.
-  var GOATCOUNTER_CODE = 'princewang2018';
-  if (GOATCOUNTER_CODE && location.protocol.indexOf('http') === 0) {
-    var gc = document.createElement('script');
-    gc.async = true;
-    gc.src = 'https://gc.zgo.at/count.js';
-    gc.setAttribute('data-goatcounter', 'https://' + GOATCOUNTER_CODE + '.goatcounter.com/count');
-    document.body.appendChild(gc);
-  }
-</script>
 <script>
   (function () {
     document.body.classList.remove('no-js');
@@ -2052,11 +2061,7 @@ https://zenodo.org/records/24413591</code></pre>
       var title = links.filter(function (a) { return a.classList.contains('active'); })[0];
       document.title = (page.id === 'home' || !title ? '' : title.textContent + ' – ') + 'RCV: RNA Conformation Viewer';
     }
-    window.addEventListener('hashchange', function () {
-      show();
-      // count each tab as its own page in GoatCounter
-      if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: location.pathname + location.hash });
-    });
+    window.addEventListener('hashchange', show);
     show();
   })();
 
@@ -2135,7 +2140,103 @@ https://zenodo.org/records/24413591</code></pre>
       });
     }
 
-    // All visit numbers (total, countries, months) come from stats.json, refreshed once a day.
+    // Country names from the two-letter codes Cloudflare reports (older stats.json files have names).
+    var regionNames = window.Intl && Intl.DisplayNames ? new Intl.DisplayNames(['en'], { type: 'region' }) : null;
+    function countryName(c) {
+      if (c.name) return c.name;
+      if (c.code === 'XX') return 'Unknown';
+      if (c.code === 'T1') return 'Tor network';
+      try { return (regionNames && regionNames.of(c.code)) || c.code; } catch (e) { return c.code; }
+    }
+
+    // World map: countries coloured by visitors (5 classes of a sequential blue on a log scale), countries too
+    // small for the map as dots. images/world-map.json is made by scripts/make_world_map.py and loaded only when
+    // the Statistics tab is opened.
+    var BLUES = ['#b7d3f6', '#86b6ef', '#5598e7', '#2a78d6', '#184f95'];
+    function niceBreaks(max) {
+      // class limits 1 | … | max, at round numbers on a log scale
+      var out = [], nice = [1, 2, 5];
+      for (var i = 1; i < 5; i++) {
+        var raw = Math.pow(Math.max(max, 2), i / 5), p = Math.pow(10, Math.floor(Math.log10(raw))), best = p;
+        nice.forEach(function (n) { if (Math.abs(n * p - raw) < Math.abs(best - raw)) best = n * p; });
+        if (best > 1 && (!out.length || best > out[out.length - 1])) out.push(best);
+      }
+      return out;                                     // a value v is in class k = number of limits <= v
+    }
+    function drawMap(v) {
+      var box = document.getElementById('st-map');
+      fetch('images/world-map.json').then(function (r) { return r.json(); }).then(function (geo) {
+        var byCode = {}, max = 1, total = v.total || 0;
+        v.countries.forEach(function (c) { if (c.code) { byCode[c.code] = c; max = Math.max(max, c.count); } });
+        var br = niceBreaks(max);
+        var cls = function (n) { var k = 0; br.forEach(function (b) { if (n >= b) k++; }); return Math.min(k, BLUES.length - 1); };
+        var NS = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 ' + geo.w + ' ' + geo.h);
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', 'Map of visitors by country');
+        // countries that cross the 180° meridian are drawn on both sides and clipped to the globe's outline
+        var defs = document.createElementNS(NS, 'defs'), clip = document.createElementNS(NS, 'clipPath'), edge = document.createElementNS(NS, 'path');
+        clip.setAttribute('id', 'geo-clip'); edge.setAttribute('d', geo.outline);
+        clip.appendChild(edge); defs.appendChild(clip); svg.appendChild(defs);
+        var land = document.createElementNS(NS, 'g'); land.setAttribute('clip-path', 'url(#geo-clip)'); svg.appendChild(land);
+        var tip = document.createElement('div'); tip.className = 'geo-tip'; tip.hidden = true;
+        function hover(el, code) {
+          var c = byCode[code];
+          el.addEventListener('mousemove', function (e) {
+            var r = box.getBoundingClientRect();
+            tip.innerHTML = '<b>' + esc(countryName(c)) + '</b>' + fmt(c.count) + ' visitors <span>(' + pct(c.count, total) +
+              ')</span><br><span>' + fmt(c.requests) + ' requests</span>';
+            tip.hidden = false;
+            var x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+            if (x + tip.offsetWidth > r.width) x = e.clientX - r.left - tip.offsetWidth - 14;
+            tip.style.left = x + 'px'; tip.style.top = y + 'px';
+            el.classList.add('hot');
+          });
+          el.addEventListener('mouseleave', function () { tip.hidden = true; el.classList.remove('hot'); });
+        }
+        Object.keys(geo.shapes).forEach(function (code) {
+          var p = document.createElementNS(NS, 'path');
+          p.setAttribute('d', geo.shapes[code]);
+          var c = byCode[code];
+          if (c && c.count > 0) { p.style.fill = BLUES[cls(c.count)]; p.setAttribute('class', 'has'); hover(p, code); }
+          land.appendChild(p);
+        });
+        // small countries with visitors: a dot with a white ring and a larger invisible hit area
+        Object.keys(geo.dots).forEach(function (code) {
+          var c = byCode[code];
+          if (!c || c.count <= 0) return;
+          var g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'has');
+          var d = document.createElementNS(NS, 'circle');
+          d.setAttribute('cx', geo.dots[code][0]); d.setAttribute('cy', geo.dots[code][1]); d.setAttribute('r', 4.5);
+          d.setAttribute('class', 'dot'); d.style.fill = BLUES[cls(c.count)];
+          var h = document.createElementNS(NS, 'circle');
+          h.setAttribute('cx', geo.dots[code][0]); h.setAttribute('cy', geo.dots[code][1]); h.setAttribute('r', 11);
+          h.setAttribute('class', 'hit');
+          g.appendChild(d); g.appendChild(h); svg.appendChild(g); hover(g, code);
+        });
+        var legend = document.createElement('div'); legend.className = 'geo-legend';
+        var items = ['<span>Visitors</span>'], lo = 1;
+        br.concat([Infinity]).forEach(function (b, i) {
+          if (i >= BLUES.length || lo > max) return;
+          var hi = Math.min(b - 1, max);
+          items.push('<span><i style="background:' + BLUES[i] + '"></i>' + (hi > lo ? fmt(lo) + '&ndash;' + fmt(hi) : fmt(lo)) + '</span>');
+          lo = b;
+        });
+        items.push('<span><i style="background:#e8e8e6"></i>none</span>');
+        legend.innerHTML = items.join('');
+        box.innerHTML = '';
+        box.appendChild(svg); box.appendChild(legend); box.appendChild(tip);
+      }).catch(function () { box.innerHTML = '<p class="muted">The map could not be loaded.</p>'; });
+    }
+    function whenShown(id, fn) {
+      var done = false;
+      function check() { if (!done && document.getElementById(id).classList.contains('active')) { done = true; fn(); } }
+      window.addEventListener('hashchange', function () { setTimeout(check, 0); });
+      check();
+    }
+
+    // All visitor numbers (total, countries, months) come from stats.json, refreshed once a day.
     function showVisits(total) {
       setStat('visits', fmt(total));
       document.getElementById('footer-stats').hidden = false;
@@ -2153,7 +2254,11 @@ https://zenodo.org/records/24413591</code></pre>
         showVisits(v.total);
         if (v.country_count !== null && v.country_count !== undefined) setStat('countries', fmt(v.country_count));
         // the ten countries with the most visits (stats.json lists them in that order); the tile above counts all of them
-        fill('st-countries', barRows(v.countries.slice(0, 10), v.total, 'name', true));
+        var known = v.countries.map(function (c) { return { name: countryName(c), count: c.count }; });
+        fill('st-countries', barRows(known.slice(0, 10), v.total, 'name', true));
+        if (v.since) setStat('since', ' since ' + new Date(v.since + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }));
+        if (v.countries.length && v.countries[0].code) whenShown('statistics', function () { drawMap(v); });
+        else document.getElementById('st-map').innerHTML = '<p class="muted">The map appears with the first Cloudflare numbers.</p>';
         var months = v.monthly.slice(-12).map(function (m) {
           var p = m.month.split('-');
           return { month: new Date(+p[0], +p[1] - 1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' }), count: m.count };

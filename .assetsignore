@@ -13,3 +13,4 @@ README_for_developer.md
 LICENSE
 __pycache__
 .wrangler
+data
