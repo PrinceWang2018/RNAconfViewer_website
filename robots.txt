@@ -1,0 +1,10 @@
+# robots.txt of www.rnaconfviewer.com
+User-agent: *
+Allow: /
+# Forwarding addresses (installers on GitHub, the Microsoft Store) and the feedback service: not pages to index.
+Disallow: /download/
+Disallow: /store
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://www.rnaconfviewer.com/sitemap.xml
