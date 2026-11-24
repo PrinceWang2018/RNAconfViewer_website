@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-24 13:32 UTC",
+ "updated": "2026-11-24 13:43 UTC",
  "visits": {
-  "total": 5529,
+  "total": 5531,
   "since": "2026-10-23",
-  "requests": 73813,
-  "page_views": 7642,
+  "requests": 73839,
+  "page_views": 7647,
   "monthly": [
    {
     "month": "2026-10",
@@ -12,19 +12,19 @@
    },
    {
     "month": "2026-11",
-    "count": 3800
+    "count": 3802
    }
   ],
   "countries": [
    {
     "code": "US",
-    "count": 980,
-    "requests": 8899
+    "count": 981,
+    "requests": 8901
    },
    {
     "code": "SG",
-    "count": 609,
-    "requests": 4834
+    "count": 611,
+    "requests": 4853
    },
    {
     "code": "NL",
@@ -74,7 +74,7 @@
    {
     "code": "CN",
     "count": 137,
-    "requests": 878
+    "requests": 881
    },
    {
     "code": "CH",
@@ -123,8 +123,8 @@
    },
    {
     "code": "BR",
-    "count": 36,
-    "requests": 279
+    "count": 37,
+    "requests": 281
    },
    {
     "code": "TH",
