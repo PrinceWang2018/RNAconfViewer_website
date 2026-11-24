@@ -3,6 +3,8 @@
 Sources
   downloads  GitHub release assets (download_count) of the repositories in STATS_REPOS; releases without
              installer files (e.g. the source-code release that Zenodo archives) are left out
+  zenodo     downloads of the source code from the Zenodo record of the citation DOI, all versions (public
+             statistics, COUNTER rules: robots and double clicks are not counted); a row "Source code (Zenodo)"
   visits     Cloudflare's analytics of the www.rnaconfviewer.com zone (GraphQL Analytics API, daily totals);
              every day is also kept in data/visits_daily.json, so the totals go back to the first day on record
 
@@ -11,6 +13,7 @@ Environment
   GITHUB_TOKEN       optional, raises the GitHub API rate limit
   CLOUDFLARE_API_TOKEN  API token with the permission Zone > Analytics > Read for the zone (secret)
   CLOUDFLARE_ZONE_ID    the zone's ID (Cloudflare dashboard > the domain > Overview > API > Zone ID)
+  ZENODO_CONCEPT        Zenodo concept record of RCV (default 24163503; its latest version has the statistics)
   CLOUDFLARE_SINCE      first day to ask Cloudflare for (default 2026-10-01)
 
 Only aggregate numbers are stored (per day and country); no addresses or other personal data. Problems are printed as GitHub
@@ -30,6 +33,8 @@ OUT = Path(__file__).resolve().parent.parent / 'stats.json'
 REPOS = [r.strip() for r in os.environ.get(
     'STATS_REPOS', 'PrinceWang2018/RNAconformer,PrinceWang2018/RNAconfViewer_website').split(',') if r.strip()]
 DAILY = Path(__file__).resolve().parent.parent / 'data' / 'visits_daily.json'
+ZENODO_CONCEPT = os.environ.get('ZENODO_CONCEPT') or '24163503'
+ZENODO_ROW = 'Source code (Zenodo)'
 CF_FIRST = os.environ.get('CLOUDFLARE_SINCE') or '2026-10-01'
 NOT_COUNTRIES = {'XX', 'T1'}              # Cloudflare: unknown country, Tor network
 
@@ -98,6 +103,12 @@ def downloads():
     releases.sort(key=lambda r: r['date'], reverse=True)
     return {'total': sum(by_platform.values()), 'by_platform': dict(sorted(by_platform.items())),
             'releases': releases}, errors
+
+
+def zenodo_downloads():
+    """Downloads of all versions of the Zenodo record (the API redirects to the latest version)."""
+    d = get_json(f'https://zenodo.org/api/records/{ZENODO_CONCEPT}/versions/latest')
+    return int(d['stats']['downloads'])
 
 
 def cf_graphql(query, variables, token):
@@ -195,6 +206,17 @@ def main():
     today = now.date()
     old = json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
     dl, errors = downloads()
+    sources = {'github': dl['total']}
+    try:
+        zen = zenodo_downloads()
+    except (urllib.error.URLError, KeyError, TypeError, ValueError) as e:
+        zen = (old.get('downloads') or {}).get('sources', {}).get('zenodo')        # keep the last number
+        errors.append(f'Zenodo: {http_error(e)}')
+    if zen is not None:
+        sources['zenodo'] = zen
+        dl['by_platform'][ZENODO_ROW] = zen
+    dl['sources'] = sources
+    dl['total'] = sum(sources.values())
     verr = []
     try:
         vis = visits(today)
