@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-26 12:34 UTC",
+ "updated": "2026-11-27 12:21 UTC",
  "visits": {
-  "total": 5896,
+  "total": 6025,
   "since": "2026-10-23",
-  "requests": 75592,
-  "page_views": 7881,
+  "requests": 76517,
+  "page_views": 7944,
   "monthly": [
    {
     "month": "2026-10",
@@ -12,54 +12,59 @@
    },
    {
     "month": "2026-11",
-    "count": 4167
+    "count": 4296
    }
   ],
   "countries": [
    {
     "code": "US",
-    "count": 1089,
-    "requests": 9322
+    "count": 1092,
+    "requests": 9427
    },
    {
     "code": "BE",
-    "count": 665,
-    "requests": 6251
+    "count": 761,
+    "requests": 6903
    },
    {
     "code": "SG",
     "count": 638,
-    "requests": 4932
+    "requests": 4948
    },
    {
     "code": "NL",
-    "count": 602,
-    "requests": 5627
+    "count": 607,
+    "requests": 5637
    },
    {
     "code": "CA",
-    "count": 538,
+    "count": 537,
     "requests": 22599
    },
    {
     "code": "HK",
-    "count": 352,
-    "requests": 8104
+    "count": 354,
+    "requests": 8110
    },
    {
     "code": "PL",
-    "count": 339,
+    "count": 338,
     "requests": 4083
    },
    {
     "code": "DE",
-    "count": 241,
-    "requests": 2203
+    "count": 244,
+    "requests": 2244
    },
    {
     "code": "GB",
     "count": 172,
-    "requests": 1280
+    "requests": 1281
+   },
+   {
+    "code": "TW",
+    "count": 164,
+    "requests": 1048
    },
    {
     "code": "FR",
@@ -67,14 +72,9 @@
     "requests": 1940
    },
    {
-    "code": "TW",
-    "count": 161,
-    "requests": 1041
-   },
-   {
     "code": "CN",
-    "count": 145,
-    "requests": 918
+    "count": 151,
+    "requests": 943
    },
    {
     "code": "CH",
@@ -89,22 +89,22 @@
    {
     "code": "KR",
     "count": 83,
-    "requests": 669
+    "requests": 671
+   },
+   {
+    "code": "IN",
+    "count": 81,
+    "requests": 486
+   },
+   {
+    "code": "JP",
+    "count": 80,
+    "requests": 1059
    },
    {
     "code": "FI",
     "count": 79,
-    "requests": 973
-   },
-   {
-    "code": "IN",
-    "count": 78,
-    "requests": 470
-   },
-   {
-    "code": "JP",
-    "count": 77,
-    "requests": 1050
+    "requests": 976
    },
    {
     "code": "RO",
@@ -114,17 +114,17 @@
    {
     "code": "AU",
     "count": 52,
-    "requests": 611
+    "requests": 612
    },
    {
     "code": "ID",
-    "count": 47,
-    "requests": 433
+    "count": 51,
+    "requests": 449
    },
    {
     "code": "BR",
-    "count": 43,
-    "requests": 307
+    "count": 45,
+    "requests": 318
    },
    {
     "code": "TH",
@@ -177,14 +177,14 @@
     "requests": 14
    },
    {
-    "code": "MY",
+    "code": "MX",
     "count": 2,
     "requests": 10
    },
    {
-    "code": "MX",
+    "code": "MY",
     "count": 2,
-    "requests": 8
+    "requests": 10
    },
    {
     "code": "PK",
@@ -207,6 +207,11 @@
     "requests": 9
    },
    {
+    "code": "ES",
+    "count": 1,
+    "requests": 8
+   },
+   {
     "code": "NG",
     "count": 1,
     "requests": 8
@@ -220,11 +225,6 @@
     "code": "BO",
     "count": 1,
     "requests": 8
-   },
-   {
-    "code": "ES",
-    "count": 1,
-    "requests": 7
    },
    {
     "code": "AE",
@@ -370,18 +370,23 @@
     "code": "GH",
     "count": 0,
     "requests": 1
+   },
+   {
+    "code": "NP",
+    "count": 0,
+    "requests": 1
    }
   ],
-  "country_count": 70,
+  "country_count": 71,
   "source": "cloudflare"
  },
  "downloads": {
-  "total": 287,
+  "total": 292,
   "by_platform": {
-   "Linux": 118,
-   "Windows": 70,
-   "macOS (Apple Silicon)": 48,
-   "macOS (Intel)": 44,
+   "Linux": 120,
+   "Windows": 71,
+   "macOS (Apple Silicon)": 49,
+   "macOS (Intel)": 45,
    "Source code (Zenodo)": 7
   },
   "releases": [
@@ -390,32 +395,32 @@
     "name": "RCV v0.7.6",
     "date": "2026-11-21",
     "repo": "PrinceWang2018/RNAconfViewer_website",
-    "total": 21,
+    "total": 26,
     "assets": [
      {
       "name": "RCV-0.7.6-Linux-amd64.deb",
       "platform": "Linux",
-      "count": 6
+      "count": 7
      },
      {
       "name": "RCV-0.7.6-Linux-x86_64.rpm",
       "platform": "Linux",
-      "count": 5
+      "count": 6
      },
      {
       "name": "RCV-0.7.6-macOS-arm64.dmg",
       "platform": "macOS (Apple Silicon)",
-      "count": 4
+      "count": 5
      },
      {
       "name": "RCV-0.7.6-macOS-x86_64.dmg",
       "platform": "macOS (Intel)",
-      "count": 2
+      "count": 3
      },
      {
       "name": "RCV-0.7.6-Windows-x64-Setup.exe",
       "platform": "Windows",
-      "count": 4
+      "count": 5
      }
     ]
    },
@@ -591,7 +596,7 @@
    }
   ],
   "sources": {
-   "github": 280,
+   "github": 285,
    "zenodo": 7
   }
  },
@@ -735,6 +740,10 @@
   {
    "date": "2026-11-26",
    "total": 287
+  },
+  {
+   "date": "2026-11-27",
+   "total": 292
   }
  ]
 }
