@@ -34,5 +34,6 @@
 "2026-11-24": {"uniques":199,"requests":2088,"page_views":319,"countries":{"AU":1,"BE":679,"BO":3,"BR":13,"CA":24,"CH":2,"CN":14,"DE":302,"FI":3,"GB":102,"HK":7,"ID":3,"IN":1,"JP":12,"KR":10,"NL":5,"PL":10,"SG":228,"TH":6,"TW":2,"US":661}},
 "2026-11-25": {"uniques":173,"requests":1076,"page_views":105,"countries":{"AU":1,"BE":687,"BG":9,"BO":4,"BR":12,"CA":3,"CN":19,"DE":9,"FI":7,"FR":6,"GB":1,"HK":14,"ID":7,"IN":5,"JP":2,"KR":9,"NL":1,"SE":17,"SG":45,"SI":3,"TH":16,"US":199}},
 "2026-11-26": {"uniques":143,"requests":964,"page_views":64,"countries":{"AU":1,"BE":652,"BR":10,"CA":4,"CN":17,"DE":54,"ES":1,"FI":3,"GB":1,"HK":5,"ID":10,"IN":16,"JP":3,"KR":2,"MX":2,"NL":1,"PL":2,"SG":25,"TH":2,"TW":1,"US":152}},
-"2026-11-27": {"uniques":67,"requests":141,"page_views":34,"countries":{"BR":8,"CN":16,"DE":13,"HK":6,"ID":8,"JP":9,"KR":2,"NL":10,"NP":1,"SG":14,"TW":6,"US":48}}
+"2026-11-27": {"uniques":124,"requests":1220,"page_views":64,"countries":{"BE":916,"BO":4,"BR":12,"CN":33,"DE":17,"FI":5,"FR":19,"HK":16,"ID":10,"JP":10,"KR":4,"NL":10,"NP":1,"PL":4,"SG":20,"TH":2,"TW":10,"US":127}},
+"2026-11-28": {"uniques":60,"requests":139,"page_views":35,"countries":{"BR":5,"CA":3,"CN":13,"DE":28,"HK":2,"JP":2,"KR":2,"NL":4,"PS":1,"SG":21,"US":58}}
 }
